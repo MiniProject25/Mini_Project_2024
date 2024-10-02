@@ -7,15 +7,21 @@
     <title>Admin Page</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
+        body {
+            background: rgba(0, 128, 128, 0.5);
+        }
+
         .container {
             position: relative;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
+
         .bgimage {
-            opacity: 0.3    ;
+            /* opacity: 0.3; */
             position: absolute;
             top: 50%;
             left: 50%;
@@ -25,35 +31,70 @@
             height: auto;
             max-height: 100vh;
         }
+
+        .form-container {
+            padding: 20px;
+            /* gap: 20px; */
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.8);
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            /* gap: 15px; */
+        }
+        
         input {
             padding: 10px 20px;
+            border-radius: 15px;
+            border-color: white;
+            border: 1px solid #ccc;
         }
+
+        input:focus {
+            background-color: lightblue;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <!-- comment -->
+
 <body>
     <div class="container">
-        <img src="./Res/cec better.png" alt="Canara Logo" class="bgimage">
-        <div class="row">
-            <div class="col-6">
-                <form method="POST" action="">
-                    <label for="admin_name">Admin Name:</label>
-                    <input id="admin_name" type="text" name="admin_name" required><br>
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" name="email" required><br>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" required><br>
-                    <button type="submit" name="signup">Sign Up</button>
-                </form>
-            </div>
-            <div class="col-6">
-                <form method="POST" action="">
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" name="email" required><br>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" required><br>
-                    <button type="submit" name="login">Login</button>
-                </form>
+        <img src="./Res/cec-better.png" alt="Canara Logo" class="bgimage">
+        <div class="form-container">
+            <div class="row">
+                <!-- Sign Up Form -->
+                <div class="col-6">
+                    <form method="POST" action="">
+                        <label for="admin_name">Admin Name:</label>
+                        <input id="admin_name" type="text" name="admin_name" required><br>
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" name="email" required><br>
+                        <label for="password">Password:</label>
+                        <input id="password" type="password" name="password" required><br>
+                        <button type="submit" class="btn btn-primary" name="signup">Sign Up</button>
+                    </form>
+                </div>
+                <!-- Login Form -->
+                <div class="col-6">
+                    <form method="POST" action="">
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" name="email" required><br>
+                        <label for="password">Password:</label>
+                        <input id="password" type="password" name="password" required><br>
+                        <button type="submit" class="btn btn-primary" name="login">Login</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
