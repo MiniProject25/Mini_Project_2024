@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="logo-container">
-        <img src=".\Res\cec better.png" alt="Canara Logo" class="logo">
+        <img src=".\Res\cec-better.png" alt="Canara Logo" class="logo">
     </div>
 
     <div class="modal" tabindex="-1" id="loginModal">

@@ -1,3 +1,7 @@
+<?php
+session_start(); # helps to remember who signed up
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +13,7 @@
     <style>
         body {
             background: rgba(0, 128, 128, 0.5);
+            font-family: sans-serif;
         }
 
         .container {
@@ -20,8 +25,8 @@
             flex-direction: column;
         }
 
-        .bgimage {
-            /* opacity: 0.3; */
+        /* .bgimage {
+            opacity: 0.3; 
             position: absolute;
             top: 50%;
             left: 50%;
@@ -30,17 +35,18 @@
             width: 100%;
             height: auto;
             max-height: 100vh;
-        }
+        } */
 
         .form-container {
             padding: 20px;
             /* gap: 20px; */
             display: flex;
             justify-content: space-between;
-            background-color: rgba(255, 255, 255, 0.8);
+            /* background-color: rgba(255, 255, 255, 0.8); */
             align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
             border-radius: 10px;
+            /* margin-left: 67px; */
         }
 
         .form-container form {
@@ -48,33 +54,69 @@
             flex-direction: column;
             /* gap: 15px; */
         }
-        
+
+        button {
+            box-shadow: 0 4px 0px rgba(0, 0, 0, 0.3);
+        }
+
         input {
-            padding: 10px 20px;
-            border-radius: 15px;
+            padding-left: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border-radius: 5px;
             border-color: white;
             border: 1px solid #ccc;
         }
 
         input:focus {
-            background-color: lightblue;
+            background-color: rgb(255, 204, 203);
         }
 
         .form-container button:hover {
-            background-color: #0056b3;
+            background-color: rgb(255, 100, 100);
         }
 
+        .signup-form {
+            background-color: white;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 40%;
+            margin-left: 20px;
+        }
+
+        .login-form {
+            width: 40%;
+            background-color: white;
+            padding: 30px 50px;
+            margin: 0px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            position: fixed;
+            bottom: 0;
+            left: -4%;
+            right: 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
     </style>
 </head>
-<!-- comment -->
 
 <body>
     <div class="container">
-        <img src="./Res/cec-better.png" alt="Canara Logo" class="bgimage">
         <div class="form-container">
             <div class="row">
                 <!-- Sign Up Form -->
-                <div class="col-6">
+                <div class="signup-form col-sm-5">
+                    <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">SIGNUP</p>
                     <form method="POST" action="">
                         <label for="admin_name">Admin Name:</label>
                         <input id="admin_name" type="text" name="admin_name" required><br>
@@ -82,22 +124,27 @@
                         <input id="email" type="email" name="email" required><br>
                         <label for="password">Password:</label>
                         <input id="password" type="password" name="password" required><br>
-                        <button type="submit" class="btn btn-primary" name="signup">Sign Up</button>
+                        <button type="submit" class="btn btn-danger" name="signup">SIGNUP</button>
                     </form>
                 </div>
                 <!-- Login Form -->
-                <div class="col-6">
+                <div class="login-form col-sm-5">
+                    <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
                     <form method="POST" action="">
                         <label for="email">Email:</label>
                         <input id="email" type="email" name="email" required><br>
                         <label for="password">Password:</label>
                         <input id="password" type="password" name="password" required><br>
-                        <button type="submit" class="btn btn-primary" name="login">Login</button>
+                        <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <div class="logo-container">
+        <img src=".\Res\cec-better.png" alt="Canara Logo" class="logo">
+    </div>
+
 
 
     <!-- PHP Code Here -->
@@ -107,7 +154,6 @@
     // SIGN UP IMPLEMENTATION 
     // ......................
     // ......................
-    session_start(); # helps to remember who signed up
     $conn = mysqli_connect("localhost", "root", "", "library_db"); // connecting to the DB
     
     // check connection
