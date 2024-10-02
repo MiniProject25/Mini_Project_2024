@@ -78,7 +78,7 @@ session_start(); # helps to remember who signed up
 
         .signup-form {
             background-color: white;
-            padding: 30px 50px;
+            padding: 30px 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 40%;
@@ -88,7 +88,7 @@ session_start(); # helps to remember who signed up
         .login-form {
             width: 40%;
             background-color: white;
-            padding: 30px 50px;
+            padding: 30px 40px;
             margin: 0px 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -176,7 +176,7 @@ session_start(); # helps to remember who signed up
         if ($checkEmail->num_rows > 0) {
             echo "Email already Exists!";
         } else {
-            $sql = "INSERT INTO admin (admin_id, admin_name, email, password_hash) VALUES ('$admin_id', '$admin_name', '$email', '$password')";
+            $sql = "INSERT INTO admin (admin_id, admin_name, email, pass_hash) VALUES ('$admin_id', '$admin_name', '$email', '$password')";
             if ($conn->query($sql) === TRUE) {
                 echo "Signup Successful! Your Admin ID is: $admin_id. You can now log in.";
             } else {
@@ -190,7 +190,29 @@ session_start(); # helps to remember who signed up
     // LOGIN IMPLEMENTATION 
     // ......................
     // ......................
+    if (isset($_POST['login'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        
+        # fetch admin data
+        $result = $conn->query("SELECT * FROM admin WHERE email = '$email'");
+        if ($result->num_rows == 1) {
+            $admin = $result->fetch_assoc();
+            if (password_verify($password, $admin['pass_hash'])) {
+                $_SESSION['admin_id'] = $admin['admin_id'];
+                $_SESSION['admin_name'] = $admin['admin_name'];
+                header("Location: admin_dashboard.php");
+                exit;
+            }
+            else {
+                echo "Invalid Email or Password!";
+            }
+        } else {
+            echo "Admin not found!";
+        }
+    }
     
+    $conn->close();
     ?>
 
     <script src="js/bootstrap.js"></script>
