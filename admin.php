@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start(); # helps to remember who signed up
 ?>
 
@@ -131,10 +132,10 @@ session_start(); # helps to remember who signed up
                 <div class="login-form col-sm-5">
                     <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
                     <form method="POST" action="">
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" name="email" required><br>
-                        <label for="password">Password:</label>
-                        <input id="password" type="password" name="password" required><br>
+                        <label for="admin_id">Admin ID:</label>
+                        <input id="admin_id" type="text" name="admin_id" required><br>
+                        <label for="Password">Password:</label>
+                        <input id="Password" type="password" name="password" required><br>
                         <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
                     </form>
                 </div>
@@ -144,8 +145,6 @@ session_start(); # helps to remember who signed up
     <div class="logo-container">
         <img src=".\Res\cec-better.png" alt="Canara Logo" class="logo">
     </div>
-
-
 
     <!-- PHP Code Here -->
     <?php
@@ -191,28 +190,33 @@ session_start(); # helps to remember who signed up
     // ......................
     // ......................
     if (isset($_POST['login'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        
-        # fetch admin data
-        $result = $conn->query("SELECT * FROM admin WHERE email = '$email'");
-        if ($result->num_rows == 1) {
-            $admin = $result->fetch_assoc();
-            if (password_verify($password, $admin['pass_hash'])) {
-                $_SESSION['admin_id'] = $admin['admin_id'];
-                $_SESSION['admin_name'] = $admin['admin_name'];
-                header("Location: admin_dashboard.php");
-                exit;
-            }
-            else {
-                echo "Invalid Email or Password!";
+        if (isset($_POST['admin_id']) && isset($_POST['password'])) {
+            $admin = $_POST['admin_id'];
+            $password = $_POST['password'];
+            
+            # fetch admin data
+            $result = $conn->query("SELECT * FROM admin WHERE admin_id = '$admin'");
+            if ($result->num_rows == 1) {
+                $admin = $result->fetch_assoc();
+                // echo "Correct ID<br>";
+                if (password_verify($password, $admin['pass_hash'])) {
+                    $_SESSION['admin_id'] = $admin['admin_id'];
+                    $_SESSION['admin_name'] = $admin['admin_name'];
+                    header("Location: admin_dashboard.php");
+                    exit;
+                } else {
+                    echo "Invalid ID or Password!";
+                }
+            } else {
+                echo "Admin not found!";
             }
         } else {
-            echo "Admin not found!";
+            echo "Admin ID or Password not provided!";
         }
     }
     
     $conn->close();
+    ob_end_flush();
     ?>
 
     <script src="js/bootstrap.js"></script>
