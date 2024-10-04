@@ -97,9 +97,9 @@ session_start(); # helps to remember who signed up
 
         .logo-container {
             position: fixed;
-            bottom: 0;
-            left: -4%;
-            right: 0;
+            bottom: 80%;
+            left: -3.5%;
+            right: 0%;
             text-align: center;
             margin-bottom: 20px;
         }
