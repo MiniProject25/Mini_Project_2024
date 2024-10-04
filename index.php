@@ -58,31 +58,6 @@
         </div>
     </div>
 
-    <div class="modal" id="logoutModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Logout</h5>
-                    <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form></form>
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="text" class="form-control" id="year" placeholder="Enter year">
-                        </div>
-                        <div class="mb-3">
-                            <label for="studentName" class="form-label">Student Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter name">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Accept</button>
-                </div>
-            </div>
-        </div>
     </div>
     <script src="js/bootstrap.js"></script>
     <!-- <script src=""></script> -->
