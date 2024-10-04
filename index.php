@@ -16,8 +16,6 @@
             <div class="col">
                 <button type="button" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
                     data-bs-target="#loginModal">LOGIN</button>
-                <button type="button" class="btn-lout btn btn-secondary" data-bs-toggle="modal"
-                    data-bs-target="#logoutModal">LOGOUT</button>
             </div>
         </div>
     </div>
