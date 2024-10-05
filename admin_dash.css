@@ -1,0 +1,13 @@
+.navbar-title {
+    text-decoration: none;
+    color: white;
+    margin: 3px;
+}
+
+.page_title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    font-size: 25px;
+}
