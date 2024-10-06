@@ -1,0 +1,25 @@
+body, button {
+    font-family: "Inter", sans-serif;
+    overflow: auto;
+}
+
+:root {
+    --offcanvas-width: 275px;
+    --topNavbarHeight: 60px;
+} 
+
+.page-title {
+    padding: 10px;
+}
+
+#offcanvasExample {
+    width: var(--offcanvas-width);
+    transform: none;
+    visibility: visible;
+    top: var(--topNavbarHeight);
+    height: calc(100% - var(--topNavbarHeight));
+}
+
+main {
+    margin-left: var(--offcanvas-width);
+}
