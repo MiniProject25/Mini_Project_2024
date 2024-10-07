@@ -48,7 +48,30 @@ session_start();
     <main class="mt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 fs-3 fw-bold">Dashboard</div>
+                <div class="card text-center mx-auto">
+                    <div class="card-header">
+                        <h5 class="card-title">Statistics</h5>
+                        <hr>
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="true" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="text-decoration: none; color: black" href="#">Link</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col md-12">
+                                <label for="from_date">From</label>
+                                <input type="date" name="date" id="date" class="me-3">
+                                <label for="from_date" class="ms-3">To</label>
+                                <input type="date" name="date" id="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
