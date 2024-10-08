@@ -18,6 +18,7 @@ session_start(); # helps to remember who signed up
         }
 
         .container {
+            /* width: 100% */
             position: relative;
             min-height: 100vh;
             display: flex;
@@ -38,23 +39,23 @@ session_start(); # helps to remember who signed up
             max-height: 100vh;
         } */
 
-        .form-container {
-            padding: 20px;
+        /* .form-container { */
+            /* padding: 20px; */
             /* gap: 20px; */
-            display: flex;
-            justify-content: space-between;
+            /* display: flex; */
+            /* justify-content: space-between; */
             /* background-color: rgba(255, 255, 255, 0.8); */
-            align-items: center;
+            /* align-items: center; */
             /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-            border-radius: 10px;
+            /* border-radius: 10px; */
             /* margin-left: 67px; */
-        }
+        /* } */
 
-        .form-container form {
+        /* .form-container form {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; */
             /* gap: 15px; */
-        }
+        /* } */
 
         button {
             box-shadow: 0 4px 0px rgba(0, 0, 0, 0.3);
@@ -73,24 +74,15 @@ session_start(); # helps to remember who signed up
             background-color: rgb(255, 204, 203);
         }
 
-        .form-container button:hover {
+        .container button:hover {
             background-color: rgb(255, 100, 100);
         }
 
-        .signup-form {
-            background-color: white;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            width: 40%;
-            margin-left: 20px;
-        }
-
         .login-form {
-            width: 40%;
+            /* width: 40%; */
             background-color: white;
             padding: 30px 40px;
-            margin: 0px 20px;
+            /* margin: 0px 20px; */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -98,7 +90,7 @@ session_start(); # helps to remember who signed up
         .logo-container {
             position: fixed;
             bottom: 80%;
-            left: -3.5%;
+            left: 0%;
             right: 0%;
             text-align: center;
             margin-bottom: 20px;
@@ -106,43 +98,30 @@ session_start(); # helps to remember who signed up
 
         .logo {
             width: 200px;
-            height: auto;
+            /* height: auto; */
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="form-container">
-            <div class="row">
-                <!-- Sign Up Form -->
-                <div class="signup-form col-sm-5">
-                    <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">SIGNUP</p>
-                    <form method="POST" action="">
-                        <label for="admin_name">Admin Name:</label>
-                        <input id="admin_name" type="text" name="admin_name" required><br>
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" name="email" required><br>
-                        <label for="password">Password:</label>
-                        <input id="password" type="password" name="password" required><br>
-                        <button type="submit" class="btn btn-danger" name="signup">SIGNUP</button>
-                    </form>
-                </div>
-                <!-- Login Form -->
-                <div class="login-form col-sm-5">
-                    <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
-                    <form method="POST" action="">
-                        <label for="admin_id">Admin ID:</label>
-                        <input id="admin_id" type="text" name="admin_id" required><br>
-                        <label for="Password">Password:</label>
-                        <input id="Password" type="password" name="password" required><br>
-                        <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
-                    </form>
-                </div>
+        <div class="row">
+            <!-- Login Form -->
+            <div class="login-form col-fluid ms-auto me-auto">
+                <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
+                <form method="POST" action="">
+                    <label for="admin_id">Admin ID:</label>
+                    <input class="ms-1" id="admin_id" type="text" name="admin_id" required><br>
+                    <br>
+                    <label for="Password">Password:</label>
+                    <input id="Password" type="password" name="password" required><br>
+                    <br>
+                    <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="logo-container">
+    <div class="logo-container ms-auto me-auto">
         <img src=".\Res\cec-better.png" alt="Canara Logo" class="logo">
     </div>
 
@@ -165,25 +144,6 @@ session_start(); # helps to remember who signed up
         return substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
 
-    if (isset($_POST['signup'])) {
-        $admin_name = $_POST['admin_name'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        $admin_id = generateAdminID();
-
-        $checkEmail = $conn->query("SELECT * FROM admin WHERE email = '$email'");
-        if ($checkEmail->num_rows > 0) {
-            echo "Email already Exists!";
-        } else {
-            $sql = "INSERT INTO admin (admin_id, admin_name, email, pass_hash) VALUES ('$admin_id', '$admin_name', '$email', '$password')";
-            if ($conn->query($sql) === TRUE) {
-                echo "Signup Successful! Your Admin ID is: $admin_id. You can now log in.";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-    }
-
     // ......................
     // ......................
     // LOGIN IMPLEMENTATION 
@@ -193,7 +153,7 @@ session_start(); # helps to remember who signed up
         if (isset($_POST['admin_id']) && isset($_POST['password'])) {
             $admin = $_POST['admin_id'];
             $password = $_POST['password'];
-            
+
             # fetch admin data
             $result = $conn->query("SELECT * FROM admin WHERE admin_id = '$admin'");
             if ($result->num_rows == 1) {
@@ -214,7 +174,7 @@ session_start(); # helps to remember who signed up
             echo "Admin ID or Password not provided!";
         }
     }
-    
+
     $conn->close();
     ob_end_flush();
     ?>
