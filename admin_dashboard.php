@@ -24,9 +24,6 @@ session_start();
     <!-- Offcanvas Sidebar -->
     <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
-        <!-- <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-        </div> -->
         <div class="offcanvas-body p-0">
             <div class="navbar-dark">
                 <ul class="navbar-nav">
@@ -117,18 +114,33 @@ session_start();
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Content for Add Student -->
-                    <p>Add student functionality goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <form id="addStudentForm" method="post"> <!-- Updated form without action -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form fields to add a student -->
+                        <label for="usn">USN:</label>
+                        <input type="text" id="usn" name="usn" class="form-control" required><br>
+
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required><br>
+
+                        <label for="branch">Branch:</label>
+                        <input type="text" id="branch" name="branch" class="form-control" required><br>
+
+                        <label for="reg_year">Registration Year:</label>
+                        <input type="text" id="reg_year" name="reg_year" class="form-control" required><br>
+
+                        <label for="section">Section:</label>
+                        <input type="text" id="section" name="section" class="form-control" required><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button> <!-- Form submission button -->
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -176,9 +188,35 @@ session_start();
 
 
     <!-- Script -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin_dash.js"></script>
+
+    <!-- AJAX for form submission -->
+    <script>
+        document.getElementById("addStudentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Create FormData object
+            var formData = new FormData(this);
+
+            // Send form data to Insert_Edit.php using fetch (AJAX)
+            fetch("Insert_Edit.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the success case
+                alert("Student added successfully!");
+                // You could close the modal here, reset the form, or update the UI
+                document.getElementById("addStudentForm").reset(); // Reset form fields
+            })
+            .catch(error => {
+                // Handle the error case
+                console.error("Error:", error);
+                alert("An error occurred while adding the student.");
+            });
+        });
+    </script>
 
 </body>
 
