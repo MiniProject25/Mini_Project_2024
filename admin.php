@@ -40,21 +40,21 @@ session_start(); # helps to remember who signed up
         } */
 
         /* .form-container { */
-            /* padding: 20px; */
-            /* gap: 20px; */
-            /* display: flex; */
-            /* justify-content: space-between; */
-            /* background-color: rgba(255, 255, 255, 0.8); */
-            /* align-items: center; */
-            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-            /* border-radius: 10px; */
-            /* margin-left: 67px; */
+        /* padding: 20px; */
+        /* gap: 20px; */
+        /* display: flex; */
+        /* justify-content: space-between; */
+        /* background-color: rgba(255, 255, 255, 0.8); */
+        /* align-items: center; */
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        /* border-radius: 10px; */
+        /* margin-left: 67px; */
         /* } */
 
         /* .form-container form {
             display: flex;
             flex-direction: column; */
-            /* gap: 15px; */
+        /* gap: 15px; */
         /* } */
 
         button {
@@ -108,7 +108,7 @@ session_start(); # helps to remember who signed up
         <div class="row">
             <!-- Login Form -->
             <div class="login-form col-fluid ms-auto me-auto">
-                <p class="signup-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
+                <p class="login-title" style="padding-bottom: 15px; font-size: 20px;">LOGIN</p>
                 <form method="POST" action="">
                     <label for="admin_id">Admin ID:</label>
                     <input class="ms-1" id="admin_id" type="text" name="admin_id" required><br>
@@ -127,23 +127,7 @@ session_start(); # helps to remember who signed up
 
     <!-- PHP Code Here -->
     <?php
-    // ......................
-    // ......................
-    // SIGN UP IMPLEMENTATION 
-    // ......................
-    // ......................
-    $conn = mysqli_connect("localhost", "root", "", "library_db"); // connecting to the DB
-    
-    // check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    function generateAdminID($length = 4)
-    {
-        return substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-    }
-
+    include 'db_connection.php'; 
     // ......................
     // ......................
     // LOGIN IMPLEMENTATION 
@@ -161,7 +145,6 @@ session_start(); # helps to remember who signed up
                 // echo "Correct ID<br>";
                 if (password_verify($password, $admin['pass_hash'])) {
                     $_SESSION['admin_id'] = $admin['admin_id'];
-                    $_SESSION['admin_name'] = $admin['admin_name'];
                     header("Location: admin_dashboard.php");
                     exit;
                 } else {
