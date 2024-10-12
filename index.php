@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
                     <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="studentLoginForm">
                         <div class="mb-3">
                             <label for="year" class="form-label">Year of Registration</label>
                             <select class="form-select" id="year" aria-label="Select Year">
@@ -70,22 +70,67 @@
                                 <option selected disabled>Select student</option>
                             </select>
                         </div>
+                        <div class="mb-3" id="EntryExitKey" style="display: none;">
+                            <label for="EntryKey">Entry Key (Last 7 characters of USN)</label> <br>
+                            <input type="text" id="EntryKey" class="form-control mt-2" placeholder="Entry Key" aria-label="EntryKey">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="acceptbtn">Accept</button>
+                    <button type="button" id="closeModal" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="acceptLogin">Accept</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Datatable -->
+    <div class="container mt-5">
+        <table id="LibraryTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>USN</th>
+                    <th>Branch</th>
+                    <th>Section</th>
+                    <th>Year of Registrations</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="js/script.js"></script>
+    
+    <!-- Datatable Script -->
+    <script>
+        $('#closeModal').on('click', function () {
+            // Clear the form fields when the modal is closed
+            $('#studentLoginForm')[0].reset();
+        });
 
-    <!-- <script src=""></script> -->
+        $(document).ready(function () {
+            $('#LibraryTable').DataTable({
+                paging: true,          // Enable pagination
+                searching: true,       // Enable search box
+                ordering: true,        // Enable column ordering
+                pageLength: 5,         // Set default number of rows per page
+                lengthMenu: [5, 10, 25, 50], // Page length options
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>
