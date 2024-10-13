@@ -29,7 +29,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Login</h5>
-                    <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
+                    <button type="button" data-bs-dismiss="modal" class="btn-close closebtn" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" id="studentLoginForm">
@@ -94,7 +94,8 @@
                     <th>USN</th>
                     <th>Branch</th>
                     <th>Section</th>
-                    <th>Year of Registrations</th>
+                    <th>Year of Registration</th>
+                    <th>Logout</th>
                 </tr>
             </thead>
             <tbody>
@@ -114,7 +115,7 @@
     
     <!-- Datatable Script -->
     <script>
-        $('#closeModal').on('click', function () {
+        $('#closeModal, .closebtn').on('click', function () {
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
             $('#studentName').val('');
