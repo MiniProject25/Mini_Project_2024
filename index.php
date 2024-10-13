@@ -32,10 +32,10 @@
                     <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="studentLoginForm">
+                    <form method="POST" id="studentLoginForm">
                         <div class="mb-3">
                             <label for="year" class="form-label">Year of Registration</label>
-                            <select class="form-select" id="year" aria-label="Select Year">
+                            <select name="year" class="form-select" id="year" aria-label="Select Year">
                                 <option selected disabled>Select year</option>
                                 <option value="2024">2024</option>
                                 <option value="2023">2023</option>
@@ -45,13 +45,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="branch" class="form-label">Branch</label>
-                            <select class="form-select" id="branch" placeholder="Enter branch">
+                            <select name="branch" class="form-select" id="branch" placeholder="Enter branch">
                                 <option selected disabled>Select branch</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="section" class="form-label">Section</label>
-                            <select class="form-select" id="section" aria-label="Select Section">
+                            <select name="section" class="form-select" id="section" aria-label="Select Section">
                                 <option selected disabled>Select section</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
                             <label for="EntryKey">Entry Key (Last 7 characters of USN)</label> <br>
-                            <input type="text" id="EntryKey" class="form-control mt-2" placeholder="Entry Key" aria-label="EntryKey">
+                            <input name="EntryKey" type="text" id="EntryKey" class="form-control mt-2" placeholder="Entry Key" aria-label="EntryKey">
                         </div>
                     </form>
                 </div>
@@ -117,6 +117,8 @@
         $('#closeModal').on('click', function () {
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
+            $('#studentName').val('');
+            $('#studentName').empty();
         });
 
         $(document).ready(function () {

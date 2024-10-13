@@ -38,15 +38,28 @@ $('#section, #year, #branch').on('change', function () {
 
 // Adding record to the Data Table
 $('#acceptLogin').on('click', function () {
+    handleLogin();
+});
+
+$('#loginModal').on('keypress', function (e) {
+    if (e.which === 13) { // Check if Enter key is pressed
+        e.preventDefault(); // Prevent default form submission
+        handleLogin(); // Call the login handling function
+    }
+});
+
+function handleLogin() {
     let year = $('#year').val();
     let branch = $('#branch').val();
     let section = $('#section').val();
     let EntryKey = $('#EntryKey').val();
-
-    if (year && branch && section && entryKey) {
+    console.log(year, branch, section, EntryKey);
+    
+    if (year && branch && section && EntryKey) {
         $.ajax({
-            url: 'validate_entry_key.php', // PHP script for validation
+            url: 'validate_entry_key.php',
             method: 'POST',
+            dataType: 'json',
             data: {
                 year: year,
                 branch: branch,
@@ -55,7 +68,6 @@ $('#acceptLogin').on('click', function () {
             },
             success: function (response) {
                 if (response.success) {
-                    // Add student data to the DataTable
                     let student = response.data;
                     $('#LibraryTable').DataTable().row.add([
                         student.Name,
@@ -65,7 +77,6 @@ $('#acceptLogin').on('click', function () {
                         student.RegYear
                     ]).draw();
 
-                    // Close the modal after success
                     $('#loginModal').modal('hide');
                 } else {
                     alert('Invalid Entry Key');
@@ -78,4 +89,4 @@ $('#acceptLogin').on('click', function () {
     } else {
         alert('Please fill out all fields.');
     }
-});
+}
