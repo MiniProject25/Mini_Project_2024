@@ -1,5 +1,6 @@
 // fetching branches from the DB
 $(document).ready(function () {
+    loadActiveStudents();
     $.ajax({
         url: 'fetch_branches.php',
         method: 'GET',
@@ -39,6 +40,9 @@ $('#section, #year, #branch').on('change', function () {
 // Adding record to the Data Table
 $('#acceptLogin').on('click', function () {
     handleLogin();
+    $('#studentLoginForm')[0].reset();
+    $('#studentName').val('');
+    $('#studentName').empty();
 });
 
 $('#loginModal').on('keypress', function (e) {
@@ -54,7 +58,7 @@ function handleLogin() {
     let section = $('#section').val();
     let EntryKey = $('#EntryKey').val();
     console.log(year, branch, section, EntryKey);
-    
+
     if (year && branch && section && EntryKey) {
         $.ajax({
             url: 'validate_entry_key.php',
@@ -67,22 +71,17 @@ function handleLogin() {
                 EntryKey: EntryKey
             },
             success: function (response) {
+                // console.log(response);
                 if (response.success) {
-                    let student = response.data;
-                    $('#LibraryTable').DataTable().row.add([
-                        student.Name,
-                        student.USN,
-                        student.Branch,
-                        student.Section,
-                        student.RegYear
-                    ]).draw();
+                    loadActiveStudents();
 
                     $('#loginModal').modal('hide');
                 } else {
                     alert('Invalid Entry Key');
                 }
             },
-            error: function () {
+            error: function (response) {
+                // console.log(response);
                 alert('Error during login.');
             }
         });
@@ -90,3 +89,57 @@ function handleLogin() {
         alert('Please fill out all fields.');
     }
 }
+
+//
+function loadActiveStudents() {
+    $.ajax({
+        url: 'get_active_students.php', // The PHP file to retrieve data
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            // Clear the DataTable before adding new rows
+            let table = $('#LibraryTable').DataTable();
+            table.clear();
+
+            // Iterate over the response and add each student to the DataTable
+            response.forEach(function (student) {
+                table.row.add([
+                    student.Name,
+                    student.USN,
+                    student.Branch,
+                    student.Section,
+                    student.RegYear,
+                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
+                ]).draw();
+            });
+        },
+        error: function () {
+            alert('Failed to load active students.');
+        }
+    });
+}
+
+// deleting students from the datatable (functionality of logout button)
+$(document).on('click', '.logoutBtn', function () {
+    const usn = $(this).data('usn');
+
+    // AJAX request to remove student from active table
+    $.ajax({
+        url: 'logout_students.php',
+        method: 'POST',
+        dataType: 'json',
+        data: { usn: usn },
+        success: function (response) {
+            if (response.success) {
+                const table = $('#LibraryTable').DataTable();
+                table.row($(this).parents('tr')).remove().draw();
+            } else {
+                alert('Error logging out Student');
+            }
+            // loadActiveStudents();
+        }.bind(this),
+        error: function () {
+            alert('Error during logout');
+        }
+    });
+});
