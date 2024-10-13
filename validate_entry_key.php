@@ -16,17 +16,33 @@ if (isset($_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'
 
     // Execute the statement
     $stmt->execute();
-    
+
     // Get the result
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
         $student = $result->fetch_assoc();
 
-        echo json_encode([
-            'success' => true,
-            'data' => $student
-        ]);
+        // current time
+        $currentTime = date('H:i:s');
+        $currentDate = date('d-m-Y');
+
+        // insert student into the active table
+        $insertQuery = "INSERT INTO active (USN, Name, Branch, Section, TimeIn, Date) VALUES(?, ?, ?, ?, ?, ?)";
+        $insertStmt = $conn->prepare($insertQuery);
+        $insertStmt->bind_param('ssssss', $student['USN'], $student['Name'], $student['Branch'], $student['Section'], $currentTime, $currentDate);
+
+        if ($insertStmt->execute()) {
+            echo json_encode([
+                'success' => true,
+                'data' => $student
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Failed to log student into active table'
+            ]);
+        }
     } else {
         echo json_encode([
             'success' => false
