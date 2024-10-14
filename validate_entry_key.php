@@ -24,13 +24,13 @@ if (isset($_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'
         $student = $result->fetch_assoc();
 
         // current time
-        $currentTime = date('H:i:s');
-        $currentDate = date('d-m-Y');
+        // $currentTime = date('H:i:s');
+        // $currentDate = date('d-m-Y');
 
         // insert student into the active table
-        $insertQuery = "INSERT INTO active (USN, Name, Branch, Section, TimeIn, Date) VALUES(?, ?, ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO active (USN, Name, Branch, Section, TimeIn, Date) VALUES(?, ?, ?, ?, NOW(), CURDATE())";
         $insertStmt = $conn->prepare($insertQuery);
-        $insertStmt->bind_param('ssssss', $student['USN'], $student['Name'], $student['Branch'], $student['Section'], $currentTime, $currentDate);
+        $insertStmt->bind_param('ssss', $student['USN'], $student['Name'], $student['Branch'], $student['Section']);
 
         if ($insertStmt->execute()) {
             echo json_encode([
