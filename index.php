@@ -29,7 +29,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Login</h5>
-                    <button type="button" data-bs-dismiss="modal" class="btn-close closebtn" aria-label="Close"></button>
+                    <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" id="studentLoginForm">
@@ -72,7 +73,8 @@
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
                             <label for="EntryKey">Entry Key (Last 7 characters of USN)</label> <br>
-                            <input name="EntryKey" type="text" id="EntryKey" class="form-control mt-2" placeholder="Entry Key" aria-label="EntryKey">
+                            <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
+                                placeholder="Entry Key" aria-label="EntryKey">
                         </div>
                     </form>
                 </div>
@@ -84,6 +86,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Logout Modal -->
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
+                    aria-label="Close"></button>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Please enter your EntryKey to confirm logout:</p>
+                    <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
+                    <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmLogout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Datatable -->
     <div class="container mt-5">
@@ -104,7 +132,6 @@
         </table>
     </div>
 
-
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -112,7 +139,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="js/script.js"></script>
-    
+
     <!-- Datatable Script -->
     <script>
         $('#closeModal, .closebtn').on('click', function () {

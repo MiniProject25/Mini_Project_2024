@@ -52,6 +52,13 @@ $('#loginModal').on('keypress', function (e) {
     }
 });
 
+$('#logoutModal').on('keypress', function (e) {
+    if (e.which === 13) {
+        e.preventDefault();
+        handleLogout();
+    }
+});
+
 function handleLogin() {
     let year = $('#year').val();
     let branch = $('#branch').val();
@@ -74,7 +81,9 @@ function handleLogin() {
                 // console.log(response);
                 if (response.success) {
                     loadActiveStudents();
-
+                    $('#studentLoginForm')[0].reset();
+                    $('#studentName').val('');
+                    $('#studentName').empty();
                     $('#loginModal').modal('hide');
                 } else {
                     alert('Invalid Entry Key');
@@ -90,7 +99,6 @@ function handleLogin() {
     }
 }
 
-//
 function loadActiveStudents() {
     $.ajax({
         url: 'get_active_students.php', // The PHP file to retrieve data
@@ -119,27 +127,81 @@ function loadActiveStudents() {
     });
 }
 
-// deleting students from the datatable (functionality of logout button)
-$(document).on('click', '.logoutBtn', function () {
-    const usn = $(this).data('usn');
+// when you click the logout button in the datatable
+$('#LibraryTable').on('click', '.logoutBtn', function () {
+    let usn = $(this).data('usn');
+    console.log("This is the USN: ", usn);
 
-    // AJAX request to remove student from active table
-    $.ajax({
-        url: 'logout_students.php',
-        method: 'POST',
-        dataType: 'json',
-        data: { usn: usn },
-        success: function (response) {
-            if (response.success) {
-                const table = $('#LibraryTable').DataTable();
-                table.row($(this).parents('tr')).remove().draw();
-            } else {
-                alert('Error logging out Student');
-            }
-            // loadActiveStudents();
-        }.bind(this),
-        error: function () {
-            alert('Error during logout');
-        }
-    });
+    // Store the USN in a hidden input in the modal
+    $('#logoutUSN').val(usn);
+
+    // Show the confirmation modal
+    $('#logoutModal').modal('show');
 });
+
+// logging out from the library
+$('#confirmLogout').on('click', function () {
+    handleLogout();
+    $('#studentLoginForm')[0].reset();
+    $('#studentName').val('');
+    $('#studentName').empty();
+});
+
+function handleLogout() {
+    let usn = $('#logoutUSN').val();
+    let entryKey = $('#logoutEntryKey').val();
+
+    if (entryKey) {
+        $.ajax({
+            url: 'validate_logout.php',  // PHP file to validate the EntryKey
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                usn: usn,
+                EntryKey: entryKey
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    // Proceed with logout if validation is successful
+                    $.ajax({
+                        url: 'logout_students.php',  // Your existing logout logic
+                        method: 'POST',
+                        dataType: 'json',
+                        data: { usn: usn },
+                        success: function (response) {
+                            if (response.success) {
+                                // Remove the row from the table
+                                const table = $('#LibraryTable').DataTable();
+                                // table.row($(this).parents('tr')).remove().draw();
+                                // const row = table.rows().nodes().to$().filter(function() {
+                                //     return $(this).data('usn') === usn;
+                                // });
+                                let row = table.row($('button[data-usn="' + usn + '"]').parents('tr'));
+                                row.remove().draw();
+
+                                // // Remove the row from the table and redraw it
+                                // table.row(row).remove().draw();
+
+                                // Hide the modal
+                                $('#logoutModal').modal('hide');
+                            } else {
+                                alert('Error during logout.');
+                            }
+                        },
+                        error: function () {
+                            alert('Error during logout.');
+                        }
+                    });
+                } else {
+                    alert('Invalid Entry Key. Please try again.');
+                }
+            },
+            error: function () {
+                alert('Error validating EntryKey.');
+            }
+        });
+    } else {
+        alert('Please enter your EntryKey.');
+    }
+}
