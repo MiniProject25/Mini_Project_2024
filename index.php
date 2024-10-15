@@ -35,13 +35,13 @@
                 <div class="modal-body">
                     <form method="POST" id="studentLoginForm">
                         <div class="mb-3">
-                            <label for="year" class="form-label">Year of Registration</label>
+                            <label for="year" class="form-label">Year</label>
                             <select name="year" class="form-select" id="year" aria-label="Select Year">
                                 <option selected disabled>Select year</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                                <option value="2022">2022</option>
-                                <option value="2021">2021</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -121,7 +121,7 @@
                     <th>Name</th>
                     <th>Branch</th>
                     <th>Section</th>
-                    <th>Year of Registration</th>
+                    <th>Year</th>
                     <th>Logout</th>
                 </tr>
             </thead>

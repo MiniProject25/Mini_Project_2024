@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php';
 
-$query = "SELECT u.USN, u.Name, u.Branch, u.Section, u.RegYear
+$query = "SELECT u.USN, u.Name, u.Branch, u.Section, u.Year
         FROM users u 
         INNER JOIN active a ON u.USN = a.USN";
 $result = $conn->query($query);

@@ -1,16 +1,5 @@
 // fetching branches from the DB
-$(document).ready(function () {
-    // $('#LibraryTable').DataTable({
-    //     // Ensure the number of columns matches the number of visible columns (not including USN)
-    //     columns: [
-    //         { title: "Name" },
-    //         { title: "Branch" },
-    //         { title: "Section" },
-    //         { title: "Year of Registration" },
-    //         { title: "Logout" } // Button column
-    //     ]
-    // });
-    
+$(document).ready(function () {    
     loadActiveStudents();
 
     $.ajax({
@@ -127,7 +116,7 @@ function loadActiveStudents() {
                     student.Name,
                     student.Branch,              // 2nd column
                     student.Section,             // 3rd column
-                    student.RegYear,             // 4th column
+                    student.Year,             // 4th column
                     `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>` // 5th column (no hidden column)
                 ]).draw();
             });     

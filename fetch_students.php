@@ -5,7 +5,7 @@ $year = $_POST['year'];
 $branch = $_POST['branch'];
 $section = $_POST['section'];
 
-$query = "SELECT Name FROM users WHERE branch = '$branch' AND section = '$section' AND RegYear = '$year'";
+$query = "SELECT Name FROM users WHERE branch = '$branch' AND section = '$section' AND Year = '$year'";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
