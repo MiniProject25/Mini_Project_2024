@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['choice'])) {
         <body>
             <h2>Remove a set of Student</h2>
             <form action="RemoveSet.php" method="post">
-                <label for="reg_year">Registration Year:</label>
-                <input type="text" id="reg_year" name="reg_year" required><br><br>
+                <label for="regyear">Registration Year:</label>
+                <input type="text" id="regyear" name="regyear" required><br><br>
                 <input type="submit" value="Remove">
             </form>
         </body>

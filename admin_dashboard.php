@@ -28,13 +28,17 @@ session_start();
             <div class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
-                        <a href="#" data-bs-target="#importModal" data-bs-toggle="modal" class="nav-link px-3 active">Import</a>
+                        <a href="#" data-bs-target="#importModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Import</a>
                         <hr>
-                        <a href="#" data-bs-target="#addStudentModal" data-bs-toggle="modal" class="nav-link px-3 active">Add a Student</a>
+                        <a href="#" data-bs-target="#addStudentModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add a Student</a>
                         <hr>
-                        <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal" class="nav-link px-3 active">Remove a Student</a>
+                        <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Remove a Student</a>
                         <hr>
-                        <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="nav-link px-3 active">Edit</a>
+                        <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Edit</a>
                         <hr>
                     </li>
                 </ul>
@@ -114,13 +118,13 @@ session_start();
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="addStudentForm" method="post"> <!-- Updated form without action -->
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form fields to add a student -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form fields to add a student -->
+                    <form id="addStudentForm" method="post"> <!-- Updated form without action -->
                         <label for="usn">USN:</label>
                         <input type="text" id="usn" name="usn" class="form-control" required><br>
 
@@ -130,26 +134,36 @@ session_start();
                         <label for="branch">Branch:</label>
                         <input type="text" id="branch" name="branch" class="form-control" required><br>
 
-                        <label for="reg_year">Registration Year:</label>
-                        <input type="text" id="reg_year" name="reg_year" class="form-control" required><br>
+                        <label for="regyear">Registration Year:</label>
+                        <input type="text" id="regyear" name="regyear" class="form-control" required><br>
 
                         <label for="section">Section:</label>
                         <input type="text" id="section" name="section" class="form-control" required><br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button> <!-- Form submission button -->
-                    </div>
-                </form>
+
+                        <label for="year">Year:</label>
+                        <select name="year" id="year">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button> <!-- Form submission button -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Remove a Student Modal -->
-    <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="removeStudentForm" method="post" action="Remove.php"> <!-- Updated form to redirect to Remove.php -->
+                <form id="removeStudentForm" method="post" action="Remove.php">
+                    <!-- Updated form to redirect to Remove.php -->
                     <div class="modal-header">
                         <h5 class="modal-title" id="removeStudentModalLabel">Remove Student(s)</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -187,7 +201,7 @@ session_start();
                         <!-- Content for Edit -->
                         <label for="usn">UEnter the USN to edit:</label>
                         <input type="text" id="usn" name="usn" required><br><br>
-                        <input type="submit"" value="Continue">
+                        <input type="submit"" value=" Continue">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -204,28 +218,33 @@ session_start();
 
     <!-- AJAX for form submission -->
     <script>
-        document.getElementById("addStudentForm").addEventListener("submit", function(event) {
+        document.getElementById("addStudentForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent default form submission
 
             // Create FormData object
-            var formData = new FormData(this);
+            // var formData = new FormData(this);
 
-            // Send form data to Insert_Edit.php using fetch (AJAX)
-            fetch("Insert.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Handle the success case
-                alert("Student added successfully!");
-                // You could close the modal here, reset the form, or update the UI
-                document.getElementById("addStudentForm").reset(); // Reset form fields
-            })
-            .catch(error => {
-                // Handle the error case
-                console.error("Error:", error);
-                alert("An error occurred while adding the student.");
+            // // Send form data to Insert_Edit.php using fetch (AJAX)
+            // fetch("Insert.php", {
+            //     method: "POST",
+            //     body: formData
+            // })
+            //     .then(response => response.text())
+            //     .then(data => {
+            //         // Handle the success case
+            //         alert("Student added successfully!");
+            //         // You could close the modal here, reset the form, or update the UI
+            //         document.getElementById("addStudentForm").reset(); // Reset form fields
+            //     })
+            //     .catch(error => {
+            //         // Handle the error case
+            //         console.error("Error:", error);
+            //         alert("An error occurred while adding the student.");
+            //     });
+
+            $.ajax({
+                url: 'Insert.php',
+                
             });
         });
     </script>

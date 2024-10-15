@@ -1,64 +1,51 @@
 <?php
-// Database connection details
-$servername = "localhost";  // or your server name
-$username = "root";         // your MySQL username
-$password = "";             // your MySQL password
-$dbname = "library";        // your database name
+// Check if the form is submitted and a choice is made
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['choice'])) {
+    // Get the selected option
+    $choice = $_POST['choice'];
 
-// Create a connection to the database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if form is submitted and the 'reg_year' value is set
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usn"])) {
-    $usn = $_POST["usn"];
-
-    // Check if the input is not empty
-    if (!empty($usn)) {
-        // Sanitize the input (optional but recommended)
-        $usn = $conn->real_escape_string($usn);
-
-        // SQL query to delete the record
-        $sql = "DELETE FROM users WHERE usn = '$usn'";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Record deleted successfully";
-        } else {
-            echo "Error deleting record: " . $conn->error;
-        }
-    } else {
-        echo "Please enter a valid USN.";
+    // If Option 1 (Edit a set of student) is selected
+    if ($choice == 'option1') {
+        // Display the form to enter the registration year to remove a set of student
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Edit Student</title>
+        </head>
+        <body>
+            <h2>Update Year</h2>
+            <form action="EditSet.php" method="post">
+                <label for="regyear">Registration Year:</label>
+                <input type="text" id="regyear" name="regyear" required><br><br>
+                <input type="submit" value="Update">
+            </form>
+        </body>
+        </html>
+        <?php
+    } elseif ($choice == 'option2') {
+       // Display the form to enter the USN to remove a student
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Edit Student</title>
+        </head>
+        <body>
+            <h2>Edit a Student</h2>
+            <form action="RemoveOne.php" method="post">
+                <label for="usn">USN:</label>
+                <input type="text" id="usn" name="usn" required><br><br>
+                <input type="submit"" value="Remove">
+            </form>
+        </body>
+        </html>
+        <?php
     }
-} else {
-    echo "Form not submitted or USN invalid.";
 }
-
-// Close the connection
-$conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit the Student details</title>
-</head>
-<body>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" class="form-control" required><br>
-
-    <label for="branch">Branch:</label>
-    <input type="text" id="branch" name="branch" class="form-control" required><br>
-
-    <label for="reg_year">Registration Year:</label>
-    <input type="text" id="reg_year" name="reg_year" class="form-control" required><br>
-
-    <label for="section">Section:</label>
-    <input type="text" id="section" name="section" class="form-control" required><br>
-</body>
-</html>
