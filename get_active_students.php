@@ -10,6 +10,6 @@ $active_students = array();
 while ($row = $result->fetch_assoc()) {
     $active_students[] = $row;
 }
-
 echo json_encode($active_students);
+
 ?>

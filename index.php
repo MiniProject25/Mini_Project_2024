@@ -72,7 +72,7 @@
                             </select>
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
-                            <label for="EntryKey">Entry Key (Last 7 characters of USN)</label> <br>
+                            <label for="EntryKey">Entry Key (Last 3 numbers of your USN)</label> <br>
                             <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
                                 placeholder="Entry Key" aria-label="EntryKey">
                         </div>
@@ -100,7 +100,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please enter your EntryKey to confirm logout:</p>
+                    <p>Please enter your Entry-Key to confirm logout:</p>
                     <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
                     <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
                 </div>
@@ -119,7 +119,6 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>USN</th>
                     <th>Branch</th>
                     <th>Section</th>
                     <th>Year of Registration</th>

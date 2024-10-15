@@ -1,6 +1,18 @@
 // fetching branches from the DB
 $(document).ready(function () {
+    // $('#LibraryTable').DataTable({
+    //     // Ensure the number of columns matches the number of visible columns (not including USN)
+    //     columns: [
+    //         { title: "Name" },
+    //         { title: "Branch" },
+    //         { title: "Section" },
+    //         { title: "Year of Registration" },
+    //         { title: "Logout" } // Button column
+    //     ]
+    // });
+    
     loadActiveStudents();
+
     $.ajax({
         url: 'fetch_branches.php',
         method: 'GET',
@@ -64,7 +76,7 @@ function handleLogin() {
     let branch = $('#branch').val();
     let section = $('#section').val();
     let EntryKey = $('#EntryKey').val();
-    console.log(year, branch, section, EntryKey);
+    // console.log(year, branch, section, EntryKey);
 
     if (year && branch && section && EntryKey) {
         $.ajax({
@@ -90,7 +102,7 @@ function handleLogin() {
                 }
             },
             error: function (response) {
-                // console.log(response);
+                console.log(response);
                 alert('Error during login.');
             }
         });
@@ -109,23 +121,23 @@ function loadActiveStudents() {
             let table = $('#LibraryTable').DataTable();
             table.clear();
 
-            // Iterate over the response and add each student to the DataTable
-            response.forEach(function (student) {
+            //Iterate over the response and add each student to the DataTable
+            response.forEach(function(student) {
                 table.row.add([
                     student.Name,
-                    student.USN,
-                    student.Branch,
-                    student.Section,
-                    student.RegYear,
-                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
+                    student.Branch,              // 2nd column
+                    student.Section,             // 3rd column
+                    student.RegYear,             // 4th column
+                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>` // 5th column (no hidden column)
                 ]).draw();
-            });
+            });     
         },
         error: function () {
             alert('Failed to load active students.');
         }
     });
 }
+
 
 // when you click the logout button in the datatable
 $('#LibraryTable').on('click', '.logoutBtn', function () {
