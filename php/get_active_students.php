@@ -1,5 +1,5 @@
 <?php
-include './php/db_connection.php';
+include 'db_connection.php';
 
 $query = "SELECT u.USN, u.Name, u.Branch, u.Section, u.Year
         FROM users u 
