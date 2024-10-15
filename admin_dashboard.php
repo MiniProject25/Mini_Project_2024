@@ -146,42 +146,54 @@ session_start();
     </div>
 
     <!-- Remove a Student Modal -->
-    <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="removeStudentModalLabel">Remove a Student</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Content for Remove Student -->
-                    <p>Remove student functionality goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Remove</button>
-                </div>
+                <form id="removeStudentForm" method="post" action="Remove.php"> <!-- Updated form to redirect to Remove.php -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="removeStudentModalLabel">Remove Student(s)</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content for Remove Student -->
+                        <p>Please select an option:</p>
+                        <label>
+                            <input type="radio" name="choice" value="option1" required> Remove a set of students
+                        </label><br>
+                        <label>
+                            <input type="radio" name="choice" value="option2" required> Remove a student
+                        </label><br><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Remove</button> <!-- Form submission button -->
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
 
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Content for Edit -->
-                    <p>Edit student functionality goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <form action="Edit.php" method="post" id="editStudentForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content for Edit -->
+                        <label for="usn">UEnter the USN to edit:</label>
+                        <input type="text" id="usn" name="usn" required><br><br>
+                        <input type="submit"" value="Continue">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -199,7 +211,7 @@ session_start();
             var formData = new FormData(this);
 
             // Send form data to Insert_Edit.php using fetch (AJAX)
-            fetch("Insert_Edit.php", {
+            fetch("Insert.php", {
                 method: "POST",
                 body: formData
             })

@@ -1,20 +1,9 @@
 <?php
+
+include 'db_connection.php';
+
 // If the form is submitted, execute the following block of code
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection parameters
-    $servername = "localhost";
-    $username = "root"; // Default WAMP server username
-    $password = ""; // Default WAMP server password is blank
-    $dbname = "library"; // Replace with your database name
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
     // Capture form data
     $usn = $_POST['usn'];
     $name = $_POST['name'];
@@ -24,9 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert data into the `users` table or update if the USN already exists
     $sql = "INSERT INTO users (usn, name, branch, reg_year, section) 
-            VALUES ('$usn', '$name', '$branch', '$reg_year', '$section')
-            ON DUPLICATE KEY UPDATE 
-            name='$name', branch='$branch', reg_year='$reg_year', section='$section'";
+            VALUES ('$usn', '$name', '$branch', '$reg_year', '$section')";
 
     if ($conn->query($sql) === TRUE) {
         $message = "Record updated successfully";
@@ -44,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insert or Update User Details</title>
+    <title>Insert User Details</title>
 </head>
 <body>
-    <h2>Insert or Update User Details</h2>
+    <h2>Insert User Details</h2>
 
     <!-- Display a success/error message if the form was submitted -->
     <?php if (!empty($message)): ?>
