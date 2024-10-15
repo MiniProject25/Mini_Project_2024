@@ -127,7 +127,7 @@ session_start(); # helps to remember who signed up
 
     <!-- PHP Code Here -->
     <?php
-    include 'db_connection.php'; 
+    include './php/db_connection.php'; 
     // ......................
     // ......................
     // LOGIN IMPLEMENTATION 

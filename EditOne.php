@@ -1,17 +1,6 @@
 <?php
 // Database connection details
-$servername = "localhost";  // or your server name
-$username = "root";         // your MySQL username
-$password = "";             // your MySQL password
-$dbname = "library";        // your database name
-
-// Create a connection to the database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include './php/db_connection.php';
 
 // Check if form is submitted and the 'reg_year' value is set
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usn"])) {
