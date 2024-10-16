@@ -3,7 +3,7 @@ $(document).ready(function () {
     loadActiveStudents();
 
     $.ajax({
-        url: 'fetch_branches.php',
+        url: './php/fetch_branches.php',
         method: 'GET',
         success: function (response) {
             $('#branch').append(response);
@@ -19,7 +19,7 @@ $('#section, #year, #branch').on('change', function () {
 
     if (branch && section && year) {
         $.ajax({
-            url: 'fetch_students.php',
+            url: './php/fetch_students.php',
             method: 'POST',
             data: {
                 year: year,
@@ -60,6 +60,7 @@ $('#logoutModal').on('keypress', function (e) {
     }
 });
 
+// login 
 function handleLogin() {
     let year = $('#year').val();
     let branch = $('#branch').val();
@@ -69,7 +70,7 @@ function handleLogin() {
 
     if (year && branch && section && EntryKey) {
         $.ajax({
-            url: 'validate_entry_key.php',
+            url: './php/validate_entry_key.php',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -102,7 +103,7 @@ function handleLogin() {
 
 function loadActiveStudents() {
     $.ajax({
-        url: 'get_active_students.php', // The PHP file to retrieve data
+        url: './php/get_active_students.php', // The PHP file to retrieve data
         method: 'GET',
         dataType: 'json',
         success: function (response) {
@@ -154,7 +155,7 @@ function handleLogout() {
 
     if (entryKey) {
         $.ajax({
-            url: 'validate_logout.php',  // PHP file to validate the EntryKey
+            url: './php/validate_logout.php',  // PHP file to validate the EntryKey
             method: 'POST',
             dataType: 'json',
             data: {
@@ -166,7 +167,7 @@ function handleLogout() {
                 if (response.success) {
                     // Proceed with logout if validation is successful
                     $.ajax({
-                        url: 'logout_students.php',  // Your existing logout logic
+                        url: './php/logout_students.php',  // Your existing logout logic
                         method: 'POST',
                         dataType: 'json',
                         data: { usn: usn },
