@@ -37,10 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['choice'])) {
         </head>
         <body>
             <h2>Edit a Student</h2>
-            <form action="RemoveOne.php" method="post">
+            <form action="EditOne.php" method="post">
                 <label for="usn">USN:</label>
                 <input type="text" id="usn" name="usn" required><br><br>
-                <input type="submit"" value="Remove">
+                <input type="submit"" value="Edit">
             </form>
         </body>
         </html>
