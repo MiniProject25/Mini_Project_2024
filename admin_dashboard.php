@@ -199,9 +199,13 @@ session_start();
                     </div>
                     <div class="modal-body">
                         <!-- Content for Edit -->
-                        <label for="usn">UEnter the USN to edit:</label>
-                        <input type="text" id="usn" name="usn" required><br><br>
-                        <input type="submit"" value=" Continue">
+                        <p>Please select an option:</p>
+                        <label>
+                            <input type="radio" name="choice" value="option1" required> Update students
+                        </label><br>
+                        <label>
+                            <input type="radio" name="choice" value="option2" required> Edit a student
+                        </label><br><br>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
