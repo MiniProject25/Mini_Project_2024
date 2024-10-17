@@ -62,18 +62,20 @@ $('#logoutModal').on('keypress', function (e) {
 
 // login 
 function handleLogin() {
+    let name = $('#studentName').val();
     let year = $('#year').val();
     let branch = $('#branch').val();
     let section = $('#section').val();
     let EntryKey = $('#EntryKey').val();
-    // console.log(year, branch, section, EntryKey);
+    console.log(name);  // Add this to debug
 
-    if (year && branch && section && EntryKey) {
+    if (name && year && branch && section && EntryKey) {
         $.ajax({
             url: './php/validate_entry_key.php',
             method: 'POST',
             dataType: 'json',
             data: {
+                name: name,
                 year: year,
                 branch: branch,
                 section: section,
@@ -92,8 +94,7 @@ function handleLogin() {
                 }
             },
             error: function (response) {
-                console.log(response);
-                alert('Error during login.');
+                alert(response.message);
             }
         });
     } else {
@@ -115,10 +116,10 @@ function loadActiveStudents() {
             response.forEach(function(student) {
                 table.row.add([
                     student.Name,
-                    student.Branch,              // 2nd column
-                    student.Section,             // 3rd column
-                    student.Year,             // 4th column
-                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>` // 5th column (no hidden column)
+                    student.Branch,            
+                    student.Section,            
+                    student.Year,             
+                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
                 ]).draw();
             });     
         },
@@ -127,7 +128,6 @@ function loadActiveStudents() {
         }
     });
 }
-
 
 // when you click the logout button in the datatable
 $('#LibraryTable').on('click', '.logoutBtn', function () {
@@ -144,9 +144,9 @@ $('#LibraryTable').on('click', '.logoutBtn', function () {
 // logging out from the library
 $('#confirmLogout').on('click', function () {
     handleLogout();
-    $('#studentLoginForm')[0].reset();
-    $('#studentName').val('');
-    $('#studentName').empty();
+    // $('#studentLoginForm')[0].reset();
+    $('#logoutEntryKey').val('');
+    $('#logoutEntryKey').empty();
 });
 
 function handleLogout() {
@@ -155,7 +155,7 @@ function handleLogout() {
 
     if (entryKey) {
         $.ajax({
-            url: './php/validate_logout.php',  // PHP file to validate the EntryKey
+            url: './php/validate_logout.php', 
             method: 'POST',
             dataType: 'json',
             data: {
@@ -163,9 +163,8 @@ function handleLogout() {
                 EntryKey: entryKey
             },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.success) {
-                    // Proceed with logout if validation is successful
                     $.ajax({
                         url: './php/logout_students.php',  // Your existing logout logic
                         method: 'POST',
@@ -175,15 +174,8 @@ function handleLogout() {
                             if (response.success) {
                                 // Remove the row from the table
                                 const table = $('#LibraryTable').DataTable();
-                                // table.row($(this).parents('tr')).remove().draw();
-                                // const row = table.rows().nodes().to$().filter(function() {
-                                //     return $(this).data('usn') === usn;
-                                // });
                                 let row = table.row($('button[data-usn="' + usn + '"]').parents('tr'));
                                 row.remove().draw();
-
-                                // // Remove the row from the table and redraw it
-                                // table.row(row).remove().draw();
 
                                 // Hide the modal
                                 $('#logoutModal').modal('hide');

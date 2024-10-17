@@ -72,7 +72,7 @@
                             </select>
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
-                            <label for="EntryKey">Entry Key (Last 3 numbers of your USN)</label> <br>
+                            <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label> <br>
                             <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
                                 placeholder="Entry Key" aria-label="EntryKey">
                         </div>

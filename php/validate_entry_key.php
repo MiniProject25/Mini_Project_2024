@@ -1,20 +1,16 @@
 <?php
 include 'db_connection.php';
 
-if (isset($_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'])) {
+if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'])) {
+    $name = $_POST['name'];
     $year = (int)$_POST['year'];
     $branch = $_POST['branch'];
     $section = $_POST['section'];
     $EntryKey = $_POST['EntryKey'];
-    // error_log("Branch: $branch, Section: $section, EntryKey: $EntryKey, Year: $year");
-    $query = "SELECT * FROM users WHERE Branch = ? AND Section = ? AND EntryKey = ? AND Year = ?";
-    // Prepare the statement
+
+    $query = "SELECT * FROM users WHERE Name = ? AND Branch = ? AND Section = ? AND EntryKey = ? AND Year = ?";
     $stmt = $conn->prepare($query);
-
-    // Bind the parameters: sss -> strings for Branch, Section, EntryKey; i -> integer for RegYear
-    $stmt->bind_param('ssii', $branch, $section, $EntryKey, $year);
-
-    // Execute the statement
+    $stmt->bind_param('ssssi', $name, $branch, $section, $EntryKey, $year);
     $stmt->execute();
 
     // Get the result
@@ -24,9 +20,9 @@ if (isset($_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'
         $student = $result->fetch_assoc();
 
         // insert student into the active table
-        $insertQuery = "INSERT INTO active (USN, Name, Branch, Section, TimeIn, Date) VALUES(?, ?, ?, ?, NOW(), CURDATE())";
+        $insertQuery = "INSERT INTO history (USN, Year, TimeIn, Date) VALUES(?, ?, NOW(), CURDATE())";
         $insertStmt = $conn->prepare($insertQuery);
-        $insertStmt->bind_param('ssss', $student['USN'], $student['Name'], $student['Branch'], $student['Section']);
+        $insertStmt->bind_param('si', $student['USN'], $student['Year']);
 
         if ($insertStmt->execute()) {
             echo json_encode([
@@ -41,7 +37,7 @@ if (isset($_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'
         }
     } else {
         echo json_encode([
-            'success' => false
+            'success' => false,
         ]);
     }
 }

@@ -3,7 +3,8 @@ include 'db_connection.php';
 
 $query = "SELECT u.USN, u.Name, u.Branch, u.Section, u.Year
         FROM users u 
-        INNER JOIN active a ON u.USN = a.USN";
+        INNER JOIN history h ON u.USN = h.USN
+        WHERE h.TimeOut IS NULL";
 $result = $conn->query($query);
 
 $active_students = array();
