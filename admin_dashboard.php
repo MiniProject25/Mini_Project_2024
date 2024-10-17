@@ -143,6 +143,7 @@ session_start();
 
                         <label for="cyear">Year:</label>
                         <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                            <option selected disabled>Select year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

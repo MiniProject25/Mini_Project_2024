@@ -68,8 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
                                         </div>
 
                                         <div class="form-group mb-3">
-                                            <label for="cyear">Current Year:</label>
-                                            <input type="text" id="cyear" name="cyear" class="form-control" required>
+                                            <label for="cyear">Year:</label>
+                                            <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
                                         </div>
 
                                         <button type="submit" class="btn btn-danger">Save changes</button>
@@ -138,8 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
                                             <input type="hidden" name="regyear" value="<?php echo htmlspecialchars($regyear); ?>">
 
                                             <div class="form-group mb-3">
-                                                <label for="cyear">Current Year:</label>
-                                                <input type="text" id="cyear" name="cyear" class="form-control" required>
+                                                <label for="cyear">Year:</label>
+                                                <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                                    <option selected disabled>Select year</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
                                             </div>
 
                                             <button type="submit" class="btn btn-danger">Edit</button>

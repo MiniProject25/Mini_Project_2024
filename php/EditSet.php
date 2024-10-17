@@ -4,8 +4,8 @@ include 'db_connection.php';
 
 // Check if form is submitted and the 'reg_year' value is set
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["regyear"])) {
-    $year=$_POST["cyear"];
-    $regyear=$_POST["regyear"];
+    $year = $_POST["cyear"];
+    $regyear = $_POST["regyear"];
 
     // Check if the input is not empty
     if (!empty($year)) {
@@ -31,4 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["regyear"])) {
 
 // Close the connection
 $conn->close();
+header("Location: ../admin_dashboard.php");
+exit();
 ?>
