@@ -201,11 +201,23 @@ session_start();
                         <!-- Content for Edit -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="option1" required> Update students
+                            <input type="radio" name="choice" value="option1" onclick="toggleFields()" required> Update students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="option2" required> Edit a student
+                            <input type="radio" name="choice" value="option2" onclick="toggleFields()" required> Edit a student
                         </label><br><br>
+
+                        <!-- Hidden fields that are shown based on radio selection -->
+                        <div id="regYearField" style="display:none;">
+                            <label for="regyear">Registration Year:</label>
+                            <input type="text" id="regyear" name="regyear"><br><br>
+                        </div>
+
+                        <div id="usnField" style="display:none;">
+                            <label for="usn">USN:</label>
+                            <input type="text" id="usn" name="usn"><br><br>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -215,6 +227,22 @@ session_start();
             </div>
         </div>
     </div>
+    
+    <script>
+        function toggleFields() {
+            var selectedValue = document.querySelector('input[name="choice"]:checked').value;
+            var regYearField = document.getElementById("regYearField");
+            var usnField = document.getElementById("usnField");
+
+            if (selectedValue === "option1") {
+                regYearField.style.display = "block";
+                usnField.style.display = "none";
+            } else if (selectedValue === "option2") {
+                usnField.style.display = "block";
+                regYearField.style.display = "none";
+            }
+        }
+    </script>
 
 
     <!-- Script -->
