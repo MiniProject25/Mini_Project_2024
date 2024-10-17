@@ -1,5 +1,5 @@
 <?php
-// Database connection details
+session_start();
 include 'db_connection.php';
 
 // Check if form is submitted and the 'reg_year' value is set
@@ -18,15 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["regyear"])) {
                 WHERE regyear='$regyear'";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Record Updated successfully";
+            $_SESSION['message'] = "Record Updated successfully";
         } else {
-            echo "Error Updating record: " . $conn->error;
+            $_SESSION['message'] = "Error Updating record: " . $conn->error;
         }
     } else {
-        echo "Please enter a registration year.";
+        $_SESSION['message'] = "Please enter a registration year.";
     }
 } else {
-    echo "Form not submitted or year not set.";
+    $_SESSION['message'] = "Form not submitted or year not set.";
 }
 
 // Close the connection
