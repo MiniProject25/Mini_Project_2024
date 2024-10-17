@@ -1,5 +1,5 @@
 // fetching branches from the DB
-$(document).ready(function () {    
+$(document).ready(function () {
     loadActiveStudents();
 
     $.ajax({
@@ -9,6 +9,56 @@ $(document).ready(function () {
             $('#branch').append(response);
         }
     });
+});
+
+// Adding record to the Data Table
+$('#acceptLogin').on('click', function () {
+    handleLogin();
+    $('#studentLoginForm')[0].reset();
+    $('#studentName').val('');
+
+    $('#EntryExitKey').hide();
+    $('#studentListContainer').hide();
+    // $('#studentName').empty();
+});
+
+// Logout via button
+$('#confirmLogout').on('click', function () {
+    handleLogout();
+    $('#logoutEntryKey').val('');
+    // $('#logoutEntryKey').empty();
+});
+
+// login via enter key
+$('#loginModal').on('keypress', function (e) {
+    if (e.which === 13) { // Check if Enter key is pressed
+        e.preventDefault(); // Prevent default form submission
+        handleLogin(); // Call the login handling function
+    }
+});
+
+// Clear EntryKey when changing Student from the List (during login)
+$('#studentName').on('change', function () {
+    $('#EntryKey').val('');
+});
+
+// Press Enter key to login
+$('#logoutModal').on('keypress', function (e) {
+    if (e.which === 13) {
+        e.preventDefault();
+        handleLogout();
+    }
+});
+
+// open modal when you click logout button
+$('#LibraryTable').on('click', '.logoutBtn', function () {
+    let usn = $(this).data('usn');
+
+    // Store the USN in a hidden input in the modal
+    $('#logoutUSN').val(usn);
+
+    // Show the confirmation modal
+    $('#logoutModal').modal('show');
 });
 
 // fetching students from the DB
@@ -27,9 +77,23 @@ $('#section, #year, #branch').on('change', function () {
                 section: section
             },
             success: function (response) {
-                $('#studentName').html(response);
-                $('#EntryExitKey').show();
                 $('#studentListContainer').show();
+                $('#studentName').html(response); // Update the dropdown options
+                // $('#studentName').select2({ // Initialize Select2 after updating options
+                //     placeholder: 'Select student',
+                //     allowClear: true,
+                //     width: '100%',
+                //     sorter: function (data) {
+                //         return data.sort(function (a, b) {
+                //             return a.text.localeCompare(b.text); // Sort names alphabetically
+                //         });
+                //     }
+                // });
+                $('#EntryExitKey').show();
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error: ", status, error);
+                alert('Failed to fetch students. Please try again later.');
             }
         });
     } else {
@@ -38,28 +102,9 @@ $('#section, #year, #branch').on('change', function () {
     }
 });
 
-// Adding record to the Data Table
-$('#acceptLogin').on('click', function () {
-    handleLogin();
-    $('#studentLoginForm')[0].reset();
-    $('#studentName').val('');
-    $('#studentName').empty();
-});
-
-$('#loginModal').on('keypress', function (e) {
-    if (e.which === 13) { // Check if Enter key is pressed
-        e.preventDefault(); // Prevent default form submission
-        handleLogin(); // Call the login handling function
-    }
-});
-
-$('#logoutModal').on('keypress', function (e) {
-    if (e.which === 13) {
-        e.preventDefault();
-        handleLogout();
-    }
-});
-
+//////////////////////
+// DEDICATED FUNCTIONS
+//////////////////////
 // login 
 function handleLogin() {
     let name = $('#studentName').val();
@@ -67,7 +112,6 @@ function handleLogin() {
     let branch = $('#branch').val();
     let section = $('#section').val();
     let EntryKey = $('#EntryKey').val();
-    console.log(name);  // Add this to debug
 
     if (name && year && branch && section && EntryKey) {
         $.ajax({
@@ -87,10 +131,11 @@ function handleLogin() {
                     loadActiveStudents();
                     $('#studentLoginForm')[0].reset();
                     $('#studentName').val('');
-                    $('#studentName').empty();
+                    $('#EntryExitKey').hide();
+                    $('#studentListContainer').hide();
                     $('#loginModal').modal('hide');
                 } else {
-                    alert('Invalid Entry Key');
+                    alert(response.message);
                 }
             },
             error: function (response) {
@@ -102,6 +147,7 @@ function handleLogin() {
     }
 }
 
+// Load students in the library
 function loadActiveStudents() {
     $.ajax({
         url: './php/get_active_students.php', // The PHP file to retrieve data
@@ -113,15 +159,15 @@ function loadActiveStudents() {
             table.clear();
 
             //Iterate over the response and add each student to the DataTable
-            response.forEach(function(student) {
+            response.forEach(function (student) {
                 table.row.add([
                     student.Name,
-                    student.Branch,            
-                    student.Section,            
-                    student.Year,             
+                    student.Branch,
+                    student.Section,
+                    student.Year,
                     `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
                 ]).draw();
-            });     
+            });
         },
         error: function () {
             alert('Failed to load active students.');
@@ -129,33 +175,14 @@ function loadActiveStudents() {
     });
 }
 
-// when you click the logout button in the datatable
-$('#LibraryTable').on('click', '.logoutBtn', function () {
-    let usn = $(this).data('usn');
-    console.log("This is the USN: ", usn);
-
-    // Store the USN in a hidden input in the modal
-    $('#logoutUSN').val(usn);
-
-    // Show the confirmation modal
-    $('#logoutModal').modal('show');
-});
-
 // logging out from the library
-$('#confirmLogout').on('click', function () {
-    handleLogout();
-    // $('#studentLoginForm')[0].reset();
-    $('#logoutEntryKey').val('');
-    $('#logoutEntryKey').empty();
-});
-
 function handleLogout() {
     let usn = $('#logoutUSN').val();
     let entryKey = $('#logoutEntryKey').val();
 
     if (entryKey) {
         $.ajax({
-            url: './php/validate_logout.php', 
+            url: './php/validate_logout.php',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -179,19 +206,24 @@ function handleLogout() {
 
                                 // Hide the modal
                                 $('#logoutModal').modal('hide');
+                                $('#logoutEntryKey').val('');
                             } else {
+                                $('#logoutEntryKey').val('');
                                 alert('Error during logout.');
                             }
                         },
                         error: function () {
+                            $('#logoutEntryKey').val('');
                             alert('Error during logout.');
                         }
                     });
                 } else {
+                    $('#logoutEntryKey').val('');
                     alert('Invalid Entry Key. Please try again.');
                 }
             },
             error: function () {
+                $('#logoutEntryKey').val('');
                 alert('Error validating EntryKey.');
             }
         });

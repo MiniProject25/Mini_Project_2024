@@ -7,6 +7,7 @@
     <title>Library Management</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -72,7 +73,8 @@
                             </select>
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
-                            <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label> <br>
+                            <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label>
+                            <br>
                             <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
                                 placeholder="Entry Key" aria-label="EntryKey">
                         </div>
@@ -96,7 +98,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
                     <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
-                    aria-label="Close"></button>
+                        aria-label="Close"></button>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -137,6 +139,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
     <script src="js/script.js"></script>
 
     <!-- Datatable Script -->
@@ -145,7 +148,8 @@
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
             $('#studentName').val('');
-            $('#studentName').empty();
+            $('#studentListContainer').hide();
+            $('#EntryExitKey').hide();
         });
 
         $(document).ready(function () {
