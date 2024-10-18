@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php';
 
-$query = "SELECT u.USN, u.Name, u.Branch, u.Section, u.Year
+$query = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear
         FROM users u 
         INNER JOIN history h ON u.USN = h.USN
         WHERE h.TimeOut IS NULL";

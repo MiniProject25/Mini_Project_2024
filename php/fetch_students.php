@@ -7,7 +7,7 @@ $year = $_POST['year'];
 $branch = $_POST['branch'];
 $section = $_POST['section'];
 
-$query = "SELECT Name FROM users WHERE branch = ? AND section = ? AND Year = ? ORDER BY Name ASC";
+$query = "SELECT Sname FROM users WHERE branch = ? AND section = ? AND Cyear = ? ORDER BY Sname ASC";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('ssi', $branch, $section, $year);
 $stmt->execute();
@@ -16,7 +16,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $students = array();
     while ($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row['Name'] . "'>" . $row['Name'] . "</option>";
+        echo "<option value='" . $row['Sname'] . "'>" . $row['Sname'] . "</option>";
     }
 }
 else {
