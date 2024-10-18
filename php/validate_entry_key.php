@@ -8,7 +8,7 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
     $section = $_POST['section'];
     $EntryKey = $_POST['EntryKey'];
 
-    $query = "SELECT * FROM users WHERE Name = ? AND Branch = ? AND Section = ? AND EntryKey = ? AND Year = ?";
+    $query = "SELECT * FROM users WHERE Sname = ? AND Branch = ? AND Section = ? AND EntryKey = ? AND Cyear = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('ssssi', $name, $branch, $section, $EntryKey, $year);
     $stmt->execute();
@@ -21,7 +21,7 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
                 FROM history h
                 JOIN Users u ON u.USN = h.USN
                 WHERE h.USN = ?
-                ORDER BY h.TimeIn DESC
+                ORDER BY h.Date DESC
                 LIMIT 1';
         $stmt = $conn->prepare($query);
         $stmt->bind_param('s', $student['USN']);
@@ -35,9 +35,9 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
         }
         else {
             // insert student into the history table
-            $insertQuery = "INSERT INTO history (USN, Year, TimeIn, Date) VALUES(?, ?, NOW(), CURDATE())";
+            $insertQuery = "INSERT INTO history (USN, Cyear, TimeIn, Date) VALUES(?, ?, NOW(), CURDATE())";
             $insertStmt = $conn->prepare($insertQuery);
-            $insertStmt->bind_param('si', $student['USN'], $student['Year']);
+            $insertStmt->bind_param('si', $student['USN'], $student['Cyear']);
     
             if ($insertStmt->execute()) {
                 echo json_encode([

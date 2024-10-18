@@ -161,10 +161,10 @@ function loadActiveStudents() {
             //Iterate over the response and add each student to the DataTable
             response.forEach(function (student) {
                 table.row.add([
-                    student.Name,
+                    student.Sname,
                     student.Branch,
                     student.Section,
-                    student.Year,
+                    student.Cyear,
                     `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
                 ]).draw();
             });
