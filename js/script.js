@@ -102,6 +102,8 @@ $('#section, #year, #branch').on('change', function () {
     }
 });
 
+$('#')
+
 //////////////////////
 // DEDICATED FUNCTIONS
 //////////////////////

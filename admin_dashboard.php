@@ -133,7 +133,11 @@ session_start();
                         <!-- Updated name to 'name' -->
 
                         <label for="branch">Branch:</label>
-                        <input type="text" id="branch" name="branch" class="form-control" required><br>
+                        <!-- <input type="text" id="branch" name="branch" class="form-control" required><br> -->
+                        <select name="branch" id="branch" class="form-control" placeholder="Enter Branch" style="width: 100%">
+                            <option selected disabled>Select Branch</option>
+                        </select>
+                        <br>
 
                         <label for="regyear">Registration Year:</label>
                         <input type="text" id="regyear" name="regyear" class="form-control" required><br>
@@ -248,31 +252,14 @@ session_start();
     </div>
 
 
+
+
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin_script.js"></script>
+
     <script>
-        function toggleFields(modal) {
-            var selectedValue = document.querySelector('input[name="choice"]:checked').value;
-
-            // Update for the 'edit' modal
-            if (modal === "edit") {
-                var regYearField = document.getElementById("editRegYearField");
-                var usnField = document.getElementById("editUsnField");
-            } else {
-                // Default for the 'remove' modal
-                var regYearField = document.getElementById("regYearField");
-                var usnField = document.getElementById("usnField");
-            }
-
-            if (selectedValue === "option1") {
-                regYearField.style.display = "block";
-                usnField.style.display = "none";
-            } else if (selectedValue === "option2") {
-                usnField.style.display = "block";
-                regYearField.style.display = "none";
-            }
-        }
-
-
-
         document.addEventListener("DOMContentLoaded", function () {
             var message = "<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?>";
 
@@ -281,12 +268,7 @@ session_start();
                 <?php unset($_SESSION['message']); ?>  // Clear the session message
             }
         });
-
     </script>
-
-
-    <!-- Script -->
-    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 
