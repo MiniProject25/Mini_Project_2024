@@ -124,12 +124,13 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <!-- Form fields to add a student -->
-                    <form id="addStudentForm" method="post"> <!-- Updated form without action -->
+                    <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
                         <label for="usn">USN:</label>
                         <input type="text" id="usn" name="usn" class="form-control" required><br>
 
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" class="form-control" required><br>
+                        <label for="sname">Name:</label>
+                        <input type="text" id="sname" name="sname" class="form-control" required><br>
+                        <!-- Updated name to 'name' -->
 
                         <label for="branch">Branch:</label>
                         <input type="text" id="branch" name="branch" class="form-control" required><br>
@@ -140,8 +141,9 @@ session_start();
                         <label for="section">Section:</label>
                         <input type="text" id="section" name="section" class="form-control" required><br>
 
-                        <label for="year">Year:</label>
-                        <select name="year" id="year">
+                        <label for="cyear">Year:</label>
+                        <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                            <option selected disabled>Select year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -151,18 +153,19 @@ session_start();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button> <!-- Form submission button -->
+                    <button type="submit" form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Remove a Student Modal -->
     <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="removeStudentForm" method="post" action="Remove.php">
+                <form id="removeStudentForm" method="post" action="php/Remove.php">
                     <!-- Updated form to redirect to Remove.php -->
                     <div class="modal-header">
                         <h5 class="modal-title" id="removeStudentModalLabel">Remove Student(s)</h5>
@@ -172,11 +175,23 @@ session_start();
                         <!-- Content for Remove Student -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="option1" required> Remove a set of students
+                            <input type="radio" name="choice" value="option1" onclick="toggleFields()" required> Remove
+                            a set of students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="option2" required> Remove a student
+                            <input type="radio" name="choice" value="option2" onclick="toggleFields()" required> Remove
+                            a student
                         </label><br><br>
+                        <!-- Hidden fields that are shown based on radio selection -->
+                        <div id="regYearField" style="display:none;">
+                            <label for="regyear">Registration Year:</label>
+                            <input type="text" id="regyear" name="regyear"><br><br>
+                        </div>
+
+                        <div id="usnField" style="display:none;">
+                            <label for="usn">USN:</label>
+                            <input type="text" id="usn" name="usn"><br><br>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -201,19 +216,23 @@ session_start();
                         <!-- Content for Edit -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="option1" onclick="toggleFields()" required> Update students
+                            <input type="radio" name="choice" value="option1" onclick="toggleFields('edit')" required>
+                            Update
+                            students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="option2" onclick="toggleFields()" required> Edit a student
+                            <input type="radio" name="choice" value="option2" onclick="toggleFields('edit')" required>
+                            Edit a
+                            student
                         </label><br><br>
 
                         <!-- Hidden fields that are shown based on radio selection -->
-                        <div id="regYearField" style="display:none;">
+                        <div id="editRegYearField" style="display:none;">
                             <label for="regyear">Registration Year:</label>
                             <input type="text" id="regyear" name="regyear"><br><br>
                         </div>
 
-                        <div id="usnField" style="display:none;">
+                        <div id="editUsnField" style="display:none;">
                             <label for="usn">USN:</label>
                             <input type="text" id="usn" name="usn"><br><br>
                         </div>
@@ -221,18 +240,27 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Save changes</button>
+                        <button type="submit" class="btn btn-danger">Continue</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    
+
+
     <script>
-        function toggleFields() {
+        function toggleFields(modal) {
             var selectedValue = document.querySelector('input[name="choice"]:checked').value;
-            var regYearField = document.getElementById("regYearField");
-            var usnField = document.getElementById("usnField");
+
+            // Update for the 'edit' modal
+            if (modal === "edit") {
+                var regYearField = document.getElementById("editRegYearField");
+                var usnField = document.getElementById("editUsnField");
+            } else {
+                // Default for the 'remove' modal
+                var regYearField = document.getElementById("regYearField");
+                var usnField = document.getElementById("usnField");
+            }
 
             if (selectedValue === "option1") {
                 regYearField.style.display = "block";
@@ -242,44 +270,23 @@ session_start();
                 regYearField.style.display = "none";
             }
         }
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var message = "<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?>";
+
+            if (message) {
+                alert(message);
+                <?php unset($_SESSION['message']); ?>  // Clear the session message
+            }
+        });
+
     </script>
 
 
     <!-- Script -->
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <!-- AJAX for form submission -->
-    <script>
-        document.getElementById("addStudentForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Create FormData object
-            // var formData = new FormData(this);
-
-            // // Send form data to Insert_Edit.php using fetch (AJAX)
-            // fetch("Insert.php", {
-            //     method: "POST",
-            //     body: formData
-            // })
-            //     .then(response => response.text())
-            //     .then(data => {
-            //         // Handle the success case
-            //         alert("Student added successfully!");
-            //         // You could close the modal here, reset the form, or update the UI
-            //         document.getElementById("addStudentForm").reset(); // Reset form fields
-            //     })
-            //     .catch(error => {
-            //         // Handle the error case
-            //         console.error("Error:", error);
-            //         alert("An error occurred while adding the student.");
-            //     });
-
-            $.ajax({
-                url: 'Insert.php',
-                
-            });
-        });
-    </script>
 
 </body>
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'php/db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POST["regyear"]))) {
@@ -21,37 +22,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Edit the Student details</title>
+                <title>Edit Student Details</title>
+                <link rel="stylesheet" href="css/bootstrap.min.css" />
+                <link rel="stylesheet" href="css/admin_dash.css" />
             </head>
 
             <body>
-                <form action="php/EditOne.php" method="post">
-                    <input type="hidden" name="usn" value="<?php echo htmlspecialchars($usn); ?>">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Edit Student Details</span>
+                    </div>
+                </nav>
 
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" class="form-control" required><br>
+                <!-- Main Container -->
+                <div class="container mt-4">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header bg-white text-dark text-center">
+                                    <h2>Edit Student Information</h2>
+                                </div>
+                                <div class="card-body">
+                                    <form action="php/EditOne.php" method="post">
+                                        <input type="hidden" name="usn" value="<?php echo htmlspecialchars($usn); ?>">
 
-                    <label for="branch">Branch:</label>
-                    <input type="text" id="branch" name="branch" class="form-control" required><br>
+                                        <div class="form-group mb-3">
+                                            <label for="name">Name:</label>
+                                            <input type="text" id="name" name="name" class="form-control" required>
+                                        </div>
 
-                    <label for="regyear">Registration Year:</label>
-                    <input type="text" id="regyear" name="regyear" class="form-control" required><br>
+                                        <div class="form-group mb-3">
+                                            <label for="branch">Branch:</label>
+                                            <input type="text" id="branch" name="branch" class="form-control" required>
+                                        </div>
 
-                    <label for="section">Section:</label>
-                    <input type="text" id="section" name="section" class="form-control" required><br>
+                                        <div class="form-group mb-3">
+                                            <label for="regyear">Registration Year:</label>
+                                            <input type="text" id="regyear" name="regyear" class="form-control" required>
+                                        </div>
 
-                    <label for="cyear">Current year:</label>
-                    <input type="text" id="cyear" name="cyear" class="form-control" required><br>
+                                        <div class="form-group mb-3">
+                                            <label for="section">Section:</label>
+                                            <input type="text" id="section" name="section" class="form-control" required>
+                                        </div>
 
-                    <input type="submit" value="Edit">
-                </form>
+                                        <div class="form-group mb-3">
+                                            <label for="cyear">Year:</label>
+                                            <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-danger">Save changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="js/bootstrap.bundle.min.js"></script>
             </body>
 
             </html>
 
             <?php
         } else {
-            echo "USN does not exist!!!";
+            $_SESSION['message'] = "USN does not exist!!!";
+            header("Location: admin_dashboard.php");
+            exit();
         }
     } else if (!empty($regyear)) {
         $num = 0;
@@ -63,7 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
         $num = $row['count'];
 
         if ($num == 0) {
-            echo "Students with registration year {$regyear} doesnot exist!!!";
+            $_SESSION['message'] = "Students with registration year {$regyear} doesnot exist!!!";
+            header("Location: admin_dashboard.php"); // Redirect back to the main page
+            exit();
         } else {
             ?>
                 <!DOCTYPE html>
@@ -73,23 +118,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Edit the Student details</title>
+                    <link rel="stylesheet" href="css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="css/admin_dash.css" />
                 </head>
 
                 <body>
-                    <form action="php/EditSet.php" method="post">
-                        <input type="hidden" name="regyear" value="<?php echo htmlspecialchars($regyear); ?>">
-                        <label for="cyear">Current year:</label>
-                        <input type="text" id="cyear" name="cyear" class="form-control" required><br>
+                    <!-- Top Navbar -->
+                    <nav class="navbar navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Update Student Details</span>
+                        </div>
+                    </nav>
 
-                        <input type="submit" value="Edit">
-                    </form>
+                    <!-- Main Container -->
+                    <div class="container mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header bg-white text-dark text-center">
+                                        <h2>Edit Current Year Information</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="php/EditSet.php" method="post">
+                                            <input type="hidden" name="regyear" value="<?php echo htmlspecialchars($regyear); ?>">
+
+                                            <div class="form-group mb-3">
+                                                <label for="cyear">Year:</label>
+                                                <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                                    <option selected disabled>Select year</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-danger">Edit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="js/bootstrap.bundle.min.js"></script>
                 </body>
 
                 </html>
             <?php
         }
     } else {
-        echo "Please fill the content!!!";
+        $_SESSION['message'] = "Please fill the content!!!";
+        header("Location: admin_dashboard.php");
+        exit();
     }
 }
+
 ?>

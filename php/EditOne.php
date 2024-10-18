@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'db_connection.php';
 
 // Check if form is submitted and the 'reg_year' value is set
@@ -22,18 +22,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usn"])) {
                 WHERE usn='$usn'";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Record Updated successfully";
+            $_SESSION['message'] = "Record Updated successfully";
         } else {
-            echo "Error Updating record: " . $conn->error;
+            $_SESSION['message'] = "Error Updating record: " . $conn->error;
         }
     } else {
-        echo "Please enter a valid USN.";
+        $_SESSION['message'] = "Please enter a valid USN.";
     }
 } else {
-    echo "Form not submitted or USN invalid.";
+    $_SESSION['message'] = "Form not submitted or USN invalid.";
 }
 
 // Close the connection
 $conn->close();
+header("Location: ../admin_dashboard.php");
+exit;
 ?>
-
