@@ -107,7 +107,7 @@
                     <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary cancelLogout" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="confirmLogout">Logout</button>
                 </div>
             </div>
@@ -144,12 +144,13 @@
 
     <!-- Datatable Script -->
     <script>
-        $('#closeModal, .closebtn').on('click', function () {
+        $('#closeModal, .closebtn, .cancelLogout').on('click', function () {
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
             $('#studentName').val('');
             $('#studentListContainer').hide();
             $('#EntryExitKey').hide();
+            $('#logoutEntryKey').val('');
         });
 
         $(document).ready(function () {
