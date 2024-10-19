@@ -54,7 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
 
                                         <div class="form-group mb-3">
                                             <label for="branch">Branch:</label>
-                                            <input type="text" id="branch" name="branch" class="form-control" required>
+                                            <select name="branch" id="branch" name="branch" class="form-control"
+                                                placeholder="Select a Branch">
+                                                <option selected disabled>Select Branch</option>
+                                            </select>
                                         </div>
 
                                         <div class="form-group mb-3">
@@ -64,12 +67,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
 
                                         <div class="form-group mb-3">
                                             <label for="section">Section:</label>
-                                            <input type="text" id="section" name="section" class="form-control" required>
+                                            <select name="section" id="section" class="form-control">
+                                                <option selected disabled>Select Section</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="E">E</option>
+                                                <option value="F">F</option>
+                                                <option value="G">G</option>
+                                                <option value="H">H</option>
+                                                <option value="I">I</option>
+                                            </select>
                                         </div>
 
                                         <div class="form-group mb-3">
                                             <label for="cyear">Year:</label>
                                             <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                                <option selected disabled>Select Year</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -86,6 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
                 </div>
 
                 <script src="js/bootstrap.bundle.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="js/admin_script.js"></script>
             </body>
 
             </html>
@@ -144,8 +161,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
 
                                             <div class="form-group mb-3">
                                                 <label for="cyear">Year:</label>
-                                                <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
-                                                    <option selected disabled>Select year</option>
+                                                <select name="cyear" id="cyear" class="form-control" required>
+                                                    <!-- Updated name to 'year' -->
+                                                    <option selected disabled value="">Select year</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -161,6 +179,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["usn"]) || isset($_POS
                         </div>
                     </div>
                     <script src="js/bootstrap.bundle.min.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="js/admin_script.js"></script>
                 </body>
 
                 </html>
