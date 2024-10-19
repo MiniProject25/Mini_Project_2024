@@ -102,12 +102,15 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Content for Import -->
-                    <p>Import data functionality goes here.</p>
+                    <!-- Form for File Upload -->
+                    <form id="importFileForm" method="POST" action="php/import.php" enctype="multipart/form-data">
+                        <label for="file">Choose a text file:</label>
+                        <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" form="importFileForm" class="btn btn-primary">Import</button>
                 </div>
             </div>
         </div>
@@ -144,27 +147,27 @@ session_start();
                         <input type="text" id="regyear" name="regyear" class="form-control" required><br>
 
                         <label for="section">Section:</label>
-                            <select name="section" id="section" class="form-control">
-                                <option selected disabled>Select Section</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                            </select><br>
+                        <select name="section" id="section" class="form-control">
+                            <option selected disabled>Select Section</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                        </select><br>
 
-                            <label for="cyear">Year:</label>
-                            <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
-                                <option selected disabled>Select year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
+                        <label for="cyear">Year:</label>
+                        <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                            <option selected disabled>Select year</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </form>
                 </div>
                 <div class="modal-footer">
