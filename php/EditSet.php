@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["regyear"])) {
             $_SESSION['message'] = "Error Updating record: " . $conn->error;
         }
     } else {
-        $_SESSION['message'] = "Please enter a registration year.";
+        $_SESSION['message'] = "Please select a year.";
     }
 } else {
     $_SESSION['message'] = "Form not submitted or year not set.";
