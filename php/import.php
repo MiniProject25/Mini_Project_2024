@@ -33,13 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $section = isset($data[4]) ? $data[4] : null;
                         $cyear = isset($data[5]) ? $data[5] : null;
 
+                        $x = substr($usn, 0, 3);
+
                         // Only proceed if $usn and $sname are not null
                         if ($usn && $sname) {
-                            $entrykey = substr($usn, -3); // Extract last 3 digits of USN
 
-                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
-                            $stmt->execute();
+                            if ($x == '4CB') {
+                                $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                                $stmt->execute();
+                            } else {
+                                continue;
+                            }
                         }
                     }
                     fclose($handle);
@@ -59,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $cyear = isset($row[5]) ? $row[5] : null;
                     $entrykey = substr($usn, -3);
 
-                    $x = substr($usn,0, 3);
+                    $x = substr($usn, 0, 3);
 
                     // Only proceed if $usn and $sname are not null
                     if ($usn && $sname) {
