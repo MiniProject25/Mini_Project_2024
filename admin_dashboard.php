@@ -54,12 +54,12 @@ session_start();
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link" onclick="showStatistics()"
+                                <a class="nav-link stats"
                                     style="text-decoration: none; color: black;" aria-current="true"
                                     href="#">Statistics</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="showDB()" style="text-decoration: none; color: black;"
+                            <li class="nav-item db">
+                                <a class="nav-link" style="text-decoration: none; color: black;"
                                     href="#">DB</a>
                             </li>
                         </ul>
@@ -69,21 +69,24 @@ session_start();
                         <div id="statistics-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="from_date">From</label>
-                                    <input type="date" name="date" id="date" class="me-auto">
-                                    <label for="to_date" class="ms-auto ps-3">To</label>
-                                    <input type="date" name="date" id="date">
+                                    <form action="" method="POST">
+                                        <label for="from_date">From</label>
+                                        <input type="date" name="date_from" id="from_date" class="me-auto">
+                                        <label for="to_date" class="ms-auto ps-3">To</label>
+                                        <input type="date" name="date_to" id="to_date">
+                                    </form>
                                 </div>
+                                <div id="student-access-chart" style="width: 100%; height: 400px;"></div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-fluid ms-auto me-auto">
-                                    <button type="button" class="btn btn-primary">Accept</button>
+                                    <button type="button" id="fetchDataBtn" class="btn btn-primary">Accept</button>
                                 </div>
                             </div>
                         </div>
                         <!-- DB Body -->
-                        <div id="db-content" style="display: none;">
+                        <div id="db-content" class="d-none">
                             <p>Database-related content goes here.</p>
                         </div>
                     </div>
@@ -354,6 +357,7 @@ session_start();
 
     <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/admin_script.js"></script>
 
