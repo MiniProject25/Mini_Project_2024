@@ -102,12 +102,15 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Content for Import -->
-                    <p>Import data functionality goes here.</p>
+                    <!-- Form for File Upload -->
+                    <form id="importFileForm" method="POST" action="php/import.php" enctype="multipart/form-data">
+                        <label for="file">Choose a text file:</label>
+                        <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" form="importFileForm" class="btn btn-primary">Import</button>
                 </div>
             </div>
         </div>
