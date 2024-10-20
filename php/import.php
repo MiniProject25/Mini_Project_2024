@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if ($usn && $sname) {
                             $entrykey = substr($usn, -3); // Extract last 3 digits of USN
 
-                            $stmt = $conn->prepare("INSERT INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
                             $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
                             $stmt->execute();
                         }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($usn && $sname) {
                         $entrykey = substr($usn, -3); // Extract last 3 digits of USN
 
-                        $stmt = $conn->prepare("INSERT INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                        $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
                         $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
                         $stmt->execute();
                     }

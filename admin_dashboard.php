@@ -132,26 +132,24 @@ session_start();
                     <!-- Form fields to add a student -->
                     <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
                         <label for="usn">USN:</label>
-                        <input type="text" id="usn" name="usn" class="form-control" required><br>
+                        <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br>
 
                         <label for="sname">Name:</label>
-                        <input type="text" id="sname" name="sname" class="form-control" required><br>
-                        <!-- Updated name to 'name' -->
+                        <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br>
 
                         <label for="branch">Branch:</label>
-                        <!-- <input type="text" id="branch" name="branch" class="form-control" required><br> -->
                         <select name="branch" id="branch" class="form-control" placeholder="Enter Branch"
-                            style="width: 100%">
-                            <option selected disabled>Select Branch</option>
+                            style="width: 100%" required>
+                            <option value="" selected disabled>Select Branch</option>
                         </select>
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" id="regyear" name="regyear" class="form-control" required><br>
+                        <input type="text" id="regyear" name="regyear" class="form-control" placeholder="Enter Year of Registration" required><br>
 
                         <label for="section">Section:</label>
-                        <select name="section" id="section" class="form-control">
-                            <option selected disabled>Select Section</option>
+                        <select name="section" id="section" class="form-control" required>
+                            <option value="" selected disabled>Select Section</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -164,8 +162,8 @@ session_start();
                         </select><br>
 
                         <label for="cyear">Year:</label>
-                        <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
-                            <option selected disabled>Select year</option>
+                        <select name="cyear" id="cyear" class="form-control" required> <!-- Updated name to 'year' -->
+                            <option value="" selected disabled>Select year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -207,12 +205,12 @@ session_start();
                         <!-- Hidden fields that are shown based on radio selection -->
                         <div id="regYearField" class="d-none">
                             <label for="regyear">Registration Year:</label>
-                            <input type="text" id="regyear" name="regyear"><br><br>
+                            <input type="text" id="regyear" name="regyear" placeholder="Enter Year of Registration" required><br><br>
                         </div>
 
                         <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
-                            <input type="text" id="usn" name="usn"><br><br>
+                            <input type="text" id="usn" name="usn" placeholder="Enter USN" required><br><br>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -309,8 +307,8 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="branch">Branch:</label>
                                 <select name="branch" id="branch_edit" class="form-control" placeholder="Enter Branch"
-                                    style="width: 100%">
-                                    <option selected disabled>Select Branch</option>
+                                    style="width: 100%" required>
+                                    <option value="" selected disabled>Select Branch</option>
                                 </select>
                             </div>
                             <div class="form-group mb-3">
@@ -320,7 +318,7 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="section">Section:</label>
                                 <select name="section" id="section_edit" class="form-control" required>
-                                    <option selected disabled>Select Section</option>
+                                    <option value="" selected disabled>Select Section</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
@@ -335,7 +333,7 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="cyear">Year:</label>
                                 <select name="cyear" id="cyear_edit" class="form-control" required>
-                                    <option selected disabled>Select Year</option>
+                                    <option value="" selected disabled>Select Year</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
