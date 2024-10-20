@@ -7,25 +7,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usn"])) {
     $usn = $_POST['usn'];
     $name = $_POST['name'];
     $branch = $_POST['branch'];
-    $regyear = $_POST['regyear'];
+    $regyear = (int)$_POST['regyear'];
     $section = $_POST['section'];
-    $year = $_POST['cyear'];
+    $year = (int)$_POST['cyear'];
 
     // Check if the input is not empty
     if (!empty($usn)) {
-        // Sanitize the input
-        $usn = $conn->real_escape_string($usn);
+        // Prepare the statement to prevent SQL injection
+        $stmt = $conn->prepare("UPDATE users SET sname=?, branch=?, regyear=?, section=?, cyear=? WHERE usn=?");
+        $stmt->bind_param("ssisis", $name, $branch, $regyear, $section, $year, $usn);
 
-        // SQL query to delete the record
-        $sql = "UPDATE users 
-                SET sname='$name',branch='$branch',regyear='$regyear',section='$section',cyear='$year'
-                WHERE usn='$usn'";
-
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             $_SESSION['message'] = "Record Updated successfully";
         } else {
-            $_SESSION['message'] = "Error Updating record: " . $conn->error;
+            $_SESSION['message'] = "Error Updating record: " . $stmt->error;
         }
+
+        $stmt->close();
     } else {
         $_SESSION['message'] = "Please enter a valid USN.";
     }

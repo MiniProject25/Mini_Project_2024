@@ -21,6 +21,7 @@ $(document).ready(function () {
         }
     });
 
+    let usnInput; // stores the usn of the student whose details are being edited.
     $('#processUSN').on('click', function (e) {
         e.preventDefault();
         if (!$('.edit_usn').val()) {
@@ -28,7 +29,7 @@ $(document).ready(function () {
             return;
         }
 
-        const usnInput = $('.edit_usn').val();
+        usnInput = $('.edit_usn').val();
         console.log(usnInput);
 
         $.ajax({
@@ -52,14 +53,30 @@ $(document).ready(function () {
         });
     });
 
-    // $('#submit_edit_btn').on('click', function() {
-    //     let usn = 
-
-    //     $.ajax({
-    //         url: 'php/EditOne.php',
-    //         data: {}
-    //     })
-    // })
+    $('#submit_edit_btn').on('click', function() {
+        let usn = usnInput;
+        let sname = $('#name_edit').val();
+        let branch = $('#branch_edit').val();
+        let section = $('#section_edit').val();
+        let regyear = $('#regyear_edit').val();
+        let cyear = $('#cyear_edit').val();
+    
+        console.log("USN:", usn, "Name:", sname, "Branch:", branch, "Section:", section, "RegYear:", regyear, "Cyear:", cyear);
+    
+        $.ajax({
+            url: 'php/EditOne.php',
+            method: 'POST',
+            data: {
+                usn: usn,
+                name: sname,
+                branch: branch,
+                section: section,
+                regyear: regyear,
+                cyear: cyear
+            }
+        });
+    });
+    
 
     $.ajax({
         url: './php/fetch_branches.php',

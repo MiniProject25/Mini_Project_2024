@@ -312,7 +312,7 @@ session_start();
                         <div class="edit-one-modal d-none">
                             <div class="form-group mb-3">
                                 <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
+                                <input type="text" id="name_edit" name="name" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="branch">Branch:</label>
@@ -323,11 +323,11 @@ session_start();
                             </div>
                             <div class="form-group mb-3">
                                 <label for="regyear">Registration Year:</label>
-                                <input type="text" id="regyear" name="regyear" class="form-control" required>
+                                <input type="text" id="regyear_edit" name="regyear" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="section">Section:</label>
-                                <select name="section" id="section" class="form-control" required>
+                                <select name="section" id="section_edit" class="form-control" required>
                                     <option selected disabled>Select Section</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -342,7 +342,7 @@ session_start();
                             </div>
                             <div class="form-group mb-3">
                                 <label for="cyear">Year:</label>
-                                <select name="cyear" id="cyear" class="form-control" required>
+                                <select name="cyear" id="cyear_edit" class="form-control" required>
                                     <option selected disabled>Select Year</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -351,11 +351,11 @@ session_start();
                                 </select>
                             </div>
                         </div>
+                        <div class="modal-footer d-none">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer d-none">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
                 </div>
             </div>
         </div>
