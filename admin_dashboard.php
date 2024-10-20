@@ -194,27 +194,27 @@ session_start();
                         <!-- Content for Remove Student -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="option1" onclick="toggleFields()" required> Remove
+                            <input type="radio" id="remove_set" name="removechoice" value="option1" onclick="toggleFields()" required> Remove
                             a set of students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="option2" onclick="toggleFields()" required> Remove
+                            <input type="radio" id="remove_one" name="removechoice" value="option2" onclick="toggleFields()" required> Remove
                             a student
                         </label><br><br>
                         <!-- Hidden fields that are shown based on radio selection -->
-                        <div id="regYearField" style="display:none;">
+                        <div id="regYearField" class="d-none">
                             <label for="regyear">Registration Year:</label>
                             <input type="text" id="regyear" name="regyear"><br><br>
                         </div>
 
-                        <div id="usnField" style="display:none;">
+                        <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
                             <input type="text" id="usn" name="usn"><br><br>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Remove</button> <!-- Form submission button -->
+                        <button type="button" class="btn btn-secondary closeRemoveModal" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
                     </div>
                 </form>
             </div>
@@ -233,27 +233,16 @@ session_start();
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="setOfStudents" required>
+                            <input id="editRadio" type="radio" name="choice" value="setOfStudents" required>
                             Update students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="editStudent" required>
+                            <input id="editRadio" type="radio" name="choice" value="editStudent" required>
                             Edit a student
                         </label><br><br>
-
-                        <!-- Hidden fields that are shown based on radio selection -->
-                        <!-- <div id="editRegYearField" style="display:none;">
-                            <label for="regyear">Registration Year:</label>
-                            <input type="text" id="edit_regyear" name="regyear"><br><br>
-                        </div> -->
-
-                        <div id="editUsnField" style="display:none;">
-                            <label for="usn">USN:</label>
-                            <input type="text" id="edit_usn" name="usn"><br><br>
-                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary closeEditModal" data-bs-dismiss="modal">Close</button>
                         <button type="button" id="continueEditBtn" class="btn btn-danger">Continue</button>
                     </div>
                 </form>
@@ -376,6 +365,16 @@ session_start();
                 alert(message);
                 <?php unset($_SESSION['message']); ?>  // Clear the session message
             }
+        });
+
+        $('.closeRemoveModal').on('click', function() {
+            $('#regYearField').addClass('d-none');  
+            $('#usnField').addClass('d-none'); 
+            $('#remove_set, #remove_one').prop('checked', false);
+        });
+
+        $('.closeEditModal').on('click', function() {
+            $('#editRadio').prop('checked', false);
         });
     </script>
 

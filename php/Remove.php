@@ -3,18 +3,18 @@ session_start(); // Start the session
 include 'db_connection.php';
 
 // Check if the form is submitted and a choice is made
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['choice'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removechoice'])) {
     // Get the selected option
-    $choice = $_POST['choice'];
+    $choice = $_POST['removechoice'];
 
     if ($choice == 'option1') {
         if (isset($_POST["regyear"])) {
-            $year = $_POST["regyear"];
+            $regyear = $_POST["regyear"];
 
-            if (!empty($year)) {
+            if (!empty($regyear)) {
                 // Check if any users exist with the given registration year
                 $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE regyear = ?");
-                $stmt->bind_param("s", $year);
+                $stmt->bind_param("s", $regyear);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $row = $result->fetch_assoc();
@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['choice'])) {
                 // If users exist, delete the records
                 if ($bnum > 0) {
                     $stmt = $conn->prepare("DELETE FROM users WHERE regyear = ?");
-                    $stmt->bind_param("s", $year);
+                    $stmt->bind_param("s", $regyear);
                     $stmt->execute();
 
                     // Verify deletion
                     $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE regyear = ?");
-                    $stmt->bind_param("s", $year);
+                    $stmt->bind_param("s", $regyear);
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $row = $result->fetch_assoc();

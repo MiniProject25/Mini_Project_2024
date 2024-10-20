@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    // $('input[name="choice"]').change(function () {
-    //     if ($(this).val() === 'setOfStudents') {
-    //         $('#editRegYearField').show();
-    //         $('#editUsnField').hide();
-    //     } else if ($(this).val() === 'editStudent') {
-    //         $('#editRegYearField').hide();
-    //         $('#editUsnField').show();
-    //     }
-    // });
-
     $('#continueEditBtn').on('click', function () {
         // handleContinue();
         $('#editModal').modal('hide');
@@ -86,65 +76,20 @@ $(document).ready(function () {
             $('#branch_edit').append(response);
         }
     });
+
+    $('input[name="removechoice"]').on('change', function() {
+        if ($('#remove_set').is(':checked')) {
+            $('#regYearField').removeClass('d-none');  
+            $('#usnField').addClass('d-none'); 
+        } else if($('#remove_one').is(':checked')) {
+            $('#usnField').removeClass('d-none');  
+            $('#regYearField').addClass('d-none');  
+        }
+    });
+    
 });
 
-// editing student details
-function handleContinue() {
-    // console.log("Continue button clicked!");
-    // $('#editSetModal').modal('show');
+function toggleFields() {
 
-    // const option = $('input[name="choice"]:checked').val();
-
-    // if (option == "setOfStudents") {
-    //     const regyearInput = $('#edit_regyear').val();
-
-    //     if (!regyearInput) {
-    //         alert("Please enter the Registration Year.");
-    //         return;
-    //     }
-
-    //     $.ajax({
-    //         url: 'php/checkRegYear.php',
-    //         method: 'POST',
-    //         dataType: 'json',
-    //         data: { regyear: regyearInput },
-    //         success: function (response) {
-    //             if (response.success) {
-    //                 $('#editModal').modal('hide'); // Close edit modal
-    //                 $('#editSetModal').modal('show'); // Show edit set modal
-    //             } else {
-    //                 alert("Students with the entered Registration Year do not exist in the database.");
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("An error occurred while checking the Registration Year.");
-    //         }
-    //     });
-
-    // } else if (option == "editStudent") {
-    //     const usnInput = $('#edit_usn').val();
-
-    //     if (!usnInput) {
-    //         alert("Please enter the USN.");
-    //         return;
-    //     }
-
-    //     $.ajax({
-    //         url: 'php/checkUSN.php',
-    //         method: 'POST',
-    //         data: { usn: usnInput },
-    //         success: function (response) {
-    //             if (response.success) {
-    //                 $('#editModal').modal('hide'); // Close edit modal
-    //                 $('#editOneModal').modal('show'); // Show edit one modal
-    //             } else {
-    //                 alert("The USN does not exist in the database.");
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("An error occurred while checking the USN.");
-    //         }
-    //     });
-    // }
 }
 
