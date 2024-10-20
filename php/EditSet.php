@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["regyear"])) {
 
     // Check if the input is not empty
     if (!empty($year)) {
-        // Sanitize the input (optional but recommended)
+        // Sanitize the input 
         $year = $conn->real_escape_string($year);
 
         // SQL query to delete the record

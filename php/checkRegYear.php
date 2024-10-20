@@ -1,14 +1,12 @@
 <?php
-// checkRegYear.php
-
 // Database connection
-include 'db_connection.php'; // Include your database connection code
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $regyear = $_POST['regyear'];
 
-    // Prepare SQL statement to check registration year
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM students WHERE regyear = ?");
+    //SQL statement to check registration year
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE regyear = ?");
     $stmt->bind_param("s", $regyear);
     $stmt->execute();
     $stmt->bind_result($count);

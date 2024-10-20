@@ -144,27 +144,27 @@ session_start();
                         <input type="text" id="regyear" name="regyear" class="form-control" required><br>
 
                         <label for="section">Section:</label>
-                            <select name="section" id="section" class="form-control">
-                                <option selected disabled>Select Section</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                            </select><br>
+                        <select name="section" id="section" class="form-control">
+                            <option selected disabled>Select Section</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                        </select><br>
 
-                            <label for="cyear">Year:</label>
-                            <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
-                                <option selected disabled>Select year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
+                        <label for="cyear">Year:</label>
+                        <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                            <option selected disabled>Select year</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -218,7 +218,6 @@ session_start();
         </div>
     </div>
 
-
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -231,28 +230,28 @@ session_start();
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="option1" onclick="toggleFields('edit');" required>
+                            <input type="radio" name="choice" value="setOfStudents" required>
                             Update students
                         </label><br>
                         <label>
-                            <input type="radio" name="choice" value="option2" onclick="toggleFields('edit');" required>
+                            <input type="radio" name="choice" value="editStudent" required>
                             Edit a student
                         </label><br><br>
 
                         <!-- Hidden fields that are shown based on radio selection -->
-                        <div id="editRegYearField" style="display:none;">
+                        <!-- <div id="editRegYearField" style="display:none;">
                             <label for="regyear">Registration Year:</label>
-                            <input type="text" id="regyear" name="regyear"><br><br>
-                        </div>
+                            <input type="text" id="edit_regyear" name="regyear"><br><br>
+                        </div> -->
 
                         <div id="editUsnField" style="display:none;">
                             <label for="usn">USN:</label>
-                            <input type="text" id="usn" name="usn"><br><br>
+                            <input type="text" id="edit_usn" name="usn"><br><br>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" onclick="handleContinue()">Continue</button>
+                        <button type="button" id="continueEditBtn" class="btn btn-danger">Continue</button>
                     </div>
                 </form>
             </div>
@@ -269,11 +268,13 @@ session_start();
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="regyear" value="<?php echo htmlspecialchars($regyear); ?>">
                         <div class="form-group mb-3">
+                            <label for="regyear">Registration Year:</label>
+                            <input type="text" name="regyear" id="regyear" placeholder="Enter Year of Registration"
+                                class="form-control" style="width:100%" name="regyear"><br>
                             <label for="cyear">Year:</label>
                             <select name="cyear" id="cyear" class="form-control" required>
-                                <option selected disabled value="">Select year</option>
+                                <option selected disabled value="">Select Updated Year</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -294,59 +295,65 @@ session_start();
     <div class="modal fade" id="editOneModal" tabindex="-1" aria-labelledby="editOneModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/EditOne.php" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="usn" value="<?php echo htmlspecialchars($usn); ?>">
-                        <div class="form-group mb-3">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="editUsnField">
+                            <label for="usn">USN:</label>
+                            <input type="text" name="usn" class="form-control edit_usn" style="width: 100%"><br>
+                            <button type="button" id="processUSN" class="btn btn-primary">Proceed</button>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="branch">Branch:</label>
-                            <select name="branch" id="branch" class="form-control" required>
-                                <option selected disabled>Select Branch</option>
-                                <!-- Add options here as necessary -->
-                            </select>
+                        <div class="edit-one-modal d-none">
+                            <div class="form-group mb-3">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="branch">Branch:</label>
+                                <select name="branch" id="branch_edit" class="form-control" placeholder="Enter Branch"
+                                    style="width: 100%">
+                                    <option selected disabled>Select Branch</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="regyear">Registration Year:</label>
+                                <input type="text" id="regyear" name="regyear" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="section">Section:</label>
+                                <select name="section" id="section" class="form-control" required>
+                                    <option selected disabled>Select Section</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="F">F</option>
+                                    <option value="G">G</option>
+                                    <option value="H">H</option>
+                                    <option value="I">I</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="cyear">Year:</label>
+                                <select name="cyear" id="cyear" class="form-control" required>
+                                    <option selected disabled>Select Year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="regyear">Registration Year:</label>
-                            <input type="text" id="regyear" name="regyear" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="section">Section:</label>
-                            <select name="section" id="section" class="form-control" required>
-                                <option selected disabled>Select Section</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="cyear">Year:</label>
-                            <select name="cyear" id="cyear" class="form-control" required>
-                                <option selected disabled>Select Year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Save changes</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer d-none">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
