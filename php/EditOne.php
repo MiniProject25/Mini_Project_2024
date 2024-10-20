@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usn"])) {
 
     // Check if the input is not empty
     if (!empty($usn)) {
-        // Sanitize the input (optional but recommended)
+        // Sanitize the input
         $usn = $conn->real_escape_string($usn);
 
         // SQL query to delete the record
