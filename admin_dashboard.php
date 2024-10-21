@@ -132,10 +132,10 @@ session_start();
                     <!-- Form fields to add a student -->
                     <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
                         <label for="usn">USN:</label>
-                        <input type="text" id="usn" name="usn" class="form-control" required><br>
+                        <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control" required><br>
 
                         <label for="sname">Name:</label>
-                        <input type="text" id="sname" name="sname" class="form-control" required><br>
+                        <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control" required><br>
                         <!-- Updated name to 'name' -->
 
                         <label for="branch">Branch:</label>
@@ -147,10 +147,10 @@ session_start();
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" id="regyear" name="regyear" class="form-control" required><br>
+                        <input type="text" id="regyear" name="regyear" placeholder="Enter Year Of Registration" class="form-control" required><br>
 
                         <label for="section">Section:</label>
-                        <select name="section" id="section" class="form-control">
+                        <select name="section" id="section" class="form-control" placeholder="Enter the Section">
                             <option selected disabled>Select Section</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -164,7 +164,7 @@ session_start();
                         </select><br>
 
                         <label for="cyear">Year:</label>
-                        <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                        <select name="cyear" id="cyear" class="form-control" placeholder="Enter current Year of Study"> <!-- Updated name to 'year' -->
                             <option selected disabled>Select year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -174,13 +174,12 @@ session_start();
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary closeAddStudentModal" data-bs-dismiss="modal">Close</button>
                     <button type="submit" form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- Remove a Student Modal -->
     <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
@@ -197,11 +196,11 @@ session_start();
                         <!-- Content for Remove Student -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" id="remove_set" name="removechoice" value="option1" onclick="toggleFields()" required> Remove
+                            <input type="radio" id="remove_set" name="removechoice" value="option1" required> Remove
                             a set of students
                         </label><br>
                         <label>
-                            <input type="radio" id="remove_one" name="removechoice" value="option2" onclick="toggleFields()" required> Remove
+                            <input type="radio" id="remove_one" name="removechoice" value="option2" required> Remove
                             a student
                         </label><br><br>
                         <!-- Hidden fields that are shown based on radio selection -->
@@ -266,7 +265,7 @@ session_start();
                         <div class="form-group mb-3">
                             <label for="regyear">Registration Year:</label>
                             <input type="text" name="regyear" id="regyear" placeholder="Enter Year of Registration"
-                                class="form-control" style="width:100%" name="regyear"><br>
+                                class="form-control" style="width:100%"><br>
                             <label for="cyear">Year:</label>
                             <select name="cyear" id="cyear" class="form-control" required>
                                 <option selected disabled value="">Select Updated Year</option>
@@ -378,7 +377,12 @@ session_start();
         });
 
         $('.closeEditModal').on('click', function() {
-            $('#editRadio').prop('checked', false);
+            // $('#editRadio').prop('checked', false);
+            $('#editStudentForm')[0].reset();
+        });
+
+        $('.closeAddStudentModal').on('click', function() {
+            $('#addStudentForm')[0].reset();
         });
     </script>
 

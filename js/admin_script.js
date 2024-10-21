@@ -98,6 +98,7 @@ $(document).ready(function () {
         $('#db-content').removeClass('d-none');
     });
 
+    // Fetch Graphs (statistics)
     $('#fetchDataBtn').on('click', function () {
         let dateFrom = $('#from_date').val();
         let dateTo = $('#to_date').val();
@@ -144,5 +145,4 @@ $(document).ready(function () {
             }
         });
     });
-
 });
