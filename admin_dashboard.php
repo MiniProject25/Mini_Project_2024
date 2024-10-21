@@ -132,11 +132,11 @@ session_start();
                     <!-- Form fields to add a student -->
                     <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
                         <label for="usn">USN:</label>
-                        <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br>
+                        <!-- <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br> -->
                         <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control" required><br>
 
                         <label for="sname">Name:</label>
-                        <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br>
+                        <!-- <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br> -->
                         <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control" required><br>
                         <!-- Updated name to 'name' -->
 
@@ -148,7 +148,7 @@ session_start();
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" id="regyear" name="regyear" class="form-control" required><br>
+                        <input type="text" placeholder="Enter Year of Registration" id="regyear" name="regyear" class="form-control" required><br>
 
                         <label for="section">Section:</label>
                         <select name="section" id="section" class="form-control">
