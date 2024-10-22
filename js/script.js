@@ -9,6 +9,14 @@ $(document).ready(function () {
             $('#branch').append(response);
         }
     });
+
+    $('.studentName').select2({
+        dropdownParent: $('#loginModal'),
+        width: '100%',
+        placeholder: "Select an option",
+        allowClear: true,
+        matcher: matchCustom
+    });
 });
 
 // Adding record to the Data Table
@@ -78,17 +86,7 @@ $('#section, #year, #branch').on('change', function () {
             },
             success: function (response) {
                 $('#studentListContainer').show();
-                $('#studentName').html(response); // Update the dropdown options
-                // $('#studentName').select2({ // Initialize Select2 after updating options
-                //     placeholder: 'Select student',
-                //     allowClear: true,
-                //     width: '100%',
-                //     sorter: function (data) {
-                //         return data.sort(function (a, b) {
-                //             return a.text.localeCompare(b.text); // Sort names alphabetically
-                //         });
-                //     }
-                // });
+                $('#studentName').html(response); // Update the dropdown option
                 $('#EntryExitKey').show();
             },
             error: function (xhr, status, error) {
@@ -230,4 +228,18 @@ function handleLogout() {
     } else {
         alert('Please enter your EntryKey.');
     }
+}
+
+// match the input provided by the user with the entries present in the select element
+function matchCustom(params, data) {
+    if ($.trim(params.term) === '') {
+        return data;
+    }
+    if (typeof data.text === 'undefined') {
+        return null;
+    }
+    if (data.text.toLowerCase().startsWith(params.term.toLowerCase())) {
+        return data;
+    }
+    return null;
 }

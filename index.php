@@ -7,7 +7,7 @@
     <title>Library Management</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -68,8 +68,8 @@
                         <div class="mb-3" id="studentListContainer" style="display: none;">
                             <!--We can do the same drop down option for name section but importing from some other file all names , and when i type sum it should display aa person with sum... -->
                             <label for="studentName" class="form-label">Student Name</label>
-                            <select class="form-select" id="studentName" name="studentName">
-                                <option selected disabled>Select student</option>
+                            <select class="form-select studentName" id="studentName" name="studentName">
+                                <!-- <option selected disabled>Select student</option> -->
                             </select>
                         </div>
                         <div class="mb-3" id="EntryExitKey" style="display: none;">
@@ -139,7 +139,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="js/script.js"></script>
 
     <!-- Datatable Script -->
