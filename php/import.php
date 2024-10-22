@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $regyear = isset($data[3]) ? $data[3] : null;
                         $section = isset($data[4]) ? $data[4] : null;
                         $cyear = isset($data[5]) ? $data[5] : null;
+                        $entrykey = substr($usn,-3);
 
                         $x = substr($usn, 0, 3);
 
