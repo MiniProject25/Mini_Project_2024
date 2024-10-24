@@ -4,7 +4,7 @@ include 'db_connection.php';
 $usn = $_POST['usn'];
 
 // update the timeout in active table
-$query = "UPDATE history SET TimeOut = NOW() where USN = ?";
+$query = "UPDATE history SET TimeOut = NOW() where USN = ? ORDER BY `Date` DESC, `TimeIn` DESC LIMIT 1;";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $usn);
 

@@ -38,7 +38,7 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
                 //Valid returning student, log them in again (new session)
                 $insertQuery = "INSERT INTO history (USN, Cyear, TimeIn, Date) VALUES(?, ?, NOW(), CURDATE())";
                 $insertStmt = $conn->prepare($insertQuery);
-                $insertStmt->bind_param('si', $student['USN'], $student['Cyear']);
+                $insertStmt->bind_param('si', $student['USN'], $student['Cyear']);  
         
                 if ($insertStmt->execute()) {
                     echo json_encode(['success' => true, 'data' => $student]);

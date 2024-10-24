@@ -27,6 +27,7 @@ $('#acceptLogin').on('click', function () {
 
     $('#EntryExitKey').hide();
     $('#studentListContainer').hide();
+
     // $('#studentName').empty();
 });
 
@@ -124,6 +125,7 @@ function handleLogin() {
                 EntryKey: EntryKey
             },
             success: function (response) {
+                $('#currTimeIn').val();
                 // console.log(response);
                 if (response.success) {
                     loadActiveStudents();
@@ -177,6 +179,7 @@ function loadActiveStudents() {
 function handleLogout() {
     let usn = $('#logoutUSN').val();
     let entryKey = $('#logoutEntryKey').val();
+    // let timeIn = $('#currTimeIn').val();
 
     if (entryKey) {
         $.ajax({
