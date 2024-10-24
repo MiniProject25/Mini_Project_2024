@@ -1,6 +1,5 @@
 <?php
 include 'db_connection.php';
-// comment
 $usn = $_POST['usn'];
 
 // update the timeout in active table
