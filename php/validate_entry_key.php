@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-
+// comment
 if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'])) {
     $name = $_POST['name'];
     $year = (int) $_POST['year'];
