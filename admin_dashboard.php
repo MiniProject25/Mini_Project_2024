@@ -11,11 +11,12 @@ session_start();
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/admin_dash.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body>
     <!-- Top Navbar -->
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
         </div>
@@ -35,7 +36,7 @@ session_start();
                             class="nav-link px-3 active">Add a Student</a>
                         <hr>
                         <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
-                            class="nav-link px-3 active">Remove a Student</a>
+                            class="nav-link px-3 active">Remove Student(s)</a>
                         <hr>
                         <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Edit</a>
@@ -47,20 +48,18 @@ session_start();
     </div>
 
     <!-- Dashboard Body -->
-    <main class="mt-3">
+    <main class="mt-5 pt-3">
         <div class="container-fluid">
             <div class="row">
                 <div class="card text-center mx-auto">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link stats"
-                                    style="text-decoration: none; color: black;" aria-current="true"
-                                    href="#">Statistics</a>
+                                <a class="nav-link stats" style="text-decoration: none; color: black;"
+                                    aria-current="true" href="#">Statistics</a>
                             </li>
                             <li class="nav-item db">
-                                <a class="nav-link" style="text-decoration: none; color: black;"
-                                    href="#">DB</a>
+                                <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
                             </li>
                         </ul>
                     </div>
@@ -87,7 +86,55 @@ session_start();
                         </div>
                         <!-- DB Body -->
                         <div id="db-content" class="d-none">
-                            <p>Database-related content goes here.</p>
+                            <h2>Users Table</h2>
+                            <div class="db-filters d-flex align-items-center justify-content-between">
+                                <div class="db-year">
+                                    <label for="Cyear">Year:</label>
+                                    <select name="Cyear" id="Cyear" class="form-control">
+                                        <option value="" selected>All</option>
+                                        <option value="1">I</option>
+                                        <option value="2">II</option>
+                                        <option value="3">III</option>
+                                        <option value="4">IV</option>
+                                    </select>
+                                </div>
+                                <div class="db-branch">
+                                    <label for="branch">Branch:</label>
+                                    <select name="branch" id="branch" class="form-control">
+                                        <option value="" selected>All</option>
+                                    </select>
+                                </div>
+                                <div class="db-section">
+                                    <label for="section">Section:</label>
+                                    <select name="section" id="section" class="form-control">
+                                        <option value="" selected>All</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                    </select>
+                                </div>
+                                <div class="db-search">
+                                    <label for="searchInput" class="me-2">Search:</label>
+                                    <input type="search" id="searchInput" class="form-control" placeholder="Search...">
+                                </div>
+                            </div>
+                            <table id="dbtable" class="table table-striped table-bordered">
+                                <thead>
+                                    <th>USN</th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>Year of Registration</th>
+                                    <th>Section</th>
+                                    <th>Year of Study</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -133,11 +180,13 @@ session_start();
                     <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
                         <label for="usn">USN:</label>
                         <!-- <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br> -->
-                        <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control" required><br>
+                        <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control"
+                            required><br>
 
                         <label for="sname">Name:</label>
                         <!-- <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br> -->
-                        <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control" required><br>
+                        <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control"
+                            required><br>
                         <!-- Updated name to 'name' -->
 
                         <label for="branch">Branch:</label>
@@ -148,7 +197,8 @@ session_start();
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" placeholder="Enter Year of Registration" id="regyear" name="regyear" class="form-control" required><br>
+                        <input type="text" placeholder="Enter Year of Registration" id="regyear" name="regyear"
+                            class="form-control" required><br>
 
                         <label for="section">Section:</label>
                         <select name="section" id="section" class="form-control">
@@ -175,7 +225,8 @@ session_start();
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary closeAddStudentModal" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary closeAddStudentModal"
+                        data-bs-dismiss="modal">Close</button>
                     <button type="submit" form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
@@ -207,16 +258,18 @@ session_start();
                         <!-- Hidden fields that are shown based on radio selection -->
                         <div id="regYearField" class="d-none">
                             <label for="regyear">Registration Year:</label>
-                            <input type="text" id="regyear" name="regyear" placeholder="Enter Year of Registration" required><br><br>
+                            <input type="text" id="regyear" name="regyear"
+                                placeholder="Enter Year of Registration"><br><br>
                         </div>
 
                         <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
-                            <input type="text" id="usn" name="usn" placeholder="Enter USN" required><br><br>
+                            <input type="text" id="usn" name="usn" placeholder="Enter USN"><br><br>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary closeRemoveModal" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary closeRemoveModal"
+                            data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger">Remove</button>
                     </div>
                 </form>
@@ -245,7 +298,8 @@ session_start();
                         </label><br><br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary closeEditModal" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary closeEditModal"
+                            data-bs-dismiss="modal">Close</button>
                         <button type="button" id="continueEditBtn" class="btn btn-danger">Continue</button>
                     </div>
                 </form>
@@ -360,6 +414,8 @@ session_start();
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/admin_script.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -371,18 +427,18 @@ session_start();
             }
         });
 
-        $('.closeRemoveModal').on('click', function() {
-            $('#regYearField').addClass('d-none');  
-            $('#usnField').addClass('d-none'); 
+        $('.closeRemoveModal').on('click', function () {
+            $('#regYearField').addClass('d-none');
+            $('#usnField').addClass('d-none');
             $('#remove_set, #remove_one').prop('checked', false);
         });
 
-        $('.closeEditModal').on('click', function() {
+        $('.closeEditModal').on('click', function () {
             // $('#editRadio').prop('checked', false);
             $('#editStudentForm')[0].reset();
         });
 
-        $('.closeAddStudentModal').on('click', function() {
+        $('.closeAddStudentModal').on('click', function () {
             $('#addStudentForm')[0].reset();
         });
     </script>
