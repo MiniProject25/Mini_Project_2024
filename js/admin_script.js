@@ -145,4 +145,41 @@ $(document).ready(function () {
             }
         });
     });
+
+    var table=$('#dbtable').DataTable({
+        paging: false,           // Disable pagination
+        searching: false,        // Disable default search box
+        ordering: false,
+        bLengthChange: false,    // Disable length change
+        info: false              // Disable info text
+    });
+    $.ajax({
+        url: 'php/db_users.php',
+        method:'GET',
+        dataType:'json',
+        success:function(data){
+            $.each(data,function(index,row){
+                table.row.add([
+                    row.USN,
+                    row.Sname,
+                    row.Branch,
+                    row.RegYear,
+                    row.Section,
+                    row.Cyear
+                ]).draw();
+            });
+
+            $('#searchInput').on('keyup', function () {
+                table.search(this.value).draw(); // Update DataTable with the search input
+            });
+            
+            // Handle filter changes (optional)
+            $('#Cyear, #section, #branch').on('change', function () {
+                // Implement filtering logic here as needed
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.error('Error fetching data: '+ textStatus,errorThrown);
+        }
+    });
 });
