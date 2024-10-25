@@ -12,7 +12,7 @@
 }
 
 .container {
-    margin-top: 300px;
+    margin-top: 200px;
     text-align: center;
 }
 
@@ -20,7 +20,7 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
-.btn-lin, .btn-lout {
+.btn-lin, .btn-lout, .btn-logoutlib {
     margin: 50px;
     padding: 10px 25px 10px 25px;
     font-size: 25px;
