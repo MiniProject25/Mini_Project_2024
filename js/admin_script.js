@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    // $('.logout_admin_dash').on('click', function () {
+    //     $('adminLibrary').modal('show');
+    // });
+
     $('#continueEditBtn').on('click', function () {
         // handleContinue();
         $('#editModal').modal('hide');
@@ -153,19 +157,20 @@ $(document).ready(function () {
         bLengthChange: false,    // Disable length change
         info: false              // Disable info text
     });
+
     $.ajax({
         url: 'php/db_users.php',
         method:'GET',
         dataType:'json',
         success:function(data){
-            $.each(data,function(index,row){
+            data.forEach(function(student){
                 table.row.add([
-                    row.USN,
-                    row.Sname,
-                    row.Branch,
-                    row.RegYear,
-                    row.Section,
-                    row.Cyear
+                    student.USN,
+                    student.Sname,
+                    student.Branch,
+                    student.RegYear,
+                    student.Section,
+                    student.Cyear
                 ]).draw();
             });
 

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION = array();
         session_destroy();
         echo '<script type="text/JavaScript">  
-                    window.location.href = "../auth_librarian.php"; 
+                    window.location.href = "../admin.php"; 
                     window.history.pushState(null, null, window.location.href);  
                     window.onpopstate = function () {
                         window.history.pushState(null, null, window.location.href);  
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<script type="text/javascript">';
         echo 'alert("Invalid Password!");';
         echo '</script>';
-        header('location: ../index.php');
+        // header('location: ../admin_dashboard.php');
     }
 
     $stmt->close();

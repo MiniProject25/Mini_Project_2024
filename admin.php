@@ -127,7 +127,7 @@ session_start(); # helps to remember who signed up
 
     <!-- PHP Code Here -->
     <?php
-    include './php/db_connection.php'; 
+    include './php/db_connection.php';
     // ......................
     // ......................
     // LOGIN IMPLEMENTATION 
@@ -144,17 +144,24 @@ session_start(); # helps to remember who signed up
                 $admin = $result->fetch_assoc();
                 // echo "Correct ID<br>";
                 if (password_verify($password, $admin['pass_hash'])) {
+                    $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_id'] = $admin['admin_id'];
                     header("Location: admin_dashboard.php");
                     exit;
                 } else {
-                    echo "Invalid ID or Password!";
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Invalid ID or Password!");';
+                    echo '</script>';
                 }
             } else {
-                echo "Admin not found!";
+                echo '<script type="text/javascript">';
+                echo 'alert("Invalid ID or Password!");';
+                echo '</script>';
             }
         } else {
-            echo "Admin ID or Password not provided!";
+            echo '<script type="text/javascript">';
+            echo 'alert("Admin ID or Password not provided!");';
+            echo '</script>';
         }
     }
 

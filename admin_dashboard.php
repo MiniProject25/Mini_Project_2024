@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['admin_logged_in'])) {
+    header("Location: admin.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +24,32 @@ session_start();
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
+            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal" data-bs-toggle="modal">Logout</a>
         </div>
     </nav>
+
+    <!-- Librarian Logout Modal -->
+    <div class="modal" id="adminLogoutModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="php/confirmAdminDashLogout.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Logout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter Password to Logout</p>
+                        <input type="password" name="pwd-logout" id="pwd-logout" class="form-control"
+                            placeholder="Enter Password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Offcanvas Sidebar -->
     <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
