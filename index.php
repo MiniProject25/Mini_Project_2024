@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin_logged_in'])) {
+    header("Location: auth_librarian.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +21,36 @@
 </head>
 
 <body>
+    <!-- Logout from the librarian page -->
+    <div class="logout-library justify-content-end">
+        <button class="btn-logoutlib btn btn-danger" style="margin-right: 50px; margin-left: auto; display: block"
+            type="button">LOGOUT</button>
+    </div>
+
+    <!-- Librarian Logout Modal -->
+    <div class="modal libraryLogout" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="php/confirmLibraryLogout.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Logout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter Password to Logout</p>
+                        <input type="password" name="pwd-logout" id="pwd-logout" class="form-control"
+                            placeholder="Enter Password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- main page -->
     <div class="container">
         <h1 class="title">LIBRARY ATTENDANCE SYSTEM</h1>
         <div class="row">

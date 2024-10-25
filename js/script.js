@@ -17,6 +17,39 @@ $(document).ready(function () {
         allowClear: true,
         matcher: matchCustom
     });
+
+    $('.btn-logoutlib').on('click', function () {
+        $('.libraryLogout').modal('show');
+    });
+
+    // $('.confirmLibraryLogout').on('click', function () {
+    //     let pwd = $('#pwd-logout').val();
+
+    //     if (pwd) {
+    //             $.ajax({
+    //                 url: './php/confirmLibraryLogout.php',
+    //                 data: { pwd: pwd },
+    //                 dataType: 'json',
+
+    //                 success: function (response) {
+    //                     console.log(response.message);
+                        // window.location.href = 'login.html'; 
+
+                        // window.history.pushState(null, null, window.location.href);  
+                        // window.onpopstate = function () {
+                        //     window.history.pushState(null, null, window.location.href);  
+                        // };
+    //                 },
+    //                 error: function (response) {
+    //                     console.log(response.message);
+    //                     alert('Incorrect Password');
+    //                     $('#pwd-logout').val('');
+    //                 }
+    //             });
+    //     } else {
+    //         alert("Please enter the password");
+    //     }
+    // });
 });
 
 // Adding record to the Data Table
