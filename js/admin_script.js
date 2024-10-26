@@ -1,7 +1,24 @@
 $(document).ready(function () {
-    // $('.logout_admin_dash').on('click', function () {
-    //     $('adminLibrary').modal('show');
-    // });
+
+    // promotion of students
+    $('#promote1st').on('click', function() {
+        $.ajax({
+            url: "php/promotion/promote1stYear.php",
+            type: "GET"
+        })
+    });
+    $('#promote2nd').on('click', function() {
+        $.ajax({
+            url: "php/promotion/promote2ndYear.php",
+            type: "GET"
+        })
+    });
+    $('#promote3rd').on('click', function() {
+        $.ajax({
+            url: "php/promotion/promote3rdYear.php",
+            type: "GET"
+        })
+    });
 
     $('#continueEditBtn').on('click', function () {
         // handleContinue();

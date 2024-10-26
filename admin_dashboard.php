@@ -24,7 +24,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
-            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal" data-bs-toggle="modal">Logout</a>
+            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
+                data-bs-toggle="modal">Logout</a>
         </div>
     </nav>
 
@@ -69,6 +70,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <hr>
                         <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Edit</a>
+                        <hr>
+                        <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Promote Students</a>
                         <hr>
                     </li>
                 </ul>
@@ -172,7 +176,42 @@ if (!isset($_SESSION['admin_logged_in'])) {
     </main>
 
     <!-- Sidebar Modals -->
-    <!-- Import Modal -->
+    <!-- Promote Modal -->
+    <div class="modal fade" id="promoteModal" tabindex="-1" aria-labelledby="promoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="promoteModalLabel">Promote Students</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for File Upload -->
+                    <form method="POST" action4="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <!-- <input type="text" value="1" hidden> -->
+                                    <button id="promote1st" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
+                                        Year</button>
+                                </div>
+                                <div class="col-4">
+                                    <!-- <input type="text" value="2" hidden> -->
+                                    <button id="promote2nd" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
+                                        Year</button>
+                                </div>
+                                <div class="col-4">
+                                    <!-- <input type="text" value="3" hidden> -->
+                                    <button id="promote3rd" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
+                                        Year</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
