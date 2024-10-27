@@ -25,9 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </script>';
     } else {
         // echo json_encode(['success' => false, 'message' => "Invalid password"]);  
-        echo '<script type="text/javascript">';
-        echo 'alert("Invalid Password!");';
-        echo '</script>';
+        echo '<script type="text/javascript">
+                alert("Invalid Password!");
+                window.location.href = "../admin_dashboard.php";
+            </script>';
         // header('location: ../admin_dashboard.php');
     }
 
