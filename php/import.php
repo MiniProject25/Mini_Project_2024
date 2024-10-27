@@ -1,10 +1,9 @@
 <?php
 session_start();
-// Include database connection
 include 'db_connection.php';
 
 // Include PhpSpreadsheet library
-require 'C:/wamp64/www/vendor/autoload.php'; // Adjust path as necessary
+require 'C:/wamp64/www/vendor/autoload.php'; 
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -41,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             if ($x == '4CB') {
                                 $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                                $stmt->bind_param("ssssisi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
                                 $stmt->execute();
                             } else {
                                 continue;
@@ -71,8 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($usn && $sname) {
 
                         if ($x == '4CB') {
-                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("sssssss", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            $stmt->bind_param("ssssisi", $usn, $sname, $branch, $section, $regyear, $entrykey, $cyear);
                             $stmt->execute();
                         } else {
                             continue;
@@ -95,6 +94,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Close connection
 $conn->close();
-?>
