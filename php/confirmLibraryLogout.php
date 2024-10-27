@@ -24,12 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     };
             </script>';
     } else {
-        // echo json_encode(['success' => false, 'message' => "Invalid password"]);  
         echo '<script type="text/javascript">
                 alert("Invalid Password!");
                 window.location.href = "../index.php";
             </script>';
-        // header('location: ../index.php');
     }
 
     $stmt->close();
