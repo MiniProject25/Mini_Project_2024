@@ -4,22 +4,47 @@ $(document).ready(function () {
     $('#promote1st').on('click', function() {
         $.ajax({
             url: "php/promotion/promote1stYear.php",
-            type: "GET"
+            type: "GET",
+            dataType: 'json',
+
+            success: function(response) {
+                alert(response.message);
+            },
+            error: function(response) {
+                alert(response.message)
+            }
         })
     });
     $('#promote2nd').on('click', function() {
         $.ajax({
             url: "php/promotion/promote2ndYear.php",
-            type: "GET"
+            type: "GET",
+            dataType: 'json',
+
+            success: function(response) {
+                alert(response.message);
+            },
+            error: function(response) {
+                alert(response.message)
+            }
         })
     });
     $('#promote3rd').on('click', function() {
         $.ajax({
             url: "php/promotion/promote3rdYear.php",
-            type: "GET"
+            type: "GET",
+            dataType: 'json',
+
+            success: function(response) {
+                alert(response.message);
+            },
+            error: function(response) {
+                alert(response.message)
+            }
         })
     });
 
+    // editing student details
     $('#continueEditBtn').on('click', function () {
         // handleContinue();
         $('#editModal').modal('hide');

@@ -265,7 +265,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" placeholder="Enter Year of Registration" id="regyear" name="regyear"
+                        <input type="text" placeholder="Enter Year of Registration" name="regyear"
                             class="form-control" required><br>
 
                         <label for="section">Section:</label>
@@ -326,13 +326,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- Hidden fields that are shown based on radio selection -->
                         <div id="regYearField" class="d-none">
                             <label for="regyear">Registration Year:</label>
-                            <input type="text" id="regyear" name="regyear"
+                            <input type="text" name="regyear"
                                 placeholder="Enter Year of Registration"><br><br>
                         </div>
 
                         <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
-                            <input type="text" id="usn" name="usn" placeholder="Enter USN"><br><br>
+                            <input type="text" name="usn" placeholder="Enter USN"><br><br>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -357,11 +357,11 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
-                            <input id="editRadio" type="radio" name="choice" value="setOfStudents" required>
+                            <input type="radio" name="choice" value="setOfStudents" required>
                             Update students
                         </label><br>
                         <label>
-                            <input id="editRadio" type="radio" name="choice" value="editStudent" required>
+                            <input type="radio" name="choice" value="editStudent" required>
                             Edit a student
                         </label><br><br>
                     </div>
@@ -390,7 +390,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <input type="text" name="regyear" id="regyear" placeholder="Enter Year of Registration"
                                 class="form-control" style="width:100%"><br>
                             <label for="cyear">Year:</label>
-                            <select name="cyear" id="cyear" class="form-control" required>
+                            <select name="cyear" class="form-control" required>
                                 <option selected disabled value="">Select Updated Year</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
