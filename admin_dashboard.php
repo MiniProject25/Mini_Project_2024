@@ -69,7 +69,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             class="nav-link px-3 active">Remove Student(s)</a>
                         <hr>
                         <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
-                            class="nav-link px-3 active">Edit</a>
+                            class="nav-link px-3 active">Edit Student(s)</a>
                         <hr>
                         <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Promote Students</a>
@@ -255,10 +255,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br> -->
                         <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control"
                             required><br>
-                        <!-- Updated name to 'name' -->
 
                         <label for="branch">Branch:</label>
-                        <select name="branch" id="branch" class="form-control" placeholder="Enter Branch"
+                        <select name="branch" id="branch_add" class="form-control" placeholder="Enter Branch"
                             style="width: 100%" required>
                             <option value="" selected disabled>Select Branch</option>
                         </select>
@@ -316,20 +315,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- Content for Remove Student -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" id="remove_set" name="removechoice" value="option1" required> Remove
-                            a set of students
+                            <input type="radio" id="remove_4th" name="removechoice" value="option1" required> Remove 4th Year
                         </label><br>
                         <label>
                             <input type="radio" id="remove_one" name="removechoice" value="option2" required> Remove
                             a student
                         </label><br><br>
+                        
                         <!-- Hidden fields that are shown based on radio selection -->
-                        <div id="regYearField" class="d-none">
-                            <label for="regyear">Registration Year:</label>
-                            <input type="text" name="regyear"
-                                placeholder="Enter Year of Registration"><br><br>
-                        </div>
-
                         <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
                             <input type="text" name="usn" placeholder="Enter USN"><br><br>
