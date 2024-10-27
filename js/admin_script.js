@@ -57,6 +57,7 @@ $(document).ready(function () {
         }
     });
 
+    // editing student information
     let usnInput; // stores the usn of the student whose details are being edited.
     $('#processUSN').on('click', function (e) {
         e.preventDefault();
@@ -89,6 +90,7 @@ $(document).ready(function () {
         });
     });
 
+    // processing edited information
     $('#submit_edit_btn').on('click', function () {
         let usn = usnInput;
         let sname = $('#name_edit').val();
@@ -113,22 +115,23 @@ $(document).ready(function () {
         });
     });
 
+    // fetching branches from the DB
     $.ajax({
         url: './php/fetch_branches.php',
         method: 'GET',
         success: function (response) {
             $('#branch').append(response);
             $('#branch_edit').append(response);
+            $('#branch_add').append(response);
         }
     });
 
+    // radio selection
     $('input[name="removechoice"]').on('change', function () {
-        if ($('#remove_set').is(':checked')) {
-            $('#regYearField').removeClass('d-none');
-            $('#usnField').addClass('d-none');
-        } else if ($('#remove_one').is(':checked')) {
+        if ($('#remove_one').is(':checked')) {
             $('#usnField').removeClass('d-none');
-            $('#regYearField').addClass('d-none');
+        }else if($('#remove_4th').is(':checked')) {
+            $('#usnField').addClass('d-none');
         }
     });
 
