@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $x = substr($usn, 0, 3);
 
-                        // Only proceed if $usn and $sname are not null
+                        // Only proceed if $usn and $sname are notNull
                         if ($usn && $sname) {
 
                             if ($x == '4CB') {
