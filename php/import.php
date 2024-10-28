@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             if ($x == '4CB') {
                                 $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("ssssisi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                                $stmt->bind_param("ssssssi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
                                 $stmt->execute();
                             } else {
                                 continue;
