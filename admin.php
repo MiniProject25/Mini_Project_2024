@@ -117,6 +117,7 @@ session_start(); # helps to remember who signed up
                     <input id="Password" type="password" name="password" required><br>
                     <br>
                     <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
+                    <button type="reset" class="btn btn-danger" name="reset">RESET</button>
                 </form>
             </div>
         </div>

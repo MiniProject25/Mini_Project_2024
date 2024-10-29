@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    // clearing stat form
+    $('#reset_stat_form').on('click', function() {
+        $('#statsInfo').find('input[type="date"]').val('');
+        $('#statsInfo').find('select').prop('selectedIndex', 0);
+        getStats();
+    });
+
     // promotion of students
     $('#promote1st').on('click', function() {
         $.ajax({
@@ -149,7 +156,11 @@ $(document).ready(function () {
     });
 
     // Fetch Graphs (statistics)
-    $('.statInfo').on('input change', 'input[type="date"]',function () {
+    $('.statInfo').on('input change', 'input[type="date"], select',function () {
+        getStats();
+    });
+
+    function getStats() {
         let dateFrom = $('#from_date').val();
         let dateTo = $('#to_date').val();
         let branch = $('#branch_stat').val();
@@ -196,7 +207,7 @@ $(document).ready(function () {
                 });
             }
         });
-    });
+    }
 
     var table=$('#dbtable').DataTable({
         paging: false,           // Disable pagination
