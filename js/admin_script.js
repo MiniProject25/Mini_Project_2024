@@ -123,6 +123,7 @@ $(document).ready(function () {
             $('#branch').append(response);
             $('#branch_edit').append(response);
             $('#branch_add').append(response);
+            $('#branch_stat').append(response);
         }
     });
 
@@ -148,14 +149,16 @@ $(document).ready(function () {
     });
 
     // Fetch Graphs (statistics)
-    $('#fetchDataBtn').on('click', function () {
+    $('.statInfo').on('input change', 'input[type="date"]',function () {
         let dateFrom = $('#from_date').val();
         let dateTo = $('#to_date').val();
+        let branch = $('#branch_stat').val();
+        let cyear = $('#Cyear_edit').val();
 
         $.ajax({
             url: 'php/fetch_statistics.php',
             type: 'POST',
-            data: { date_from: dateFrom, date_to: dateTo },
+            data: { date_from: dateFrom, date_to: dateTo, branch: branch, cyear: cyear },
             dataType: 'json',
             success: function (response) {
                 let categories = [];
