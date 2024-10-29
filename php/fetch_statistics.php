@@ -3,6 +3,8 @@ include 'db_connection.php';
 
 $date_from = $_POST['date_from'];
 $date_to = $_POST['date_to'];
+$branch = $_POST['branch'];
+$cyear = $_POST['cyear'];
 
 $query = "SELECT HOUR(TimeIn) as hour, COUNT(*) as student_count 
           FROM history
