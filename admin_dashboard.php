@@ -100,22 +100,29 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- Statistics Body -->
                         <div id="statistics-content">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 statInfo">
                                     <form action="" method="POST">
                                         <label for="from_date">From</label>
                                         <input type="date" name="date_from" id="from_date" class="me-auto">
                                         <label for="to_date" class="ms-auto ps-3">To</label>
                                         <input type="date" name="date_to" id="to_date">
+                                        <label for="branch" class="ps-3">Branch</label>
+                                        <select name="branch" id="branch_stat" placeholder="Enter Branch" required>
+                                            <option value="" selected disabled>Select Branch</option>
+                                        </select>
+                                        <label for="Cyear" class="ps-3">Year:</label> 
+                                        <select name="Cyear" id="Cyear_edit">
+                                            <option value="all" selected>All</option>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                        </select>
                                     </form>
                                 </div>
                                 <div id="student-access-chart" style="width: 100%; height: 400px;"></div>
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-fluid ms-auto me-auto">
-                                    <button type="button" id="fetchDataBtn" class="btn btn-primary">Accept</button>
-                                </div>
-                            </div>
                         </div>
                         <!-- DB Body -->
                         <div id="db-content" class="d-none">
@@ -354,7 +361,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <p>Please select an option:</p>
                         <label>
                             <input type="radio" name="choice" value="setOfStudents" required>
-                            Update students
+                            Update 1st Year
                         </label><br>
                         <label>
                             <input type="radio" name="choice" value="editStudent" required>
