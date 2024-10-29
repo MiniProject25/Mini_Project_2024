@@ -45,7 +45,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                        <button type="submit" onclick="confirmation('#libLogOutForm','log out')" form="libLogOutForm" class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
@@ -68,8 +68,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Remove Student(s)</a>
                         <hr>
-                        <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
-                            class="nav-link px-3 active">Edit Student(s)</a>
+                        <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="nav-link px-3 active">Edit
+                            Student(s)</a>
                         <hr>
                         <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Promote Students</a>
@@ -123,7 +123,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="db-filters d-flex align-items-center justify-content-between">
                                 <div class="db-year">
                                     <label for="Cyear">Year:</label>
-                                    <select name="Cyear" id="Cyear" class="form-control">
+                                    <select type="submit" name="Cyear" id="Cyear" class="form-control">
                                         <option value="" selected>All</option>
                                         <option value="1">I</option>
                                         <option value="2">II</option>
@@ -133,13 +133,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 </div>
                                 <div class="db-branch">
                                     <label for="branch">Branch:</label>
-                                    <select name="branch" id="branch" class="form-control">
+                                    <select tyoe="submit" name="branch" id="branch" class="form-control">
                                         <option value="" selected>All</option>
                                     </select>
                                 </div>
                                 <div class="db-section">
                                     <label for="section">Section:</label>
-                                    <select name="section" id="section" class="form-control">
+                                    <select type="submit" name="section" id="section" class="form-control">
                                         <option value="" selected>All</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
@@ -191,17 +191,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <!-- <input type="text" value="1" hidden> -->
-                                    <button id="promote1st" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
+                                    <button id="promote1st" onclick="confirmation('#promote1stForm','promote 1st years')" form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="2" hidden> -->
-                                    <button id="promote2nd" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
+                                    <button id="promote2nd" onclick="confirmation('#promote2rdForm','promote 2rd years')" form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="3" hidden> -->
-                                    <button id="promote3rd" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
+                                    <button id="promote3rd" onclick="confirmation('#promote3rdForm','promote 3rd years')" form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
                                         Year</button>
                                 </div>
                             </div>
@@ -212,6 +212,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
+    <!-- Import Modal -->
     <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -228,7 +229,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="importFileForm" class="btn btn-primary">Import</button>
+                    <button type="submit" onclick="confirmation('#importFileForm','import file')" form="importFileForm"
+                        class="btn btn-primary">Import</button>
                 </div>
             </div>
         </div>
@@ -264,8 +266,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <br>
 
                         <label for="regyear">Registration Year:</label>
-                        <input type="text" placeholder="Enter Year of Registration" name="regyear"
-                            class="form-control" required><br>
+                        <input type="text" placeholder="Enter Year of Registration" name="regyear" class="form-control"
+                            required><br>
 
                         <label for="section">Section:</label>
                         <select name="section" id="section" class="form-control">
@@ -294,7 +296,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary closeAddStudentModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="addStudentForm" class="btn btn-primary">Add</button>
+                    <button type="submit" onclick="confirmation('#addStudentForm','Add Student')" form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
@@ -315,13 +317,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- Content for Remove Student -->
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" id="remove_4th" name="removechoice" value="option1" required> Remove 4th Year
+                            <input type="radio" id="remove_4th" name="removechoice" value="option1" required> Remove 4th
+                            Year
                         </label><br>
                         <label>
                             <input type="radio" id="remove_one" name="removechoice" value="option2" required> Remove
                             a student
                         </label><br><br>
-                        
+
                         <!-- Hidden fields that are shown based on radio selection -->
                         <div id="usnField" class="d-none">
                             <label for="usn">USN:</label>
@@ -331,7 +334,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary closeRemoveModal"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Remove</button>
+                        <button type="submit" onclick="confirmation('#removeStudentForm','remove student(s)')" form="removeStudentForm" class="btn btn-danger">Remove</button>
                     </div>
                 </form>
             </div>
@@ -487,6 +490,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <?php unset($_SESSION['message']); ?>  // Clear the session message
             }
         });
+
+        function confirmation(formSelector,txt) {
+            const isConfirmed = confirm("Are you sure you want to " + txt + "?");
+
+            if (isConfirmed) {
+                $(formSelector).submit();
+            } else {
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+        }
 
         $('.closeRemoveModal').on('click', function () {
             $('#regYearField').addClass('d-none');

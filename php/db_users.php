@@ -3,6 +3,8 @@ include 'db_connection.php';
 
 $data=array();
 
+
+
 $sql="SELECT USN,Sname,Branch,RegYear,Section,Cyear FROM users";
 $result=$conn->query($sql);
 
