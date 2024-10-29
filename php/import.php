@@ -35,12 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $x = substr($usn, 0, 3);
 
-                        // Only proceed if $usn and $sname are not null
+                        // Only proceed if $usn and $sname are notNull
                         if ($usn && $sname) {
 
                             if ($x == '4CB') {
                                 $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("ssssisi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                                $stmt->bind_param("ssssssi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
                                 $stmt->execute();
                             } else {
                                 continue;
