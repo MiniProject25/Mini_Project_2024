@@ -3,7 +3,7 @@ session_start();
 include 'db_connection.php';
 
 // Include PhpSpreadsheet library
-require 'C:/wamp64/www/vendor/autoload.php'; 
+require 'C:/wamp64/www/vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -25,22 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (($handle = fopen($fileTmpPath, "r")) !== false) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== false) {
                         // Sanitize and check if data exists before inserting
-                        $usn = isset($data[0]) ? $data[0] : null;
-                        $sname = isset($data[1]) ? $data[1] : null;
-                        $branch = isset($data[2]) ? $data[2] : null;
-                        $regyear = isset($data[3]) ? $data[3] : null;
-                        $section = isset($data[4]) ? $data[4] : null;
-                        $cyear = isset($data[5]) ? $data[5] : null;
-                        $entrykey = substr($usn,-3);
-
+                        $serial = isset($data[0]) ? $data[0] : null;
+                        $usn = isset($data[1]) ? $data[1] : null;
                         $x = substr($usn, 0, 3);
 
                         // Only proceed if $usn and $sname are notNull
-                        if ($usn && $sname) {
+                        if ($usn) {
 
-                            if ($x!='USN' || $x!='usn' || $x!='Uni') {
-                                $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, regyear, section, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("ssssssi", $usn, $sname, $branch, $regyear, $section, $entrykey, $cyear);
+                            if ($x != 'USN' || $x != 'usn' || $x != 'Uni') {
+                                $stmt = $conn->prepare("UPDATE users SET usn=$usn WHERE usn=$serial");
+                                $stmt->bind_param("ss", $serial, $usn);
                                 $stmt->execute();
                             } else {
                                 continue;
@@ -56,22 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 foreach ($sheetData as $row) {
                     // Sanitize and check if data exists before inserting
-                    $usn = isset($row[0]) ? $row[0] : null;
-                    $sname = isset($row[1]) ? $row[1] : null;
-                    $branch = isset($row[2]) ? $row[2] : null;
-                    $regyear = isset($row[3]) ? $row[3] : null;
-                    $section = isset($row[4]) ? $row[4] : null;
-                    $cyear = isset($row[5]) ? $row[5] : null;
-                    $entrykey = substr($usn, -3);
-
+                    $serial = isset($row[0]) ? $row[0] : null;
+                    $usn = isset($row[1]) ? $row[1] : null;
                     $x = substr($usn, 0, 3);
 
-                    // Only proceed if $usn and $sname are not null
-                    if ($usn && $sname) {
+                    // Only proceed if $usn are not null
+                    if ($usn) {
 
-                        if ($x!='USN' || $x!='usn' || $x!='Uni') {
-                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("ssssisi", $usn, $sname, $branch, $section, $regyear, $entrykey, $cyear);
+                        if ($x != 'USN' || $x != 'usn' || $x != 'Uni') {
+                            $stmt = $conn->prepare("UPDATE users SET usn=? WHERE usn=?");
+                            $stmt->bind_param("ss", $usn, $serial);
                             $stmt->execute();
                         } else {
                             continue;

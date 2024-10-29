@@ -49,8 +49,8 @@ $(document).ready(function () {
         // handleContinue();
         $('#editModal').modal('hide');
         const option = $('input[name="choice"]:checked').val();
-        if (option == "setOfStudents") {
-            $('#editSetModal').modal('show');
+        if (option == "updateStudent") {
+            $('#updateModal').modal('show');
         }
         else if (option == "editStudent") {
             $('#editOneModal').modal('show');
@@ -236,3 +236,14 @@ $(document).ready(function () {
         }
     });
 });
+
+function confirmation(event,formSelector,txt) {
+    const isConfirmed = confirm("Are you sure you want to " + txt + "?");
+
+    if (isConfirmed) {
+        $(formSelector).submit();
+    } else {
+        event.preventDefault(); // Prevent form submission
+        return false;
+    }
+}
