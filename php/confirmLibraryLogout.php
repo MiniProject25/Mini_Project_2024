@@ -4,7 +4,7 @@ include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pwd = $_POST['pwd-logout'];
-    $admin_id = $_SESSION['admin_id'];
+    $admin_id = $_SESSION['libadmin_id'];
 
     $sql = "SELECT pass_hash FROM admin WHERE admin_id = ?";
     $stmt = $conn->prepare($sql);

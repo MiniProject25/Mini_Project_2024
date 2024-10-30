@@ -157,58 +157,77 @@ $(document).ready(function () {
 
     // Fetch Graphs (statistics)
     $('.statInfo').on('input change', 'input[type="date"], select',function () {
-        getStats();
+        libUsagePerHour();
+        libVisitCount();
     });
 
-    function getStats() {
+    // fetch library usage per hour
+    function libUsagePerHour() {
         let dateFrom = $('#from_date').val();
         let dateTo = $('#to_date').val();
         let branch = $('#branch_stat').val();
         let cyear = $('#Cyear_edit').val();
-
+        
         $.ajax({
-            url: 'php/fetch_statistics.php',
+            url: 'php/Stats/libUsagePerHour.php',
             type: 'POST',
             data: { date_from: dateFrom, date_to: dateTo, branch: branch, cyear: cyear },
             dataType: 'json',
             success: function (response) {
                 let categories = [];
                 let data = [];
-
+                
                 response.forEach(function (item) {
                     categories.push(item.hour + ":00");
                     data.push(parseInt(item.student_count));
                 });
-
+                
                 // Render the Highcharts graph
-                Highcharts.chart('student-access-chart', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Library Access Per Hour'
-                    },
-                    xAxis: {
-                        categories: categories,
-                        title: {
-                            text: 'Time (Hour)'
+                Highcharts.chart('lib-usage-per-hour', {
+                    chart: { type: 'column' },
+                    title: { text: 'Library Access Per Hour' },
+                    xAxis: { categories: categories, title: { text: 'Time (Hour)' } },
+                    yAxis: { min: 0, title: { text: 'Number of Students' } },
+                    series: [{ name: 'Students', data: data }],
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{y}'
+                            }
                         }
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Number of Students'
-                        }
-                    },
+                    }
+                });
+            }
+        });
+    }
+
+    // total library visits BY date
+    function libVisitCount() {
+        let dateFrom = $('#from_date').val();
+        let dateTo = $('#to_date').val();
+
+        $.ajax({
+            url: 'php/Stats/libVisitCount.php',
+            type: 'POST',
+            data: { date_from: dateFrom, date_to: dateTo },
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart('statistics-chart', {
+                    chart: { type: 'line' },
+                    title: { text: 'Total Library Visits by Date' },
+                    xAxis: { type: 'datetime', title: { text: 'Date' } },
+                    yAxis: { title: { text: 'Visits' }, allowDecimals: false },
                     series: [{
-                        name: 'Students',
-                        data: data
+                        name: 'Visits',
+                        data: data.map(item => [new Date(item.Date).getTime(), item.visit_count])
                     }]
                 });
             }
         });
     }
 
+    // DB Table
     var table=$('#dbtable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
@@ -216,7 +235,7 @@ $(document).ready(function () {
         bLengthChange: false,    // Disable length change
         info: false              // Disable info text
     });
-
+    
     $.ajax({
         url: 'php/db_users.php',
         method:'GET',

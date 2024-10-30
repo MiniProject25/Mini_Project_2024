@@ -124,7 +124,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <button type="reset" id="reset_stat_form" class="btn btn-danger ms-3" style="padding: 1px">RESET</button>
                                     </form>
                                 </div>
-                                <div id="student-access-chart" style="width: 100%; height: 400px;"></div>
+                                <div id="lib-usage-per-hour" style="width: 100%;"></div>
+                                <div id="statistics-chart" style="width: 100%;"></div>
                             </div>
                             <br>
                         </div>
