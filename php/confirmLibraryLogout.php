@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $row = $result->fetch_assoc();
 
     if (password_verify($pwd, $row['pass_hash'])) {
-        $_SESSION = array();
-        session_destroy();
+        unset($_SESSION['libadmin_id']);
+        unset($_SESSION['library_logged_in']); 
         echo '<script type="text/JavaScript">  
                     window.location.href = "../auth_librarian.php"; 
                     window.history.pushState(null, null, window.location.href);  

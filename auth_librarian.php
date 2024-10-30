@@ -115,8 +115,8 @@ session_start();
                 $admin = $result->fetch_assoc();
                 // echo "Correct ID<br>";
                 if (password_verify($password, $admin['pass_hash'])) {
-                    $_SESSION['admin_logged_in'] = true;
-                    $_SESSION['admin_id'] = $admin['admin_id'];
+                    $_SESSION['library_logged_in'] = true;
+                    $_SESSION['libadmin_id'] = $admin['admin_id'];
                     header("Location: index.php");
                     exit;
                 } else {
