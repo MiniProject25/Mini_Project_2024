@@ -169,6 +169,8 @@ function loadActiveStudents() {
                     student.Branch,
                     student.Section,
                     student.Cyear,
+                    student.TimeIn,
+                    student.Date,
                     `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
                 ]).draw();
             });
@@ -249,4 +251,13 @@ function matchCustom(params, data) {
         return data;
     }
     return null;
+}
+
+function confirmation(event) {
+    const isConfirmed = confirm("Are you sure you want to Log out from the libraian page?");
+
+    if (!isConfirmed) {
+        event.preventDefault(); // Prevent form submission
+        return false;
+    }
 }

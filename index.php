@@ -43,7 +43,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                        <button type="submit" onclick="confirmation(event)" class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cancelLogout" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmLogout">Logout</button>
+                    <button type="button" onclick="confirmation()" class="btn btn-primary" id="confirmLogout">Logout</button>
                 </div>
             </div>
         </div>
@@ -163,6 +163,8 @@ if (!isset($_SESSION['library_logged_in'])) {
                     <th>Branch</th>
                     <th>Section</th>
                     <th>Year</th>
+                    <th>Time-in</th>
+                    <th>Date</th>
                     <th>Logout</th>
                 </tr>
             </thead>
@@ -197,7 +199,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                 paging: true,          // Enable pagination
                 searching: true,       // Enable search box
                 ordering: true,        // Enable column ordering
-                pageLength: 5,         // Set default number of rows per page
+                pageLength: 7,         // Set default number of rows per page
                 lengthMenu: [5, 10, 25, 50], // Page length options
             });
         });

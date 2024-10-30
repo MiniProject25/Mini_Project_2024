@@ -45,9 +45,11 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation('#libLogOutForm','log out')" form="libLogOutForm" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                        <button type="submit" onclick="confirmation(event,'', 'log out')"
+                            class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -111,7 +113,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="" selected disabled>Select Branch</option>
                                             <option value="">All</option>
                                         </select>
-                                        <label for="Cyear" class="ps-3">Year:</label> 
+                                        <label for="Cyear" class="ps-3">Year:</label>
                                         <select name="Cyear" id="Cyear_edit">
                                             <option value="" selected>All</option>
                                             <option value="1">I</option>
@@ -210,7 +212,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="3" hidden> -->
-                                    <button id="promote3rd" onclick="confirmation('#promote3rdForm','promote 3rd years')" form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
+                                    <button id="promote3rd" onclick="confirmation(event,'#promote3rdForm','promote 3rd years')" form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
                                         Year</button>
                                 </div>
                             </div>
@@ -238,7 +240,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation('#importFileForm','import file')" form="importFileForm"
+                    <button type="submit" onclick="confirmation(event,'#importFileForm','import file')" form="importFileForm"
                         class="btn btn-primary">Import</button>
                 </div>
             </div>
@@ -305,7 +307,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary closeAddStudentModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation('#addStudentForm','Add Student')" form="addStudentForm" class="btn btn-primary">Add</button>
+                    <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')" form="addStudentForm"
+                        class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
@@ -343,7 +346,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary closeRemoveModal"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation('#removeStudentForm','remove student(s)')" form="removeStudentForm" class="btn btn-danger">Remove</button>
+                        <button type="submit" onclick="confirmation(event,'#removeStudentForm','remove student(s)')"
+                            form="removeStudentForm" class="btn btn-danger">Remove</button>
                     </div>
                 </form>
             </div>
@@ -362,8 +366,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
-                            <input type="radio" name="choice" value="setOfStudents" required>
-                            Update 1st Year
+                            <input type="radio" name="choice" value="updateStudent" required>
+                            Update USN
                         </label><br>
                         <label>
                             <input type="radio" name="choice" value="editStudent" required>
@@ -380,35 +384,26 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-    <!-- EditSet Modal -->
-    <div class="modal fade" id="editSetModal" tabindex="-1" aria-labelledby="editSetModalLabel" aria-hidden="true">
+    <!-- Update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/EditSet.php" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editSetModalLabel">Edit Current Year Information</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group mb-3">
-                            <label for="regyear">Registration Year:</label>
-                            <input type="text" name="regyear" id="regyear" placeholder="Enter Year of Registration"
-                                class="form-control" style="width:100%"><br>
-                            <label for="cyear">Year:</label>
-                            <select name="cyear" class="form-control" required>
-                                <option selected disabled value="">Select Updated Year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Edit</button>
-                    </div>
-                </form>
+            <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Import Data for updating the USN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for File Upload -->
+                    <form id="updateFileForm" method="POST" action="php/update.php" enctype="multipart/form-data">
+                        <label for="file">Choose a text file:</label>
+                        <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="confirmation(event,'#updateFileForm','import file details')" form="updateFileForm"
+                        class="btn btn-primary">Import</button>
+                </div> 
             </div>
         </div>
     </div>
@@ -472,7 +467,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <div class="modal-footer d-none">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
+                            <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -500,17 +495,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <?php unset($_SESSION['message']); ?>  // Clear the session message
             }
         });
-
-        function confirmation(formSelector,txt) {
-            const isConfirmed = confirm("Are you sure you want to " + txt + "?");
-
-            if (isConfirmed) {
-                $(formSelector).submit();
-            } else {
-                event.preventDefault(); // Prevent form submission
-                return false;
-            }
-        }
 
         $('.closeRemoveModal').on('click', function () {
             $('#regYearField').addClass('d-none');
