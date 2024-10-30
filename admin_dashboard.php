@@ -76,6 +76,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Promote Students</a>
                         <hr>
+                        <a href="#" data-bs-target="#addBranchModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add/Remove a Branch</a>
+                        <hr>
                     </li>
                 </ul>
             </div>
@@ -121,10 +124,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="3">III</option>
                                             <option value="4">IV</option>
                                         </select>
-                                        <button type="reset" id="reset_stat_form" class="btn btn-danger ms-3" style="padding: 1px">RESET</button>
+                                        <button type="reset" id="reset_stat_form" class="btn btn-danger ms-3"
+                                            style="padding: 1px">RESET</button>
                                     </form>
                                 </div>
-                                <div id="lib-usage-per-hour" style="width: 100%;"></div>
+                                <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
+                                <hr>
                                 <div id="statistics-chart" style="width: 100%;"></div>
                             </div>
                             <br>
@@ -203,17 +208,26 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <!-- <input type="text" value="1" hidden> -->
-                                    <button id="promote1st" onclick="confirmation('#promote1stForm','promote 1st years')" form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
+                                    <button id="promote1st"
+                                        onclick="confirmation('#promote1stForm','promote 1st years')"
+                                        form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year --
+                                        2nd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="2" hidden> -->
-                                    <button id="promote2nd" onclick="confirmation('#promote2rdForm','promote 2rd years')" form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
+                                    <button id="promote2nd"
+                                        onclick="confirmation('#promote2rdForm','promote 2rd years')"
+                                        form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year --
+                                        3rd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="3" hidden> -->
-                                    <button id="promote3rd" onclick="confirmation(event,'#promote3rdForm','promote 3rd years')" form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year -- 4th
+                                    <button id="promote3rd"
+                                        onclick="confirmation(event,'#promote3rdForm','promote 3rd years')"
+                                        form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year --
+                                        4th
                                         Year</button>
                                 </div>
                             </div>
@@ -241,8 +255,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation(event,'#importFileForm','import file')" form="importFileForm"
-                        class="btn btn-primary">Import</button>
+                    <button type="submit" onclick="confirmation(event,'#importFileForm','import file')"
+                        form="importFileForm" class="btn btn-primary">Import</button>
                 </div>
             </div>
         </div>
@@ -308,8 +322,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary closeAddStudentModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')" form="addStudentForm"
-                        class="btn btn-primary">Add</button>
+                    <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')"
+                        form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
@@ -389,7 +403,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
+                <div class="modal-header">
                     <h5 class="modal-title" id="updateModalLabel">Import Data for updating the USN</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -402,9 +416,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation(event,'#updateFileForm','import file details')" form="updateFileForm"
-                        class="btn btn-primary">Import</button>
-                </div> 
+                    <button type="submit" onclick="confirmation(event,'#updateFileForm','import file details')"
+                        form="updateFileForm" class="btn btn-primary">Import</button>
+                </div>
             </div>
         </div>
     </div>
@@ -468,7 +482,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <div class="modal-footer d-none">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn" class="btn btn-danger">Save changes</button>
+                            <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn"
+                                class="btn btn-danger">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -476,7 +491,47 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-
+    <!-- Branch addition and Removal -->
+    <div class="modal" id="addBranchModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add/Remove Branch</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <p>Please select an option:</p>
+                        <label>
+                            <input type="radio" id="add_branch" name="branch_choice" value="addbranch" required> Add a
+                            Branch
+                        </label><br>
+                        <label>
+                            <input type="radio" id="remove_branch" name="branch_choice" value="removebranch" required>
+                            Remove
+                            a Branch
+                        </label><br><br>
+                        <!-- hidden field -->
+                        <div class="enter-branch-field d-none">
+                            <label for="">Enter the name of the Branch: </label>
+                            <input type="text" name="branch_name" id="branch_name">
+                        </div>
+                        <div class="select-branch-to-delete d-none">
+                            <label for="">Select Branch to Remove: </label>
+                            <select name="branch" id="branch_removal" class="form-control" placeholder="Enter Branch"
+                                style="width: 100%" required>
+                                <option value="" selected disabled>Select Branch</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Proceed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

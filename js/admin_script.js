@@ -1,7 +1,20 @@
 $(document).ready(function () {
+    // EMPTY GRAPH RENDERING
+    Highcharts.chart('statistics-chart', {
+        chart: { type: 'line' },
+        title: { text: 'Total Library Visits by Date' },
+        xAxis: { type: 'datetime', title: { text: 'Date' } },
+        yAxis: { title: { text: 'Visits' }, allowDecimals: false }
+    });
+    Highcharts.chart('lib-usage-per-hour', {
+        chart: { type: 'column' },
+        title: { text: 'Library Access Per Hour' },
+        xAxis: { title: { text: 'Time (Hour)' } },
+        yAxis: { min: 0, title: { text: 'Number of Students' } }
+    });
 
     // clearing stat form
-    $('#reset_stat_form').on('click', function() {
+    $('#reset_stat_form').on('click', function () {
         $('#statsInfo').find('input[type="date"]').val('');
         $('#statsInfo').find('select').prop('selectedIndex', 0);
         libUsagePerHour();
@@ -9,44 +22,44 @@ $(document).ready(function () {
     });
 
     // promotion of students
-    $('#promote1st').on('click', function() {
+    $('#promote1st').on('click', function () {
         $.ajax({
             url: "php/promotion/promote1stYear.php",
             type: "GET",
             dataType: 'json',
 
-            success: function(response) {
+            success: function (response) {
                 alert(response.message);
             },
-            error: function(response) {
+            error: function (response) {
                 alert(response.message)
             }
         })
     });
-    $('#promote2nd').on('click', function() {
+    $('#promote2nd').on('click', function () {
         $.ajax({
             url: "php/promotion/promote2ndYear.php",
             type: "GET",
             dataType: 'json',
 
-            success: function(response) {
+            success: function (response) {
                 alert(response.message);
             },
-            error: function(response) {
+            error: function (response) {
                 alert(response.message)
             }
         })
     });
-    $('#promote3rd').on('click', function() {
+    $('#promote3rd').on('click', function () {
         $.ajax({
             url: "php/promotion/promote3rdYear.php",
             type: "GET",
             dataType: 'json',
 
-            success: function(response) {
+            success: function (response) {
                 alert(response.message);
             },
-            error: function(response) {
+            error: function (response) {
                 alert(response.message)
             }
         })
@@ -107,8 +120,6 @@ $(document).ready(function () {
         let regyear = $('#regyear_edit').val();
         let cyear = $('#cyear_edit').val();
 
-        console.log("USN:", usn, "Name:", sname, "Branch:", branch, "Section:", section, "RegYear:", regyear, "Cyear:", cyear);
-
         $.ajax({
             url: 'php/EditOne.php',
             method: 'POST',
@@ -132,15 +143,27 @@ $(document).ready(function () {
             $('#branch_edit').append(response);
             $('#branch_add').append(response);
             $('#branch_stat').append(response);
+            $('#branch_removal').append(response);
         }
     });
 
-    // radio selection
+    // radio selection when removing students
     $('input[name="removechoice"]').on('change', function () {
         if ($('#remove_one').is(':checked')) {
             $('#usnField').removeClass('d-none');
-        }else if($('#remove_4th').is(':checked')) {
+        } else if ($('#remove_4th').is(':checked')) {
             $('#usnField').addClass('d-none');
+        }
+    });
+
+    // radio selection when adding / removing branch
+    $('input[name="branch_choice"]').on('change', function () {
+        if ($('#add_branch').is(':checked')) {
+            $('.enter-branch-field').removeClass('d-none');
+            $('.select-branch-to-delete').addClass('d-none');
+        } else if ($('#remove_branch').is(':checked')) {
+            $('.select-branch-to-delete').removeClass('d-none');
+            $('.enter-branch-field').addClass('d-none');
         }
     });
 
@@ -157,7 +180,7 @@ $(document).ready(function () {
     });
 
     // Fetch Graphs (statistics)
-    $('.statInfo').on('input change', 'input[type="date"], select',function () {
+    $('.statInfo').on('input change', 'input[type="date"], select', function () {
         libUsagePerHour();
         libVisitCount();
     });
@@ -168,7 +191,7 @@ $(document).ready(function () {
         let dateTo = $('#to_date').val();
         let branch = $('#branch_stat').val();
         let cyear = $('#Cyear_edit').val();
-        
+
         $.ajax({
             url: 'php/Stats/libUsagePerHour.php',
             type: 'POST',
@@ -177,12 +200,12 @@ $(document).ready(function () {
             success: function (response) {
                 let categories = [];
                 let data = [];
-                
+
                 response.forEach(function (item) {
                     categories.push(item.hour + ":00");
                     data.push(parseInt(item.student_count));
                 });
-                
+
                 // Render the Highcharts graph
                 Highcharts.chart('lib-usage-per-hour', {
                     chart: { type: 'column' },
@@ -215,34 +238,42 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 Highcharts.chart('statistics-chart', {
-                    chart: { type: 'line' },
+                    chart: { type: 'column' },
                     title: { text: 'Total Library Visits by Date' },
                     xAxis: { type: 'datetime', title: { text: 'Date' } },
                     yAxis: { title: { text: 'Visits' }, allowDecimals: false },
                     series: [{
                         name: 'Visits',
                         data: data.map(item => [new Date(item.Date).getTime(), item.visit_count])
-                    }]
+                    }],
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{y}'
+                            }
+                        }
+                    }
                 });
             }
         });
     }
 
     // DB Table
-    var table=$('#dbtable').DataTable({
+    var table = $('#dbtable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
         ordering: false,
         bLengthChange: false,    // Disable length change
         info: false              // Disable info text
     });
-    
+
     $.ajax({
         url: 'php/db_users.php',
-        method:'GET',
-        dataType:'json',
-        success:function(data){
-            data.forEach(function(student){
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            data.forEach(function (student) {
                 table.row.add([
                     student.USN,
                     student.Sname,
@@ -256,19 +287,19 @@ $(document).ready(function () {
             $('#searchInput').on('keyup', function () {
                 table.search(this.value).draw(); // Update DataTable with the search input
             });
-            
+
             // Handle filter changes (optional)
             $('#Cyear, #section, #branch').on('change', function () {
                 // Implement filtering logic here as needed
             });
         },
-        error: function(jqXHR, textStatus, errorThrown){
-            console.error('Error fetching data: '+ textStatus,errorThrown);
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching data: ' + textStatus, errorThrown);
         }
     });
 });
 
-function confirmation(event,formSelector,txt) {
+function confirmation(event, formSelector, txt) {
     const isConfirmed = confirm("Are you sure you want to " + txt + "?");
 
     if (isConfirmed) {
