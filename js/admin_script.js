@@ -4,7 +4,8 @@ $(document).ready(function () {
     $('#reset_stat_form').on('click', function() {
         $('#statsInfo').find('input[type="date"]').val('');
         $('#statsInfo').find('select').prop('selectedIndex', 0);
-        getStats();
+        libUsagePerHour();
+        libVisitCount();
     });
 
     // promotion of students
