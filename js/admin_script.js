@@ -268,7 +268,6 @@ $(document).ready(function () {
         info: false              // Disable info text
     });
 
-<<<<<<< HEAD
     function handleInputChange() {
         const searchTerm = $('#searchInput').val().trim(); // Get the current input value
         const year = $('#Cyear').val(); // Get selected year
@@ -318,37 +317,6 @@ $(document).ready(function () {
             }
         });
     }    
-=======
-    $.ajax({
-        url: 'php/db_users.php',
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            data.forEach(function (student) {
-                table.row.add([
-                    student.USN,
-                    student.Sname,
-                    student.Branch,
-                    student.RegYear,
-                    student.Section,
-                    student.Cyear
-                ]).draw();
-            });
-
-            $('#searchInput').on('keyup', function () {
-                table.search(this.value).draw(); // Update DataTable with the search input
-            });
-
-            // Handle filter changes (optional)
-            $('#Cyear, #section, #branch').on('change', function () {
-                // Implement filtering logic here as needed
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error('Error fetching data: ' + textStatus, errorThrown);
-        }
-    });
->>>>>>> 1c8b26ad4080fcf9f62d62dc15078b2f6b79a280
 });
 
 function confirmation(event, formSelector, txt) {
