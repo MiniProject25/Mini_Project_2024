@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php';
+include '../db_connection.php';
 
 $date_from = $_POST['date_from'];
 $date_to = $_POST['date_to'];
@@ -7,8 +7,10 @@ $branch = $_POST['branch'];
 $cyear = $_POST['cyear'];
 $data = [];
 
+// LIBRARY USAGE PER HOUR
 // if all the options are set (dates, branch and year)
 if (isset($date_from) && isset($date_to)) {
+
     // if branch and cyear is provided
     if (!empty($branch) && !empty($cyear)) {
         $query = "
