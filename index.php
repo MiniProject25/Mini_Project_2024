@@ -147,7 +147,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cancelLogout" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" onclick="confirmation()" class="btn btn-primary" id="confirmLogout">Logout</button>
+                    <button type="button" class="btn btn-primary" id="confirmLogout">Logout</button>
                 </div>
             </div>
         </div>

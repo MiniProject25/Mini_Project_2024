@@ -217,35 +217,55 @@ $(document).ready(function () {
         info: false              // Disable info text
     });
 
-    $.ajax({
-        url: 'php/db_users.php',
-        method:'GET',
-        dataType:'json',
-        success:function(data){
-            data.forEach(function(student){
-                table.row.add([
-                    student.USN,
-                    student.Sname,
-                    student.Branch,
-                    student.RegYear,
-                    student.Section,
-                    student.Cyear
-                ]).draw();
-            });
+    function handleInputChange() {
+        const searchTerm = $('#searchInput').val().trim(); // Get the current input value
+        const year = $('#Cyear').val(); // Get selected year
+        const branch = $('#branch').val(); // Get selected branch
+        const section = $('#section').val(); // Get selected section
 
-            $('#searchInput').on('keyup', function () {
-                table.search(this.value).draw(); // Update DataTable with the search input
-            });
-            
-            // Handle filter changes (optional)
-            $('#Cyear, #section, #branch').on('change', function () {
-                // Implement filtering logic here as needed
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            console.error('Error fetching data: '+ textStatus,errorThrown);
-        }
-    });
+        // Call your fetch data function with the current values
+        fetchTableData(searchTerm, year, branch, section);
+    }
+
+    $('#searchInput').on('keyup', handleInputChange);
+    $('#Cyear, #branch, #section').on('change', handleInputChange);
+
+    fetchTableData(); 
+
+    function fetchTableData(searchTerm = '', year = '', branch = '', section = '') {
+        $.ajax({
+            url: 'php/db_users.php',
+            method: 'GET',
+            data: {
+                search: searchTerm,
+                year: year,
+                branch: branch,
+                section: section
+            },
+            dataType: 'json',
+            success: function (data) {
+                table.clear();
+    
+                if (data && data.length > 0) {
+                    data.forEach(function (student) {
+                        table.row.add([
+                            student.USN,
+                            student.Sname,
+                            student.Branch,
+                            student.RegYear,
+                            student.Section,
+                            student.Cyear
+                        ]).draw();
+                    });
+                } else {
+                    table.row.add(['', 'No results found', '', '', '', '']).draw();
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching data: ' + textStatus, errorThrown);
+            }
+        });
+    }    
 });
 
 function confirmation(event,formSelector,txt) {
@@ -255,6 +275,20 @@ function confirmation(event,formSelector,txt) {
         $(formSelector).submit();
     } else {
         event.preventDefault(); // Prevent form submission
-        return false;
     }
 }
+
+$('.closeRemoveModal').on('click', function () {
+    $('#regYearField').addClass('d-none');
+    $('#usnField').addClass('d-none');
+    $('#remove_set, #remove_one').prop('checked', false);
+});
+
+$('.closeEditModal').on('click', function () {
+    // $('#editRadio').prop('checked', false);
+    $('#editStudentForm')[0].reset();
+});
+
+$('.closeAddStudentModal').on('click', function () {
+    $('#addStudentForm')[0].reset();
+});

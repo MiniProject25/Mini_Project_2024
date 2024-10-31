@@ -134,7 +134,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="db-filters d-flex align-items-center justify-content-between">
                                 <div class="db-year">
                                     <label for="Cyear">Year:</label>
-                                    <select type="submit" name="Cyear" id="Cyear" class="form-control">
+                                    <select name="Cyear" id="Cyear" class="form-control">
                                         <option value="" selected>All</option>
                                         <option value="1">I</option>
                                         <option value="2">II</option>
@@ -144,13 +144,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 </div>
                                 <div class="db-branch">
                                     <label for="branch">Branch:</label>
-                                    <select tyoe="submit" name="branch" id="branch" class="form-control">
+                                    <select name="branch" id="branch" class="form-control">
                                         <option value="" selected>All</option>
                                     </select>
                                 </div>
                                 <div class="db-section">
                                     <label for="section">Section:</label>
-                                    <select type="submit" name="section" id="section" class="form-control">
+                                    <select name="section" id="section" class="form-control">
                                         <option value="" selected>All</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
@@ -202,12 +202,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <!-- <input type="text" value="1" hidden> -->
-                                    <button id="promote1st" onclick="confirmation('#promote1stForm','promote 1st years')" form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
+                                    <button id="promote1st" onclick="confirmation(event,'#promote1stForm','promote 1st years')" form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="2" hidden> -->
-                                    <button id="promote2nd" onclick="confirmation('#promote2rdForm','promote 2rd years')" form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
+                                    <button id="promote2nd" onclick="confirmation(eveny,'#promote2ndForm','promote 2nd years')" form="promote2ndForm" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
@@ -395,8 +395,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <div class="modal-body">
                     <!-- Form for File Upload -->
                     <form id="updateFileForm" method="POST" action="php/update.php" enctype="multipart/form-data">
-                        <label for="file">Choose a text file:</label>
-                        <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
+                        <label for="ufile">Choose a text file:</label>
+                        <input type="file" name="ufile" id="ufile" class="form-control" accept=".csv,.xlsx" required><br>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -494,21 +494,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 alert(message);
                 <?php unset($_SESSION['message']); ?>  // Clear the session message
             }
-        });
-
-        $('.closeRemoveModal').on('click', function () {
-            $('#regYearField').addClass('d-none');
-            $('#usnField').addClass('d-none');
-            $('#remove_set, #remove_one').prop('checked', false);
-        });
-
-        $('.closeEditModal').on('click', function () {
-            // $('#editRadio').prop('checked', false);
-            $('#editStudentForm')[0].reset();
-        });
-
-        $('.closeAddStudentModal').on('click', function () {
-            $('#addStudentForm')[0].reset();
         });
     </script>
 

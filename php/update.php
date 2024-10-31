@@ -9,9 +9,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if file is uploaded
-    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['file']['tmp_name'];
-        $fileName = $_FILES['file']['name'];
+    if (isset($_FILES['ufile']) && $_FILES['ufile']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['ufile']['tmp_name'];
+        $fileName = $_FILES['ufile']['name'];
         $fileNameCmps = explode(".", $fileName);
         $fileExtension = strtolower(end($fileNameCmps));
 
@@ -27,14 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Sanitize and check if data exists before inserting
                         $serial = isset($data[0]) ? $data[0] : null;
                         $usn = isset($data[1]) ? $data[1] : null;
+                        $entrykey = substr($usn, -3);
                         $x = substr($usn, 0, 3);
-
-                        // Only proceed if $usn and $sname are notNull
+                        
+                        // Only proceed if $usn is notNull
                         if ($usn) {
 
-                            if ($x != 'USN' || $x != 'usn' || $x != 'Uni') {
-                                $stmt = $conn->prepare("UPDATE users SET usn=$usn WHERE usn=$serial");
-                                $stmt->bind_param("ss", $serial, $usn);
+                            if (strcasecmp($x, 'USN') && strcasecmp($x, 'Uni')) {
+                                $stmt = $conn->prepare("UPDATE users SET usn=? , entrykey=? WHERE usn=?");
+                                $stmt->bind_param("sss", $usn, $entrykey, $serial);
                                 $stmt->execute();
                             } else {
                                 continue;
@@ -52,14 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Sanitize and check if data exists before inserting
                     $serial = isset($row[0]) ? $row[0] : null;
                     $usn = isset($row[1]) ? $row[1] : null;
+                    $entrykey = substr($usn, -3);
                     $x = substr($usn, 0, 3);
 
-                    // Only proceed if $usn are not null
+                    // Only proceed if $usn is not null
                     if ($usn) {
 
-                        if ($x != 'USN' || $x != 'usn' || $x != 'Uni') {
-                            $stmt = $conn->prepare("UPDATE users SET usn=? WHERE usn=?");
-                            $stmt->bind_param("ss", $usn, $serial);
+                        if (strcasecmp($x, 'USN') && strcasecmp($x, 'Uni')) {
+                            $stmt = $conn->prepare("UPDATE users SET usn=? , entrykey=? WHERE usn=?");
+                            $stmt->bind_param("sss", $usn, $entrykey, $serial);
                             $stmt->execute();
                         } else {
                             continue;

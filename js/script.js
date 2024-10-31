@@ -55,25 +55,6 @@ $('#studentName').on('change', function () {
     $('#EntryKey').val('');
 });
 
-// Press Enter key to login
-$('#logoutModal').on('keypress', function (e) {
-    if (e.which === 13) {
-        e.preventDefault();
-        handleLogout();
-    }
-});
-
-// open modal when you click logout button
-$('#LibraryTable').on('click', '.logoutBtn', function () {
-    let usn = $(this).data('usn');
-
-    // Store the USN in a hidden input in the modal
-    $('#logoutUSN').val(usn);
-
-    // Show the confirmation modal
-    $('#logoutModal').modal('show');
-});
-
 // fetching students from the DB
 $('#section, #year, #branch').on('change', function () {
     let year = $('#year').val();
@@ -171,8 +152,22 @@ function loadActiveStudents() {
                     student.Cyear,
                     student.TimeIn,
                     student.Date,
-                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}">Logout</button>`
+                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}" data-name="${student.Sname}" data-timein="${student.TimeIn}">Logout</button>`
                 ]).draw();
+            });
+
+            $('#LibraryTable').off('click', '.logoutBtn').on('click', '.logoutBtn', function (event) {
+                const button = $(this);
+                const name = button.data('name');
+                const timeIn = button.data('timein');
+                const timeOut = new Date().toLocaleTimeString('en-GB');
+                
+                // Check for confirmation before proceeding with logout
+                if (studentConfirmation(name, timeIn, timeOut)) {
+                    // Proceed with logout actions
+                    $('#logoutUSN').val(button.data('usn'));
+                    $('#logoutModal').modal('show');
+                }
             });
         },
         error: function () {
@@ -257,7 +252,10 @@ function confirmation(event) {
     const isConfirmed = confirm("Are you sure you want to Log out from the libraian page?");
 
     if (!isConfirmed) {
-        event.preventDefault(); // Prevent form submission
-        return false;
+        event.preventDefault();
     }
+}
+
+function studentConfirmation(name, timeIn, timeOut) {
+    return confirm(`${name},\nYour login time is ${timeIn} and your logout time will be ${timeOut}.\nAre you sure you want log out?`);
 }
