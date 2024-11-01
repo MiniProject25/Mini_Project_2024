@@ -107,34 +107,55 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <div class="card-body">
                         <!-- Statistics Body -->
                         <div id="statistics-content">
-                            <div class="row">
-                                <div class="col-md-12 statInfo">
-                                    <form id="statsInfo" action="" method="POST">
+                            <form class="statInfo" id="statsInfo" action="" method="POST">
+                                <div class="row justify-content-center align-items-center g-2">
+                                    <div class="col-auto">
                                         <label for="from_date">From</label>
-                                        <input type="date" name="date_from" id="from_date" class="me-auto">
-                                        <label for="to_date" class="ms-auto ps-3">To</label>
-                                        <input type="date" name="date_to" id="to_date">
-                                        <label for="branch" class="ps-3">Branch</label>
-                                        <select name="branch" id="branch_stat" placeholder="Enter Branch" required>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input class="form-control" type="date" name="date_from" id="from_date">
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="to_date" class="ms-auto">To</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input class="form-control" type="date" name="date_to" id="to_date">
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="branch" class="ms-auto">Branch</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select class="form-select" name="branch" id="branch_stat"
+                                            placeholder="Enter Branch" required>
                                             <option value="" selected disabled>Select Branch</option>
                                             <option value="">All</option>
                                         </select>
-                                        <label for="Cyear" class="ps-3">Year:</label>
-                                        <select name="Cyear" id="Cyear_edit">
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="Cyear" class="ms-auto">Year:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select class="form-select" name="Cyear" id="Cyear_edit">
                                             <option value="" selected>All</option>
                                             <option value="1">I</option>
                                             <option value="2">II</option>
                                             <option value="3">III</option>
                                             <option value="4">IV</option>
                                         </select>
-                                        <button type="reset" id="reset_stat_form" class="btn btn-danger ms-3"
-                                            style="padding: 1px">RESET</button>
-                                    </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="reset" id="reset_stat_form" class="btn btn-danger"
+                                            style="padding: 2px">RESET</button>
+                                    </div>
+
                                 </div>
-                                <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
-                                <hr>
-                                <div id="statistics-chart" style="width: 100%;"></div>
-                            </div>
+                                <!-- Bar Graphs are displayed here -->
+                                <div>
+                                    <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
+                                    <hr>
+                                    <div id="statistics-chart" style="width: 100%;"></div>
+                                </div>
+                            </form>
                             <br>
                         </div>
                         <!-- DB Body -->
@@ -168,6 +189,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <option value="E">E</option>
                                         <option value="F">F</option>
                                         <option value="G">G</option>
+                                        <option value="H">H</option>
+                                        <option value="I">I</option>
                                     </select>
                                 </div>
                                 <div class="db-search">
@@ -267,12 +290,18 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <!-- <input type="text" value="1" hidden> -->
-                                    <button id="promote1st" onclick="confirmation('#promote1stForm','promote 1st years')" form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year -- 2nd
+                                    <button id="promote1st"
+                                        onclick="confirmation('#promote1stForm','promote 1st years')"
+                                        form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year --
+                                        2nd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
                                     <!-- <input type="text" value="2" hidden> -->
-                                    <button id="promote2nd" onclick="confirmation('#promote2rdForm','promote 2rd years')" form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year -- 3rd
+                                    <button id="promote2nd"
+                                        onclick="confirmation('#promote2rdForm','promote 2rd years')"
+                                        form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year --
+                                        3rd
                                         Year</button>
                                 </div>
                                 <div class="col-4">
@@ -464,7 +493,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <!-- Form for File Upload -->
                     <form id="updateFileForm" method="POST" action="php/update.php" enctype="multipart/form-data">
                         <label for="ufile">Choose a text file:</label>
-                        <input type="file" name="ufile" id="ufile" class="form-control" accept=".csv,.xlsx" required><br>
+                        <input type="file" name="ufile" id="ufile" class="form-control" accept=".csv,.xlsx"
+                            required><br>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -544,7 +574,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-    <!-- Branch addition and Removal -->
+    <!-- Branch addition and Removal Modal -->
     <div class="modal" id="addBranchModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -552,7 +582,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <h5 class="modal-title">Add/Remove Branch</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="">
+                <form id="addRemBranchForm" method="POST" action="php/branch_add_rem.php">
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
@@ -571,15 +601,16 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <div class="select-branch-to-delete d-none">
                             <label for="">Select Branch to Remove: </label>
-                            <select name="branch" id="branch_removal" class="form-control" placeholder="Enter Branch"
-                                style="width: 100%" required>
+                            <select name="branch_to_remove" id="branch_removal" class="form-control"
+                                placeholder="Enter Branch" style="width: 100%">
                                 <option value="" selected disabled>Select Branch</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Proceed</button>
+                        <button type="button" id="closeBranchBtn" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
                     </div>
                 </form>
             </div>

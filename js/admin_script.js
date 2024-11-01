@@ -168,6 +168,13 @@ $(document).ready(function () {
         }
     });
 
+    // Closing the branch add/remove modal
+    $('#closeBranchBtn').on('click', function(){
+        $('#addRemBranchForm')[0].reset();
+        $('.select-branch-to-delete').addClass('d-none');
+        $('.enter-branch-field').addClass('d-none');
+    });
+
     $('.stats').click(function (e) {
         e.preventDefault();
         $('#db-content').addClass('d-none');
@@ -195,6 +202,7 @@ $(document).ready(function () {
         libVisitCount();
     });
 
+    // ******* STATISTIC ******* //
     // fetch library usage per hour
     function libUsagePerHour() {
         let dateFrom = $('#from_date').val();
@@ -240,18 +248,20 @@ $(document).ready(function () {
     function libVisitCount() {
         let dateFrom = $('#from_date').val();
         let dateTo = $('#to_date').val();
+        let branch = $('#branch_stat').val();
+        let cyear = $('#Cyear_edit').val();
 
         $.ajax({
             url: 'php/Stats/libVisitCount.php',
             type: 'POST',
-            data: { date_from: dateFrom, date_to: dateTo },
+            data: { date_from: dateFrom, date_to: dateTo, branch: branch, cyear: cyear },
             dataType: 'json',
             success: function (data) {
                 Highcharts.chart('statistics-chart', {
                     chart: { type: 'column' },
                     title: { text: 'Total Library Visits by Date' },
                     xAxis: { type: 'datetime', title: { text: 'Date' } },
-                    yAxis: { title: { text: 'Visits' }, allowDecimals: false },
+                    yAxis: { min: 0, title: { text: 'Visits' }, allowDecimals: false },
                     series: [{
                         name: 'Visits',
                         data: data.map(item => [new Date(item.Date).getTime(), item.visit_count])
@@ -284,7 +294,6 @@ $(document).ready(function () {
         const branch = $('#branch').val(); // Get selected branch
         const section = $('#section').val(); // Get selected section
 
-        // Call your fetch data function with the current values
         fetchTableData(searchTerm, year, branch, section);
     }
 
