@@ -79,10 +79,9 @@ $(document).ready(function () {
             alert("Please enter USN before proceeding");
             return;
         }
-
+    
         usnInput = $('.edit_usn').val();
-        console.log(usnInput);
-
+    
         $.ajax({
             url: 'php/checkUSN.php',
             method: 'POST',
@@ -90,11 +89,34 @@ $(document).ready(function () {
             data: { usn: usnInput },
             success: function (response) {
                 if (response.success) {
-                    $('.editUsnField').addClass('d-none');
-                    $('.modal-footer').removeClass('d-none');
-                    $('.edit-one-modal').removeClass('d-none');
+                    // Fetch and populate existing student details
+                    $.ajax({
+                        url: 'php/getStudentDetails.php',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: { usn: usnInput },
+                        success: function (dataResponse) {
+                            if (dataResponse.success) {
+                                // Populate form fields with existing student details
+                                $('#name_edit').val(dataResponse.data.sname);
+                                $('#branch_edit').val(dataResponse.data.branch);
+                                $('#regyear_edit').val(dataResponse.data.regyear);
+                                $('#section_edit').val(dataResponse.data.section);
+                                $('#cyear_edit').val(dataResponse.data.cyear);
+    
+                                // Show the form fields and footer
+                                $('.editUsnField').addClass('d-none');
+                                $('.modal-footer').removeClass('d-none');
+                                $('.edit-one-modal').removeClass('d-none');
+                            } else {
+                                alert("Error fetching student details: " + dataResponse.message);
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while fetching student details.");
+                        }
+                    });
                 } else {
-                    console.log(response.message);
                     alert("The USN does not exist in the database.");
                 }
             },
@@ -103,6 +125,7 @@ $(document).ready(function () {
             }
         });
     });
+    
 
     // processing edited information
     $('#submit_edit_btn').on('click', function () {

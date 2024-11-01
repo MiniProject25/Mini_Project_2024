@@ -273,10 +273,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center mt-4">
-                <div class="container">
-                    <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore . All Rights Reserved.
-                    </p>
-                </div>
+                <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore. All Rights Reserved.</p>
             </footer>
         </div>
     </main>
