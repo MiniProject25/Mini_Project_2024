@@ -153,7 +153,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <div>
                                     <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
                                     <hr>
-                                    <div id="statistics-chart" style="width: 100%;"></div>
+                                    <div id="lib-visit-count" style="width: 100%;"></div>
+                                    <div id="avg-visit-duration" style="width: 100%;"></div>
                                 </div>
                             </form>
                             <br>

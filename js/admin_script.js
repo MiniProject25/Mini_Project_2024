@@ -1,24 +1,17 @@
 $(document).ready(function () {
-    // EMPTY GRAPH RENDERING
-    Highcharts.chart('statistics-chart', {
-        chart: { type: 'line' },
-        title: { text: 'Total Library Visits by Date' },
-        xAxis: { type: 'datetime', title: { text: 'Date' } },
-        yAxis: { title: { text: 'Visits' }, allowDecimals: false }
-    });
-    Highcharts.chart('lib-usage-per-hour', {
-        chart: { type: 'column' },
-        title: { text: 'Library Access Per Hour' },
-        xAxis: { title: { text: 'Time (Hour)' } },
-        yAxis: { min: 0, title: { text: 'Number of Students' } }
-    });
 
-    // clearing stat form
+    // rendering default graph
+    libUsagePerHour();
+    libVisitCount();
+    avgVisitDuration();
+
+    // resetting statistic
     $('#reset_stat_form').on('click', function () {
         $('#statsInfo').find('input[type="date"]').val('');
         $('#statsInfo').find('select').prop('selectedIndex', 0);
         libUsagePerHour();
         libVisitCount();
+        avgVisitDuration();
     });
 
     // promotion of students
@@ -169,7 +162,7 @@ $(document).ready(function () {
     });
 
     // Closing the branch add/remove modal
-    $('#closeBranchBtn').on('click', function(){
+    $('#closeBranchBtn').on('click', function () {
         $('#addRemBranchForm')[0].reset();
         $('.select-branch-to-delete').addClass('d-none');
         $('.enter-branch-field').addClass('d-none');
@@ -196,13 +189,18 @@ $(document).ready(function () {
         $('#history-content').removeClass('d-none');
     });
 
+    
+    // ******************************** //
+    // ******* STATISTIC ******* //
+    // ******************************** //
+    
     // Fetch Graphs (statistics)
     $('.statInfo').on('input change', 'input[type="date"], select', function () {
-        libUsagePerHour();
+        // libUsagePerHour();
         libVisitCount();
+        avgVisitDuration();
     });
 
-    // ******* STATISTIC ******* //
     // fetch library usage per hour
     function libUsagePerHour() {
         let dateFrom = $('#from_date').val();
@@ -257,7 +255,7 @@ $(document).ready(function () {
             data: { date_from: dateFrom, date_to: dateTo, branch: branch, cyear: cyear },
             dataType: 'json',
             success: function (data) {
-                Highcharts.chart('statistics-chart', {
+                Highcharts.chart('lib-visit-count', {
                     chart: { type: 'column' },
                     title: { text: 'Total Library Visits by Date' },
                     xAxis: { type: 'datetime', title: { text: 'Date' } },
@@ -278,6 +276,45 @@ $(document).ready(function () {
             }
         });
     }
+
+    // average visit duration
+    function avgVisitDuration() {
+        let dateFrom = $('#from_date').val();
+        let dateTo = $('#to_date').val();
+        let branch = $('#branch_stat').val();
+        let cyear = $('#Cyear_edit').val();
+
+        $.ajax({
+            url: 'php/Stats/avg_visit_duration.php',
+            type: 'POST',
+            data: { date_from: dateFrom, date_to: dateTo, branch: branch, cyear: cyear },
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart('avg-visit-duration', {
+                    chart: { type: 'column' },
+                    title: { text: 'Average Visit Duration' },
+                    xAxis: { type: 'datetime', title: { text: 'Date' } },
+                    yAxis: { title: { text: 'Average Duration (Minutes)' } },
+                    series: [{
+                        name: 'Avg Duration',
+                        data: data.map(item => [new Date(item.Date).getTime(), parseFloat(item.avg_duration)])
+                    }],
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{y}'
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // ******************************** //
+    // ******* END OF STATISTIC ******* //
+    // ******************************** //
 
     // DB Table
     var table = $('#dbtable').DataTable({
@@ -300,7 +337,7 @@ $(document).ready(function () {
     $('#searchInput').on('keyup', handleInputChange);
     $('#Cyear, #branch, #section').on('change', handleInputChange);
 
-    fetchTableData(); 
+    fetchTableData();
 
     function fetchTableData(searchTerm = '', year = '', branch = '', section = '') {
         $.ajax({
@@ -315,7 +352,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 table.clear();
-    
+
                 if (data && data.length > 0) {
                     data.forEach(function (student) {
                         table.row.add([
@@ -335,7 +372,7 @@ $(document).ready(function () {
                 console.error('Error fetching data: ' + textStatus, errorThrown);
             }
         });
-    }  
+    }
 
     // History Table
     var hTable = $('#historyTable').DataTable({
@@ -362,11 +399,11 @@ $(document).ready(function () {
 
     fetchHistoryTable();
 
-    function fetchHistoryTable(hsearchTerm = '', hyear = '', hbranch = '', hsection = ''){
+    function fetchHistoryTable(hsearchTerm = '', hyear = '', hbranch = '', hsection = '') {
         $.ajax({
             url: 'php/history_table.php',
             method: 'GET',
-            data:{
+            data: {
                 search: hsearchTerm,
                 year: hyear,
                 branch: hbranch,
@@ -374,7 +411,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
 
-            success: function(data){
+            success: function (data) {
                 hTable.clear();
 
                 if (data && data.length > 0) {
@@ -392,7 +429,7 @@ $(document).ready(function () {
                         ]).draw();
                     });
                 } else {
-                    hTable.row.add(['', 'No results found', '', '', '', '','','','']).draw();
+                    hTable.row.add(['', 'No results found', '', '', '', '', '', '', '']).draw();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
