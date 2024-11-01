@@ -99,6 +99,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <li class="nav-item db">
                                 <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
                             </li>
+                            <li class="nav-item history">
+                                <a class="nav-link" style="text-decoration: none; color: black;" href="#">History</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -180,6 +183,62 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     <th>Year of Registration</th>
                                     <th>Section</th>
                                     <th>Year of Study</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- History Body -->
+                        <div id="history-content" class="d-none">
+                            <h2>History Table</h2>
+                            <div class="history-filters d-flex align-items-center justify-content-between">
+                                <div class="history-year">
+                                    <label for="history_Cyear">Year:</label>
+                                    <select name="Cyear" id="history_Cyear" class="form-control">
+                                        <option value="" selected>All</option>
+                                        <option value="1">I</option>
+                                        <option value="2">II</option>
+                                        <option value="3">III</option>
+                                        <option value="4">IV</option>
+                                    </select>
+                                </div>
+                                <div class="history-branch">
+                                    <label for="history_branch">Branch:</label>
+                                    <select name="branch" id="history_branch" class="form-control">
+                                        <option value="" selected>All</option>
+                                    </select>
+                                </div>
+                                <div class="history-section">
+                                    <label for="history_section">Section:</label>
+                                    <select name="section" id="history_section" class="form-control">
+                                        <option value="" selected>All</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                    </select>
+                                </div>
+                                <div class="history-search">
+                                    <label for="history_searchInput" class="me-2">Search:</label>
+                                    <input type="search" id="history_searchInput" class="form-control"
+                                        placeholder="Search...">
+                                </div>
+                            </div>
+                            <table id="historyTable" class="table table-striped table-bordered">
+                                <thead>
+                                    <th>USN</th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>Year of Registration</th>
+                                    <th>Section</th>
+                                    <th>Year of Study</th>
+                                    <th>Time-in</th>
+                                    <th>Time-out</th>
+                                    <th>Date</th>
                                 </thead>
                                 <tbody>
 
@@ -508,7 +567,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- hidden field -->
                         <div class="enter-branch-field d-none">
                             <label for="">Enter the name of the Branch: </label>
-                            <input type="text" name="branch_name" id="branch_name">
+                            <input type="text" name="branch_name" id="branch_name" placeholder="Enter Branch Name">
                         </div>
                         <div class="select-branch-to-delete d-none">
                             <label for="">Select Branch to Remove: </label>

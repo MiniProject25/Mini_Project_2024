@@ -25,6 +25,7 @@ main {
 }
 
 /* Align year, section, branch, and search in the same line */
+.history-filters,
 .db-filters {
     display: flex;
     gap: 10px; /* Space between the elements */
@@ -32,17 +33,20 @@ main {
 }
 
 /* Style individual filter dropdowns */
+.history-filters div,
 .db-filters div {
     display: flex;
     align-items: center;
 }
 
 /* Adjust label and select styling for consistency */
+.history-filters label,
 .db-filters label {
     margin-right: 8px;
     font-weight: bold;
 }
 
+.history-filters select,
 .db-filters select {
     padding: 5px;
     border-radius: 4px;
@@ -50,11 +54,13 @@ main {
 }
 
 /* Ensure DataTables search box is inline */
+.historyTable_filter,
 .dataTables_filter {
     display: flex;
     align-items: center;
 }
 
+.dataTables_filter label,
 .dataTables_filter label {
     margin-right: 8px;
     font-weight: bold;
@@ -62,6 +68,7 @@ main {
 
 /* Adjust for responsive behavior if needed */
 @media (max-width: 768px) {
+    .history-filters,
     .db-filters {
         flex-direction: column;
         align-items: flex-start;

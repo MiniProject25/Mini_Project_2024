@@ -144,6 +144,7 @@ $(document).ready(function () {
             $('#branch_add').append(response);
             $('#branch_stat').append(response);
             $('#branch_removal').append(response);
+            $('#history_branch').append(response);
         }
     });
 
@@ -171,12 +172,21 @@ $(document).ready(function () {
         e.preventDefault();
         $('#db-content').addClass('d-none');
         $('#statistics-content').removeClass('d-none');
+        $('#history-content').addClass('d-none');
     });
 
     $('.db').click(function (e) {
         e.preventDefault();
         $('#statistics-content').addClass('d-none');
         $('#db-content').removeClass('d-none');
+        $('#history-content').addClass('d-none');
+    });
+
+    $('.history').click(function (e) {
+        e.preventDefault();
+        $('#statistics-content').addClass('d-none');
+        $('#db-content').addClass('d-none');
+        $('#history-content').removeClass('d-none');
     });
 
     // Fetch Graphs (statistics)
@@ -316,7 +326,71 @@ $(document).ready(function () {
                 console.error('Error fetching data: ' + textStatus, errorThrown);
             }
         });
-    }    
+    }  
+
+    // History Table
+    var hTable = $('#historyTable').DataTable({
+        paging: false,           // Disable pagination
+        searching: false,        // Disable default search box
+        ordering: false,
+        bLengthChange: false,    // Disable length change
+        info: false              // Disable info text
+    });
+
+    function handlehInputChange() {
+        const hsearchTerm = $('#history_searchInput').val().trim();
+        const hyear = $('#history_Cyear').val();
+        const hbranch = $('#history_branch').val();
+        const hsection = $('#history_section').val();
+
+
+        // Call your fetch data function with the current values
+        fetchHistoryTable(hsearchTerm, hyear, hbranch, hsection);
+    }
+
+    $('#history_searchInput').on('keyup', handlehInputChange);
+    $('#history_section, #history_branch, #history_Cyear').on('change', handlehInputChange);
+
+    fetchHistoryTable();
+
+    function fetchHistoryTable(hsearchTerm = '', hyear = '', hbranch = '', hsection = ''){
+        $.ajax({
+            url: 'php/history_table.php',
+            method: 'GET',
+            data:{
+                search: hsearchTerm,
+                year: hyear,
+                branch: hbranch,
+                section: hsection
+            },
+            dataType: 'json',
+
+            success: function(data){
+                hTable.clear();
+
+                if (data && data.length > 0) {
+                    data.forEach(function (student) {
+                        hTable.row.add([
+                            student.USN,
+                            student.Sname,
+                            student.Branch,
+                            student.RegYear,
+                            student.Section,
+                            student.Cyear,
+                            student.TimeIn,
+                            student.TimeOut,
+                            student.Date
+                        ]).draw();
+                    });
+                } else {
+                    hTable.row.add(['', 'No results found', '', '', '', '','','','']).draw();
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching data: ' + textStatus, errorThrown);
+            }
+        });
+    }
 });
 
 function confirmation(event, formSelector, txt) {
