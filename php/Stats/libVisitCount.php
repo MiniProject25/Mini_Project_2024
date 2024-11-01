@@ -1,4 +1,5 @@
 <?php
+// general stat
 include '../db_connection.php';
 
 $date_from = $_POST['date_from'];
