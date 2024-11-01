@@ -40,6 +40,8 @@ if (!empty($section)) {
     $types .= 's';
 }
 
+$sql .= " ORDER BY Date Desc,TimeIn Desc";
+
 // Prepare statement and bind parameters only if there are conditions to bind
 $stmt = $conn->prepare($sql);
 if (!empty($params)) {
