@@ -57,3 +57,5 @@ else if ($chosenOption == 'removebranch') {
 else {
     echo json_encode(['message' => "Options not chosen. Try Again", 'success' => false]);
 }
+
+$conn->close();
