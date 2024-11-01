@@ -74,3 +74,18 @@ main {
         align-items: flex-start;
     }
 }
+
+
+footer {
+    background-color: #f8f9fa; /* Light background color */
+    padding: 10px 0; /* Padding for the top and bottom */
+    position: relative; /* Optional: to position it properly if needed */
+    bottom: 0; /* Stick it to the bottom if you have a fixed height */
+    width: 100%; /* Full width */
+}
+
+footer p {
+    margin: 0; /* Remove default margin */
+    color: #6c757d; /* Dark gray text color */
+    font-size: 13px;
+}

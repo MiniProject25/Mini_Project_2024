@@ -174,7 +174,11 @@ if (!isset($_SESSION['library_logged_in'])) {
         </table>
     </div>
 
-    </div>
+    <footer class="text-center mt-4">
+            <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore . All Rights Reserved.
+            </p>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
