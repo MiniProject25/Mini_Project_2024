@@ -165,6 +165,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <option value="E">E</option>
                                         <option value="F">F</option>
                                         <option value="G">G</option>
+                                        <option value="H">H</option> 
+                                        <option value="I">I</option> 
                                     </select>
                                 </div>
                                 <div class="db-search">
@@ -485,7 +487,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-    <!-- Branch addition and Removal -->
+    <!-- Branch addition and Removal Modal -->
     <div class="modal" id="addBranchModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -493,7 +495,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <h5 class="modal-title">Add/Remove Branch</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="">
+                <form id="addRemBranchForm" method="POST" action="php/branch_add_rem.php">
                     <div class="modal-body">
                         <p>Please select an option:</p>
                         <label>
@@ -512,15 +514,15 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <div class="select-branch-to-delete d-none">
                             <label for="">Select Branch to Remove: </label>
-                            <select name="branch" id="branch_removal" class="form-control" placeholder="Enter Branch"
-                                style="width: 100%" required>
+                            <select name="branch_to_remove" id="branch_removal" class="form-control" placeholder="Enter Branch"
+                                style="width: 100%">
                                 <option value="" selected disabled>Select Branch</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Proceed</button>
+                        <button type="button" id="closeBranchBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
                     </div>
                 </form>
             </div>

@@ -167,6 +167,13 @@ $(document).ready(function () {
         }
     });
 
+    // Closing the branch add/remove modal
+    $('#closeBranchBtn').on('click', function(){
+        $('#addRemBranchForm')[0].reset();
+        $('.select-branch-to-delete').addClass('d-none');
+        $('.enter-branch-field').addClass('d-none');
+    });
+
     $('.stats').click(function (e) {
         e.preventDefault();
         $('#db-content').addClass('d-none');
@@ -274,7 +281,6 @@ $(document).ready(function () {
         const branch = $('#branch').val(); // Get selected branch
         const section = $('#section').val(); // Get selected section
 
-        // Call your fetch data function with the current values
         fetchTableData(searchTerm, year, branch, section);
     }
 
