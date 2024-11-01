@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
-            $_SESSION['message'] = "Data imported successfully.";
+            $_SESSION['message'] = "USN updated Successfully.";
             header("Location: ../admin_dashboard.php");
             exit;
         } else {
