@@ -13,7 +13,7 @@ session_start(); # helps to remember who signed up
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
         body {
-            background: rgba(0, 128, 128, 0.5);
+            background-color: #AFAEAE;
             font-family: sans-serif;
         }
 
@@ -75,7 +75,7 @@ session_start(); # helps to remember who signed up
         }
 
         .container button:hover {
-            background-color: rgb(255, 100, 100);
+            background-color: #494949;
         }
 
         .login-form {
@@ -116,8 +116,8 @@ session_start(); # helps to remember who signed up
                     <label for="Password">Password:</label>
                     <input id="Password" type="password" name="password" required><br>
                     <br>
-                    <button type="submit" class="btn btn-danger" name="login">LOGIN</button>
-                    <button type="reset" class="btn btn-danger" name="reset">RESET</button>
+                    <button type="submit" class="btn btn-secondary" name="login">LOGIN</button>
+                    <button type="reset" class="btn btn-secondary" name="reset">RESET</button>
                 </form>
             </div>
         </div>

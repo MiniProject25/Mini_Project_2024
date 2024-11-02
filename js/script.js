@@ -50,6 +50,13 @@ $('#loginModal').on('keypress', function (e) {
     }
 });
 
+$('#logoutModal').on('keypress', function (e) {
+    if (e.which === 13) { 
+        e.preventDefault(); 
+        handleLogout(); 
+    }
+});
+
 // Clear EntryKey when changing Student from the List (during login)
 $('#studentName').on('change', function () {
     $('#EntryKey').val('');
@@ -249,7 +256,7 @@ function matchCustom(params, data) {
 }
 
 function confirmation(event) {
-    const isConfirmed = confirm("Are you sure you want to Log out from the libraian page?");
+    const isConfirmed = confirm("Are you sure you want to Log out from the librarian page?");
 
     if (!isConfirmed) {
         event.preventDefault();

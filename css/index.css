@@ -1,3 +1,31 @@
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 250px;
+    text-align: center;
+}
+
+.navbar {
+    background-color: #343a40;
+    color: #fff; 
+}
+
+.navbar a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.title {
+    text-align: center;
+    color: #343a40;
+    font-size: 2.5rem;
+}
+
 .logo-container {
     bottom: 70%;
     left: 0;
@@ -7,36 +35,58 @@
 }
 
 .logo {
+    filter: brightness(50%);
     width: 250px; 
     height: auto;
 }
 
-.container {
-    margin-top: 200px;
-    text-align: center;
+.btn-lin, .btn-logoutlib {
+    font-size: 1rem;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
-.title {
-    font-family: 'Courier New', Courier, monospace;
+.btn-lin {
+    margin-top: 25px    ;
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
 }
 
-.btn-lin, .btn-lout, .btn-logoutlib {
-    margin: 50px;
-    padding: 10px 25px 10px 25px;
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
+.btn-logoutlib {
+    /* background-color: #dc3545; */
+    border: none;
 }
 
 footer {
     background-color: #f8f9fa; /* Light background color */
+    color: #343a40;
     padding: 10px 0; /* Padding for the top and bottom */
-    position: relative; /* Optional: to position it properly if needed */
+    position: absolute;
     bottom: 0; /* Stick it to the bottom if you have a fixed height */
     width: 100%; /* Full width */
 }
 
 footer p {
     margin: 0; /* Remove default margin */
-    color: #6c757d; /* Dark gray text color */
+    color: #343a40; /* Dark gray text color */
     font-size: 13px;
+}
+
+.dataTableContainer {
+    /* margin-bottom: 15px; */
+    border: 1px solid white;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#LibraryTable {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.copyright {
+    background: none;
 }

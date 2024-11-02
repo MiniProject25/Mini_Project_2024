@@ -219,7 +219,7 @@ $(document).ready(function () {
     
     // Fetch Graphs (statistics)
     $('.statInfo').on('input change', 'input[type="date"], select', function () {
-        // libUsagePerHour();
+        libUsagePerHour();
         libVisitCount();
         avgVisitDuration();
     });
