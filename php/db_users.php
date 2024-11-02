@@ -41,6 +41,8 @@ if (!empty($section)) {
     $types .= 's';
 }
 
+$sql .= " ORDER BY Cyear ASC,Section ASC";
+
 // Prepare statement and bind parameters only if there are conditions to bind
 $stmt = $conn->prepare($sql);
 if (!empty($params)) {

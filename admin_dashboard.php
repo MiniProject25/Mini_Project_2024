@@ -161,7 +161,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <!-- DB Body -->
                         <div id="db-content" class="d-none">
-                            <h2>Users Table</h2>
+                            <h2><b>Users Table</b></h2>
                             <div class="db-filters d-flex align-items-center justify-content-between">
                                 <div class="db-year">
                                     <label for="Cyear">Year:</label>
@@ -215,7 +215,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <!-- History Body -->
                         <div id="history-content" class="d-none">
-                            <h2>History Table</h2>
+                            <h2><b>History Table</b></h2>
+                            <div class="history-filters d-flex align-items-center justify-content-between">
+                                <div class="history-fromDate">
+                                    <label for="history_fromDate">From:</label>
+                                    <input type="date" id="history_fromDate" name="fromDate">
+                                </div>
+                                <div class="history-toDate">
+                                    <label for="history_toDate">To:</label>
+                                    <input type="date" id="history_toDate" name="toDate">
+                                </div>
+                            </div>
                             <div class="history-filters d-flex align-items-center justify-content-between">
                                 <div class="history-year">
                                     <label for="history_Cyear">Year:</label>

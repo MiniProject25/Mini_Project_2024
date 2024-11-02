@@ -3,18 +3,24 @@ include 'db_connection.php';
 
 $data = array();
 
-$search = isset($_GET['search']) ? $_GET['search'] :'';
-$year = isset($_GET['year']) ? $_GET['year'] :'';
-$branch = isset($_GET['branch']) ? $_GET['branch'] :'';
-$section = isset($_GET['section']) ? $_GET['section'] :'';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$year = isset($_GET['year']) ? $_GET['year'] : '';
+$branch = isset($_GET['branch']) ? $_GET['branch'] : '';
+$section = isset($_GET['section']) ? $_GET['section'] : '';
+$fromDate = isset($_GET['fromDate']) ? $_GET['fromDate'] : '';
+$toDate = isset($_GET['toDate']) ? $_GET['toDate'] : '';
 
-$sql = "SELECT u.USN,u.Sname,u.Branch,u.RegYear,u.Section,u.Cyear,h.TimeIn,h.TimeOut,h.Date
-        From users u INNER JOIN history h ON u.USN=h.USN WHERE 1=1 ";
+// SQL Query
+$sql = "SELECT u.USN, u.Sname, u.Branch, u.RegYear, u.Section, u.Cyear, h.TimeIn, h.TimeOut, h.Date
+        FROM users u 
+        INNER JOIN history h ON u.USN = h.USN 
+        WHERE 1=1";
 
 $params = [];
 $types = '';
 
-if(!empty($search)) {
+// Apply filters based on user input
+if (!empty($search)) {
     $sql .= " AND (u.USN LIKE ? OR u.Sname LIKE ?)";
     $searchParam = '%' . $search . '%';
     $params[] = $searchParam;
@@ -40,9 +46,20 @@ if (!empty($section)) {
     $types .= 's';
 }
 
-$sql .= " ORDER BY Date Desc,TimeIn Desc";
+if (!empty($fromDate)) {
+    $sql .= " AND h.Date >= ?";
+    $params[] = $fromDate;
+    $types .= 's';
+}
 
-// Prepare statement and bind parameters only if there are conditions to bind
+if (!empty($toDate)) {
+    $sql .= " AND h.Date <= ?";
+    $params[] = $toDate;
+    $types .= 's';
+}
+
+$sql .= " ORDER BY h.Date DESC, h.TimeIn DESC";
+
 $stmt = $conn->prepare($sql);
 if (!empty($params)) {
     $stmt->bind_param($types, ...$params);

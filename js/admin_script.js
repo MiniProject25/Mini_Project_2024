@@ -411,18 +411,19 @@ $(document).ready(function () {
         const hyear = $('#history_Cyear').val();
         const hbranch = $('#history_branch').val();
         const hsection = $('#history_section').val();
-
+        const hfromDate = $('#history_fromDate').val();
+        const htoDate = $('#history_toDate').val();
 
         // Call your fetch data function with the current values
-        fetchHistoryTable(hsearchTerm, hyear, hbranch, hsection);
+        fetchHistoryTable(hsearchTerm, hyear, hbranch, hsection,hfromDate,htoDate);
     }
 
     $('#history_searchInput').on('keyup', handlehInputChange);
-    $('#history_section, #history_branch, #history_Cyear').on('change', handlehInputChange);
+    $('#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate').on('change', handlehInputChange);
 
     fetchHistoryTable();
 
-    function fetchHistoryTable(hsearchTerm = '', hyear = '', hbranch = '', hsection = '') {
+    function fetchHistoryTable(hsearchTerm = '', hyear = '', hbranch = '', hsection = '', hfromDate = '', htoDate = '') {
         $.ajax({
             url: 'php/history_table.php',
             method: 'GET',
@@ -430,13 +431,14 @@ $(document).ready(function () {
                 search: hsearchTerm,
                 year: hyear,
                 branch: hbranch,
-                section: hsection
+                section: hsection,
+                fromDate: hfromDate,  
+                toDate: htoDate  
             },
             dataType: 'json',
-
             success: function (data) {
                 hTable.clear();
-
+    
                 if (data && data.length > 0) {
                     data.forEach(function (student) {
                         hTable.row.add([
@@ -459,7 +461,7 @@ $(document).ready(function () {
                 console.error('Error fetching data: ' + textStatus, errorThrown);
             }
         });
-    }
+    }    
 });
 
 function confirmation(event, formSelector, txt) {
