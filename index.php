@@ -1,4 +1,4 @@
-<?php
+<a?php
 session_start();
 
 if (!isset($_SESSION['library_logged_in'])) {
@@ -22,11 +22,11 @@ if (!isset($_SESSION['library_logged_in'])) {
 
 <body>
     <!-- Logout from the librarian page -->
-    <div class="logout-library justify-content-end">
-        <button class="btn-logoutlib btn btn-danger" style="margin-right: 50px; margin-left: auto; display: block"
-            type="button">LOGOUT</button>
-    </div>
-
+    <nav class="navbar navbar-dark">
+        <a href="#" class="navbar-brand">Library</a>
+        <button class="btn-logoutlib btn btn-danger mx-3" type="button">LOGOUT</button>
+    </nav>
+    
     <!-- Librarian Logout Modal -->
     <div class="modal libraryLogout" tabindex="-1">
         <div class="modal-dialog">
@@ -43,7 +43,8 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event)" class="confirmLibraryLogout btn btn-primary">Submit</button>
+                        <button type="submit" onclick="confirmation(event)"
+                            class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
@@ -52,7 +53,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- main page -->
     <div class="container">
-        <h1 class="title">LIBRARY ATTENDANCE SYSTEM</h1>
+        <h1 class="title">LIBRARY USAGE MONITORING SYSTEM</h1>
         <div class="row">
             <div class="col">
                 <button type="button" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
@@ -105,7 +106,6 @@ if (!isset($_SESSION['library_logged_in'])) {
                             </select>
                         </div>
                         <div class="mb-3" id="studentListContainer" style="display: none;">
-                            <!--We can do the same drop down option for name section but importing from some other file all names , and when i type sum it should display aa person with sum... -->
                             <label for="studentName" class="form-label">Student Name</label>
                             <select class="form-select studentName" id="studentName" name="studentName">
                                 <!-- <option selected disabled>Select student</option> -->
@@ -155,10 +155,10 @@ if (!isset($_SESSION['library_logged_in'])) {
 
 
     <!-- Datatable -->
-    <div class="container mt-5">
-        <table id="LibraryTable" class="table table-striped table-bordered" style="width:100%">
+    <div class="container mt-5 dataTableContainer">
+        <table id="LibraryTable" class="table table-striped table-bordered">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>Name</th>
                     <th>Branch</th>
                     <th>Section</th>
@@ -168,14 +168,16 @@ if (!isset($_SESSION['library_logged_in'])) {
                     <th>Logout</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
 
             </tbody>
         </table>
     </div>
 
-    <footer class="text-center mt-4">
-            <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore. All Rights Reserved.</p>
+    <!-- copyright -->
+    <footer class="text-center copyright mt-1">
+        <p class="fs-5 fw-bold">&copy; 2024 CEC & Canara High School Association Mangalore. All
+            Rights Reserved.</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
