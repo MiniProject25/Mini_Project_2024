@@ -348,20 +348,38 @@ $(document).ready(function () {
         info: false              // Disable info text
     });
 
-    function handleInputChange() {
-        const searchTerm = $('#searchInput').val().trim(); // Get the current input value
-        const year = $('#Cyear').val(); // Get selected year
-        const branch = $('#branch').val(); // Get selected branch
-        const section = $('#section').val(); // Get selected section
+    // Event listener for the reset button
+    $('#db_resetbtn').on('click', function (e) {
+        e.preventDefault();
+    
+        // Reset form fields
+        $('#dbForm').find('select').prop('selectedIndex', 0);
+        $('#searchInput').val('');
+    
+        // Fetch all data without filters
+        fetchTableData();
+    });
+    
 
+    // Function to handle input changes and fetch filtered data
+    function handleInputChange() {
+        const searchTerm = $('#searchInput').val().trim();
+        const year = $('#Cyear').val();
+        const branch = $('#branch').val();
+        const section = $('#db_section').val();
+
+        // Fetch data based on filter values
         fetchTableData(searchTerm, year, branch, section);
     }
 
+    // Set up event listeners for filter inputs
     $('#searchInput').on('keyup', handleInputChange);
-    $('#Cyear, #branch, #section').on('change', handleInputChange);
+    $('#Cyear, #branch, #db_section').on('change', handleInputChange);
 
+    // Initial fetch to load all data on page load
     fetchTableData();
 
+    // AJAX function to fetch data and update the DataTable
     function fetchTableData(searchTerm = '', year = '', branch = '', section = '') {
         $.ajax({
             url: 'php/db_users.php',
@@ -374,8 +392,8 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                table.clear();
-
+                table.clear(); // Clear existing table data
+    
                 if (data && data.length > 0) {
                     data.forEach(function (student) {
                         table.row.add([
@@ -385,17 +403,21 @@ $(document).ready(function () {
                             student.RegYear,
                             student.Section,
                             student.Cyear
-                        ]).draw();
+                        ]);
                     });
                 } else {
-                    table.row.add(['', 'No results found', '', '', '', '']).draw();
+                    table.row.add(['', 'No results found', '', '', '', '']);
                 }
+    
+                table.draw(); // Refresh the table display
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching data: ' + textStatus, errorThrown);
             }
         });
     }
+    
+
 
     // History Table
     var hTable = $('#historyTable').DataTable({
@@ -406,6 +428,25 @@ $(document).ready(function () {
         info: false              // Disable info text
     });
 
+    // Event listener for the reset button
+    $('#history_resetbtn').on('click', function (e) {
+        e.preventDefault();
+    
+        // Reset form fields
+        $('#historyForm').find('input[type="date"]').val('');
+        $('#historyForm').find('select').prop('selectedIndex', 0);
+        $('#history_searchInput').val('');
+    
+        // Fetch all data without filters
+        fetchHistoryTable();
+    });
+
+    $('#history_refreshbtn').on('click', function (e) {
+        e.preventDefault();
+    
+        handlehInputChange();
+    });
+    
     function handlehInputChange() {
         const hsearchTerm = $('#history_searchInput').val().trim();
         const hyear = $('#history_Cyear').val();

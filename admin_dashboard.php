@@ -162,43 +162,50 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- DB Body -->
                         <div id="db-content" class="d-none">
                             <h2><b>Users Table</b></h2>
-                            <div class="db-filters d-flex align-items-center justify-content-between">
-                                <div class="db-year">
-                                    <label for="Cyear">Year:</label>
-                                    <select name="Cyear" id="Cyear" class="form-control">
-                                        <option value="" selected>All</option>
-                                        <option value="1">I</option>
-                                        <option value="2">II</option>
-                                        <option value="3">III</option>
-                                        <option value="4">IV</option>
-                                    </select>
+                            <form class="dbForm" id="dbForm">
+                                <div class="db-filters d-flex align-items-center justify-content-between">
+                                    <div class="db-year">
+                                        <label for="Cyear">Year:</label>
+                                        <select name="Cyear" id="Cyear" class="form-control">
+                                            <option value="" selected>All</option>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                        </select>
+                                    </div>
+                                    <div class="db-branch">
+                                        <label for="branch">Branch:</label>
+                                        <select name="branch" id="branch" class="form-control">
+                                            <option value="" selected>All</option>
+                                        </select>
+                                    </div>
+                                    <div class="db-section">
+                                        <label for="db_section">Section:</label>
+                                        <select name="section" id="db_section" class="form-control">
+                                            <option value="" selected>All</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                            <option value="H">H</option>
+                                            <option value="I">I</option>
+                                        </select>
+                                    </div>
+                                    <div class="db-search">
+                                        <label for="searchInput" class="me-2">Search:</label>
+                                        <input type="search" id="searchInput" class="form-control"
+                                            placeholder="Search...">
+                                    </div>
+                                    <div class="db-resetbtn">
+                                        <button type="button" id="db_resetbtn" class="btn btn-danger"
+                                            style="padding: 2px">RESET</button>
+                                    </div>
                                 </div>
-                                <div class="db-branch">
-                                    <label for="branch">Branch:</label>
-                                    <select name="branch" id="branch" class="form-control">
-                                        <option value="" selected>All</option>
-                                    </select>
-                                </div>
-                                <div class="db-section">
-                                    <label for="section">Section:</label>
-                                    <select name="section" id="section" class="form-control">
-                                        <option value="" selected>All</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                        <option value="F">F</option>
-                                        <option value="G">G</option>
-                                        <option value="H">H</option>
-                                        <option value="I">I</option>
-                                    </select>
-                                </div>
-                                <div class="db-search">
-                                    <label for="searchInput" class="me-2">Search:</label>
-                                    <input type="search" id="searchInput" class="form-control" placeholder="Search...">
-                                </div>
-                            </div>
+                            </form>
                             <table id="dbtable" class="table table-striped table-bordered">
                                 <thead>
                                     <th>USN</th>
@@ -216,52 +223,64 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- History Body -->
                         <div id="history-content" class="d-none">
                             <h2><b>History Table</b></h2>
-                            <div class="history-filters d-flex align-items-center justify-content-between">
-                                <div class="history-fromDate">
-                                    <label for="history_fromDate">From:</label>
-                                    <input type="date" id="history_fromDate" name="fromDate">
+                            <form id="historyForm" class="historyForm">
+                                <div class="history-filters d-flex align-items-center justify-content-between">
+                                    <div class="history-fromDate">
+                                        <label for="history_fromDate">From:</label>
+                                        <input type="date" id="history_fromDate" name="fromDate">
+                                    </div>
+                                    <div class="history-toDate">
+                                        <label for="history_toDate">To:</label>
+                                        <input type="date" id="history_toDate" name="toDate">
+                                    </div>
+                                    <div class="history-btn">
+                                        <div class="history-refreshbtn">
+                                            <button type="button" id="history_refreshbtn" class="btn btn-primary"
+                                                style="padding: 3px; flex: 1; margin-right: 5px; width: 100px;">REFRESH</button>
+                                        </div>
+                                        <div class="history-resetbtn">
+                                            <button type="button" id="history_resetbtn" class="btn btn-danger"
+                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">RESET</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="history-toDate">
-                                    <label for="history_toDate">To:</label>
-                                    <input type="date" id="history_toDate" name="toDate">
+                                <div class="history-filters d-flex align-items-center justify-content-between">
+                                    <div class="history-year">
+                                        <label for="history_Cyear">Year:</label>
+                                        <select name="Cyear" id="history_Cyear" class="form-control">
+                                            <option value="" selected>All</option>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                        </select>
+                                    </div>
+                                    <div class="history-branch">
+                                        <label for="history_branch">Branch:</label>
+                                        <select name="branch" id="history_branch" class="form-control">
+                                            <option value="" selected>All</option>
+                                        </select>
+                                    </div>
+                                    <div class="history-section">
+                                        <label for="history_section">Section:</label>
+                                        <select name="section" id="history_section" class="form-control">
+                                            <option value="" selected>All</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </div>
+                                    <div class="history-search">
+                                        <label for="history_searchInput" class="me-2">Search:</label>
+                                        <input type="search" id="history_searchInput" class="form-control"
+                                            placeholder="Search...">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="history-filters d-flex align-items-center justify-content-between">
-                                <div class="history-year">
-                                    <label for="history_Cyear">Year:</label>
-                                    <select name="Cyear" id="history_Cyear" class="form-control">
-                                        <option value="" selected>All</option>
-                                        <option value="1">I</option>
-                                        <option value="2">II</option>
-                                        <option value="3">III</option>
-                                        <option value="4">IV</option>
-                                    </select>
-                                </div>
-                                <div class="history-branch">
-                                    <label for="history_branch">Branch:</label>
-                                    <select name="branch" id="history_branch" class="form-control">
-                                        <option value="" selected>All</option>
-                                    </select>
-                                </div>
-                                <div class="history-section">
-                                    <label for="history_section">Section:</label>
-                                    <select name="section" id="history_section" class="form-control">
-                                        <option value="" selected>All</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                        <option value="F">F</option>
-                                        <option value="G">G</option>
-                                    </select>
-                                </div>
-                                <div class="history-search">
-                                    <label for="history_searchInput" class="me-2">Search:</label>
-                                    <input type="search" id="history_searchInput" class="form-control"
-                                        placeholder="Search...">
-                                </div>
-                            </div>
+                            </form>
                             <table id="historyTable" class="table table-striped table-bordered">
                                 <thead>
                                     <th>USN</th>
