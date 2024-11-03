@@ -11,7 +11,7 @@ body {
 
 .navbar {
     background-color: #343a40;
-    color: #fff; 
+    color: #fff;
 }
 
 .navbar a {
@@ -27,20 +27,21 @@ body {
 }
 
 .logo-container {
-    bottom: 70%;
+    bottom: 330px;
     left: 0;
     right: 0;
     text-align: center;
-    position: fixed;
+    position: relative;
 }
 
 .logo {
     filter: brightness(50%);
-    width: 250px; 
+    width: 250px;
     height: auto;
 }
 
-.btn-lin, .btn-logoutlib {
+.btn-lin,
+.btn-logoutlib {
     font-size: 1rem;
     padding: 10px 20px;
     font-weight: bold;
@@ -48,7 +49,7 @@ body {
 }
 
 .btn-lin {
-    margin-top: 25px    ;
+    margin-top: 25px;
     background-color: #6c757d;
     border: none;
     color: #fff;
@@ -60,22 +61,32 @@ body {
 }
 
 footer {
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #f8f9fa;
+    /* Light background color */
     color: #343a40;
-    padding: 10px 0; /* Padding for the top and bottom */
+    padding: 10px 0;
+    /* Padding for the top and bottom */
     position: absolute;
-    bottom: 0; /* Stick it to the bottom if you have a fixed height */
-    width: 100%; /* Full width */
+    bottom: 0;
+    /* Stick it to the bottom if you have a fixed height */
+    width: 100%;
+    /* Full width */
 }
 
 footer p {
-    margin: 0; /* Remove default margin */
-    color: #343a40; /* Dark gray text color */
+    margin: 0;
+    /* Remove default margin */
+    color: #343a40;
+    /* Dark gray text color */
     font-size: 13px;
 }
 
 .dataTableContainer {
     /* margin-bottom: 15px; */
+    position: relative;
+    margin: auto;
+    bottom: 100px;
+    width: 75%;
     border: 1px solid white;
     background-color: white;
     padding: 20px;
@@ -89,4 +100,86 @@ footer p {
 
 .copyright {
     background: none;
+}
+
+.foot {
+    font-size: 1.75rem;
+}
+
+@media (max-width: 1075px) {
+    .title {
+        font-size: 2rem;
+    }
+    .foot {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 915px) {
+    /* .title {
+        font-size: 2rem;
+    } */
+    .foot {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 867px) {
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    #LibraryTable th,
+    #LibraryTable td {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 795px){
+
+    #LibraryTable th,
+    #LibraryTable td {
+        font-size: 0.7em;
+    }
+}
+
+@media (max-width: 768px){
+
+    .logo {
+        scale: 0.75;
+    }
+
+    .btn-lin {
+        margin-bottom: 10px;
+    }
+
+    .foot {
+        font-size: 1rem;
+    }
+
+    .dataTableContainer {
+        bottom: 125px;
+    }
+
+    #LibraryTable th,
+    #LibraryTable td {
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 665px){
+    .foot {
+        font-size: 0.6rem;
+    }
+
+    .dataTableContainer {
+        bottom: 100px;
+        scale: 1.1;
+    }
+
+    #LibraryTable th,
+    #LibraryTable td {
+        font-size: 0.4em;
+    }
 }

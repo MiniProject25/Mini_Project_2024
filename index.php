@@ -1,4 +1,4 @@
-<a?php
+<?php
 session_start();
 
 if (!isset($_SESSION['library_logged_in'])) {
@@ -155,7 +155,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
 
     <!-- Datatable -->
-    <div class="container mt-5 dataTableContainer">
+    <div class="mt-3 dataTableContainer">
         <table id="LibraryTable" class="table table-striped table-bordered">
             <thead>
                 <tr class="text-center">
@@ -176,7 +176,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- copyright -->
     <footer class="text-center copyright mt-1">
-        <p class="fs-5 fw-bold">&copy; 2024 CEC & Canara High School Association Mangalore. All
+        <p class="foot fw-bold">&copy; 2024 CEC & Canara High School Association Mangalore. All
             Rights Reserved.</p>
     </footer>
 

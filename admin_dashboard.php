@@ -154,7 +154,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
                                     <hr>
                                     <div id="lib-visit-count" style="width: 100%;"></div>
+                                    <hr>
                                     <div id="avg-visit-duration" style="width: 100%;"></div>
+                                    <hr>
                                 </div>
                             </form>
                             <br>
@@ -323,7 +325,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-body">
                     <!-- Form for File Upload -->
-                    <form method="POST" action4="">
+                    <form method="POST" action="">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
