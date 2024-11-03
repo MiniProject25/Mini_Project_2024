@@ -325,7 +325,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 <div class="modal-body">
                     <!-- Form for File Upload -->
-                    <form method="POST" action4="">
+                    <form method="POST" action="">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
