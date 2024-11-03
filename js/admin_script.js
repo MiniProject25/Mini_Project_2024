@@ -344,7 +344,7 @@ $(document).ready(function () {
     var table = $('#dbtable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
-        ordering: false,
+        ordering: true,
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,
@@ -433,7 +433,7 @@ $(document).ready(function () {
     var hTable = $('#historyTable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
-        ordering: false,
+        ordering: true,
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,
