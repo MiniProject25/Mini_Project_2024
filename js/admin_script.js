@@ -340,6 +340,7 @@ $(document).ready(function () {
     // ******************************** //
 
     // DB Table
+    // $('#db-content').removeClass('d-none');
     var table = $('#dbtable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
@@ -347,7 +348,7 @@ $(document).ready(function () {
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,
-        scrollX: true,            // Enable horizontal scroll if needed
+        scrollX: false,            // Enable horizontal scroll 
         columnDefs: [
             { width: "10%", targets: 0 },  // USN
             { width: "30%", targets: 1 },  // Student Name
@@ -357,6 +358,8 @@ $(document).ready(function () {
             { width: "10%", targets: 5 }  // Year of Study
         ]
     });
+    table.columns.adjust().draw();
+    // table.draw(); // force redraw
 
     // Event listener for the reset button
     $('#db_resetbtn').on('click', function (e) {
@@ -369,7 +372,6 @@ $(document).ready(function () {
         // Fetch all data without filters
         fetchTableData();
     });
-    
 
     // Function to handle input changes and fetch filtered data
     function handleInputChange() {
@@ -427,8 +429,6 @@ $(document).ready(function () {
         });
     }
     
-
-
     // History Table
     var hTable = $('#historyTable').DataTable({
         paging: false,           // Disable pagination
@@ -437,7 +437,7 @@ $(document).ready(function () {
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,
-        scrollX: true,            // Enable horizontal scroll if needed
+        scrollX: false,            // Enable horizontal scroll if needed
         columnDefs: [
             { width: "10%", targets: 0 },  // USN
             { width: "15%", targets: 1 },  // Student Name

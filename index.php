@@ -1,4 +1,4 @@
-<a?php
+<?php
 session_start();
 
 if (!isset($_SESSION['library_logged_in'])) {

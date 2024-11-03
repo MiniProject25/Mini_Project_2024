@@ -154,7 +154,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
                                     <hr>
                                     <div id="lib-visit-count" style="width: 100%;"></div>
+                                    <hr>
                                     <div id="avg-visit-duration" style="width: 100%;"></div>
+                                    <hr>
                                 </div>
                             </form>
                             <br>
