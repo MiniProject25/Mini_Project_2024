@@ -345,7 +345,17 @@ $(document).ready(function () {
         searching: false,        // Disable default search box
         ordering: false,
         bLengthChange: false,    // Disable length change
-        info: false              // Disable info text
+        info: false,              // Disable info text
+        autoWidth: false,
+        scrollX: true,            // Enable horizontal scroll if needed
+        columnDefs: [
+            { width: "10%", targets: 0 },  // USN
+            { width: "30%", targets: 1 },  // Student Name
+            { width: "40%", targets: 2 },  // Branch
+            { width: "7.5%", targets: 3 },  // Year of Registration
+            { width: "2.5%", targets: 4 },  // Section
+            { width: "10%", targets: 5 }  // Year of Study
+        ]
     });
 
     // Event listener for the reset button
@@ -425,8 +435,21 @@ $(document).ready(function () {
         searching: false,        // Disable default search box
         ordering: false,
         bLengthChange: false,    // Disable length change
-        info: false              // Disable info text
+        info: false,              // Disable info text
+        autoWidth: false,
+        scrollX: true,            // Enable horizontal scroll if needed
+        columnDefs: [
+            { width: "10%", targets: 0 },  // USN
+            { width: "15%", targets: 1 },  // Student Name
+            { width: "30%", targets: 2 },  // Branch
+            { width: "5%", targets: 3 },  // Section
+            { width: "10%", targets: 4 },  // Year of Study
+            { width: "7.5%", targets: 5 },  // Time-in
+            { width: "7.5%", targets: 6 },  // Time-out
+            { width: "10%", targets: 7 }    // Date
+        ]
     });
+    
 
     // Event listener for the reset button
     $('#history_resetbtn').on('click', function (e) {
@@ -479,25 +502,24 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 hTable.clear();
-    
+            
                 if (data && data.length > 0) {
                     data.forEach(function (student) {
                         hTable.row.add([
                             student.USN,
                             student.Sname,
                             student.Branch,
-                            student.RegYear,
                             student.Section,
                             student.Cyear,
                             student.TimeIn,
                             student.TimeOut,
-                            student.Date
+                            student.Date // Keep only the existing 7 items
                         ]).draw();
                     });
                 } else {
-                    hTable.row.add(['', 'No results found', '', '', '', '', '', '', '']).draw();
+                    hTable.row.add(['', 'No results found', '', '', '', '', '']).draw();
                 }
-            },
+            },   
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching data: ' + textStatus, errorThrown);
             }

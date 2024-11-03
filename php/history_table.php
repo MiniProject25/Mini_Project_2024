@@ -11,7 +11,7 @@ $fromDate = isset($_GET['fromDate']) ? $_GET['fromDate'] : '';
 $toDate = isset($_GET['toDate']) ? $_GET['toDate'] : '';
 
 // SQL Query
-$sql = "SELECT u.USN, u.Sname, u.Branch, u.RegYear, u.Section, u.Cyear, h.TimeIn, h.TimeOut, h.Date
+$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
         FROM users u 
         INNER JOIN history h ON u.USN = h.USN 
         WHERE 1=1";

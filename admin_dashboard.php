@@ -206,19 +206,21 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     </div>
                                 </div>
                             </form>
-                            <table id="dbtable" class="table table-striped table-bordered">
-                                <thead>
-                                    <th>USN</th>
-                                    <th>Student Name</th>
-                                    <th>Branch</th>
-                                    <th>Year of Registration</th>
-                                    <th>Section</th>
-                                    <th>Year of Study</th>
-                                </thead>
-                                <tbody>
+                            <div style="border: 1px solid #999;">
+                                <table id="dbtable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <th>USN</th>
+                                        <th>Student Name</th>
+                                        <th>Branch</th>
+                                        <th>Year of Registration</th>
+                                        <th>Section</th>
+                                        <th>Year of Study</th>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- History Body -->
                         <div id="history-content" class="d-none">
@@ -281,22 +283,25 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     </div>
                                 </div>
                             </form>
-                            <table id="historyTable" class="table table-striped table-bordered">
-                                <thead>
-                                    <th>USN</th>
-                                    <th>Student Name</th>
-                                    <th>Branch</th>
-                                    <th>Year of Registration</th>
-                                    <th>Section</th>
-                                    <th>Year of Study</th>
-                                    <th>Time-in</th>
-                                    <th>Time-out</th>
-                                    <th>Date</th>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+                            <div style="border: 1px solid #999;">
+                                <table id="historyTable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>USN</th>
+                                            <th>Student Name</th>
+                                            <th>Branch</th>
+                                            <th>Section</th>
+                                            <th>Year of Study</th>
+                                            <th>Time-in</th>
+                                            <th>Time-out</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table data -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ $branch = isset($_GET['branch']) ? $_GET['branch'] : '';
 $section = isset($_GET['section']) ? $_GET['section'] : '';
 
 // Base SQL query
-$sql = "SELECT USN, Sname, Branch, RegYear, Section, Cyear FROM users WHERE 1=1"; 
+$sql = "SELECT USN, Sname, Branch, RegYear, Section, Cyear,EntryKey FROM users WHERE 1=1"; 
 
 $params = [];
 $types = '';
@@ -41,7 +41,7 @@ if (!empty($section)) {
     $types .= 's';
 }
 
-$sql .= " ORDER BY Cyear ASC,Section ASC";
+$sql .= " ORDER BY Cyear ASC,Section ASC,EntryKey ASC";
 
 // Prepare statement and bind parameters only if there are conditions to bind
 $stmt = $conn->prepare($sql);
