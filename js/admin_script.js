@@ -344,7 +344,7 @@ $(document).ready(function () {
     var table = $('#dbtable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
-        ordering: true,
+        ordering: false,
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,
@@ -358,7 +358,7 @@ $(document).ready(function () {
             { width: "10%", targets: 5 }  // Year of Study
         ]
     });
-    table.columns.adjust().draw();
+    // table.columns.adjust().draw();
     // table.draw(); // force redraw
 
     // Event listener for the reset button
@@ -433,7 +433,7 @@ $(document).ready(function () {
     var hTable = $('#historyTable').DataTable({
         paging: false,           // Disable pagination
         searching: false,        // Disable default search box
-        ordering: true,
+        ordering: false,
         bLengthChange: false,    // Disable length change
         info: false,              // Disable info text
         autoWidth: false,

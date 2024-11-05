@@ -85,7 +85,6 @@ session_start();
                     <label for="Password">Password:</label>
                     <input id="Password" type="password" name="password" required><br>
                     <br>
-                    <p class="error-msg" hidden></p>
                     <button type="submit" class="btn btn-secondary" name="login">LOGIN</button>
                     <button type="reset" class="btn btn-secondary" name="reset">RESET</button>
                 </form>

@@ -21,7 +21,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
 <body>
     <!-- Top Navbar -->
-    <nav class="navbar navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-dark bg-dark fixed-top d-none">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
             <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
