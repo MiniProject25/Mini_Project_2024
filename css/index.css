@@ -67,7 +67,7 @@ footer {
     padding: 10px 0;
     /* Padding for the top and bottom */
     position: relative;
-    bottom: 0;
+    margin-top: auto;
     /* Stick it to the bottom if you have a fixed height */
     width: 100%;
     /* Full width */
