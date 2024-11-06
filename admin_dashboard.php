@@ -24,7 +24,17 @@ if (!isset($_SESSION['role'])) {
         <!-- Top Navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] === 'admin') : ?>
                 <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] === 'super_user') : ?>
+                <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Super-User Page</span>
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user') : ?>
                 <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
                     data-bs-toggle="modal">Logout</a>
             </div>
