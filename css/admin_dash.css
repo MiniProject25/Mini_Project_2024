@@ -93,3 +93,11 @@ footer p {
     color: #6c757d; /* Dark gray text color */
     font-size: 13px;
 }
+
+.full-width {
+    width: 100%;
+}
+.default-width {
+    width: 80%; /* Or any width you prefer for admins */
+}
+
