@@ -65,6 +65,7 @@ include './php/db_connection.php';
             position: relative;
             box-shadow: 0 0 20px 9px #ff61241f;
             border-radius: 30px;
+            background: rgba(245, 245, 245, 0.3);
         }
 
         .toggle-btn {
@@ -84,7 +85,7 @@ include './php/db_connection.php';
             position: absolute;
             width: 155px;
             height: 100%;
-            background: linear-gradient(to right, #1e3c72, #ee82ee);
+            background: #1e3c72;
             border-radius: 30px;
             transition: 0.5s;
         }
@@ -124,11 +125,19 @@ include './php/db_connection.php';
             width: 40%;
             padding: 10px 30px;
             cursor: pointer;
-            background: linear-gradient(to right, #1e3c72, #ee82ee);
+            background: #1e3c72;
             border: 0;
             outline: none;
             border-radius: 30px;
             color: #fff;
+        }
+
+        .white-text {
+            color: white;
+        }
+
+        .black-text {
+            color: black;
         }
     </style>
 </head>
@@ -143,8 +152,10 @@ include './php/db_connection.php';
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" onclick="admin()" class="toggle-btn">ADMIN LOGIN</button>
-                <button type="button" onclick="sUser()" class="toggle-btn">SUPER-USER LOGIN</button>
+                <button type="button" onclick="admin()" class="toggle-btn white-text" id="admin-btn">ADMIN
+                    LOGIN</button>
+                <button type="button" onclick="sUser()" class="toggle-btn black-text" id="sUser-btn">SUPER-USER
+                    LOGIN</button>
             </div>
             <form id="admin" method="POST" class="input-group">
                 <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
@@ -228,17 +239,31 @@ include './php/db_connection.php';
         var adminForm = document.getElementById("admin");
         var sUserForm = document.getElementById("sUser");
         var btn = document.getElementById("btn");
+        var adminBtn = document.getElementById("admin-btn");
+        var sUserBtn = document.getElementById("sUser-btn");
 
         function admin() {
             adminForm.style.left = "50px";
             sUserForm.style.left = "450px";
             btn.style.left = "0";
+
+            // Toggle text colors
+            adminBtn.classList.add("white-text");
+            adminBtn.classList.remove("black-text");
+            sUserBtn.classList.add("black-text");
+            sUserBtn.classList.remove("white-text");
         }
 
         function sUser() {
             adminForm.style.left = "-400px";
             sUserForm.style.left = "50px";
             btn.style.left = "155px";
+
+            // Toggle text colors
+            sUserBtn.classList.add("white-text");
+            sUserBtn.classList.remove("black-text");
+            adminBtn.classList.add("black-text");
+            adminBtn.classList.remove("white-text");
         }
     </script>
 </body>

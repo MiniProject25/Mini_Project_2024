@@ -20,7 +20,7 @@ body, button {
     height: calc(100% - var(--topNavbarHeight));
 }
 
-main {
+#admin-main {
     margin-left: var(--offcanvas-width);
 }
 

@@ -20,21 +20,21 @@ if (!isset($_SESSION['role'])) {
 </head>
 
 <body>
-    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user') : ?>
+    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
         <!-- Top Navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin') : ?>
+            <?php if ($_SESSION['role'] === 'admin'): ?>
                 <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'super_user') : ?>
+            <?php if ($_SESSION['role'] === 'super_user'): ?>
                 <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Super-User Page</span>
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user') : ?>
+            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
                 <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
                     data-bs-toggle="modal">Logout</a>
             </div>
@@ -66,7 +66,7 @@ if (!isset($_SESSION['role'])) {
         </div>
     <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin') : ?>
+    <?php if ($_SESSION['role'] === 'admin'): ?>
         <!-- Offcanvas Sidebar -->
         <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
@@ -99,9 +99,15 @@ if (!isset($_SESSION['role'])) {
         </div>
     <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user') : ?>
+    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
         <!-- Dashboard Body -->
-        <main class="mt-5 pt-3">
+    <?php if ($_SESSION['role'] === 'admin'): ?>
+            <main class="mt-5 pt-3" id="admin-main">
+    <?php endif; ?>
+
+    <?php if ($_SESSION['role'] === 'super_user'): ?>
+            <main class="mt-5 pt-3"">
+    <?php endif; ?>
             <div class="container-fluid">
                 <div class="row">
                     <div class="card text-center mx-auto">
@@ -111,15 +117,15 @@ if (!isset($_SESSION['role'])) {
                                     <a class="nav-link stats" style="text-decoration: none; color: black;"
                                         aria-current="true" href="#">Statistics</a>
                                 </li>
-    <?php endif; ?>
+                            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin') : ?>
+                            <?php if ($_SESSION['role'] === 'admin'): ?>
                                 <li class="nav-item db">
                                     <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
                                 </li>
-    <?php endif; ?>
+                            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin'|| $_SESSION['role'] === 'super_user') : ?>
+                            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
                                 <li class="nav-item history">
                                     <a class="nav-link" style="text-decoration: none; color: black;" href="#">History</a>
                                 </li>
@@ -183,9 +189,9 @@ if (!isset($_SESSION['role'])) {
                                 <br>
                             </div>
 
-    <?php endif; ?>
+                        <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin') : ?>
+                        <?php if ($_SESSION['role'] === 'admin'): ?>
                             <!-- DB Body -->
                             <div id="db-content" class="d-none">
                                 <h2><b>Users Table</b></h2>
@@ -249,9 +255,9 @@ if (!isset($_SESSION['role'])) {
                                     </table>
                                 </div>
                             </div>
-    <?php endif; ?>
+                        <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user') : ?>
+                        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
                             <!-- History Body -->
                             <div id="history-content" class="d-none">
                                 <h2><b>History Table</b></h2>
@@ -342,8 +348,8 @@ if (!isset($_SESSION['role'])) {
             </div>
         </main>
     <?php endif; ?>
-    
-    <?php if ($_SESSION['role'] === 'admin') : ?>
+
+    <?php if ($_SESSION['role'] === 'admin'): ?>
         <!-- Sidebar Modals -->
         <!-- Promote Modal -->
         <div class="modal fade" id="promoteModal" tabindex="-1" aria-labelledby="promoteModalLabel" aria-hidden="true">

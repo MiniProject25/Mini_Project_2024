@@ -1,6 +1,8 @@
 <?php
-ob_start();
-session_start();
+session_start(); # Helps to remember who signed up
+ob_start(); # Output buffering to handle headers
+
+include './php/db_connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,90 +11,124 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Page</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>Login Page</title>
     <style>
-        body {
-            background-color: #AFAEAE;
+        /* Your CSS code remains unchanged */
+        * {
+            margin: 0;
+            padding: 0;
             font-family: sans-serif;
         }
 
-        .container {
-            position: relative;
-            min-height: 100vh;
+        .hero {
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(res/clg.png);
+            background-position: center;
+            background-size: cover;
+            position: absolute;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-        }
-
-        button {
-            box-shadow: 0 4px 0px rgba(0, 0, 0, 0.3);
-        }
-
-        input {
-            padding-left: 10px;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            border-radius: 5px;
-            border-color: white;
-            border: 1px solid #ccc;
-        }
-
-        input:focus {
-            background-color: rgb(255, 204, 203);
-        }
-
-        .container button:hover {
-            background-color: #494949;
-        }
-
-        .login-form {
-            /* width: 40%; */
-            background-color: white;
-            padding: 30px 40px;
-            /* margin: 0px 20px; */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            align-items: center;
         }
 
         .logo-container {
-            position: fixed;
-            bottom: 80%;
-            left: 0%;
-            right: 0%;
+            width: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 2% auto;
+        }
+
+        .logo img {
+            height: 100px;
+            width: auto;
+        }
+
+        .form-box {
+            width: 380px;
+            height: 300px;
+            position: relative;
+            margin: 2% auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .form-heading {
+            font-size: 24px;
+            color: #fff;
             text-align: center;
+            margin-top: 30px;
             margin-bottom: 20px;
         }
 
-        .logo {
-            width: 200px;
-            /* height: auto; */
+        .heading-container{
+            background: #1e3c72;
+        }
+
+        .input-group {
+            position: absolute;
+            width: 280px;
+            top: 120px;
+            transition: left 0.5s;
+            left: 50px;
+            margin-bottom: 50px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 0;
+            margin: 5px 0;
+            border: none;
+            border-bottom: 1px solid #999;
+            outline: none;
+            background: transparent;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-btn {
+            width: 40%;
+            padding: 10px 30px;
+            cursor: pointer;
+            background: #1e3c72;
+            border: 0;
+            outline: none;
+            border-radius: 30px;
+            color: #fff;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <!-- Login Form -->
-            <div class="login-form col-fluid ms-auto me-auto">
-                <p class="login-title" style="padding-bottom: 15px; font-size: 20px;">Library LOGIN</p>
-                <form method="POST" action="">
-                    <label for="admin_id">Admin ID:</label>
-                    <input class="ms-1" id="admin_id" type="text" name="admin_id" required><br>
-                    <br>
-                    <label for="Password">Password:</label>
-                    <input id="Password" type="password" name="password" required><br>
-                    <br>
-                    <button type="submit" class="btn btn-secondary" name="login">LOGIN</button>
-                    <button type="reset" class="btn btn-secondary" name="reset">RESET</button>
-                </form>
+    <div class="hero">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="res/cec-better.png" alt="cec-logo">
             </div>
         </div>
-    </div>
-    <div class="logo-container ms-auto me-auto">
-        <img src=".\Res\cec-better.png" alt="Canara Logo" class="logo">
+        <div class="form-box">
+            <div class="heading-container">
+                <h2 class="form-heading">LIBRARIAN LOGIN</h2>
+            </div>
+            <form method="POST" class="input-group">
+                <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
+                <input type="password" name="password" class="input-field" placeholder="Password" required>
+                <div class="button-container">
+                    <button type="submit" name="login" class="btn-btn">LOGIN</button>
+                    <button type="reset" class="btn-btn">RESET</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- PHP Code Here -->
