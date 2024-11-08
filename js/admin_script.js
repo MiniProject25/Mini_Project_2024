@@ -631,5 +631,13 @@ $("#print_history").on("click", function () {
     WinPrint.focus();
     WinPrint.print();
     WinPrint.close();
-  });
+});
+
+$("#importStudentFormat").on("click",function(){
+  window.location.href = 'php/template/import_student_format.php';
+});
+
+$("#updateUSNFormat").on("click", function(){
+  window.location.href = 'php/template/update_usn_format.php';
+});
   
