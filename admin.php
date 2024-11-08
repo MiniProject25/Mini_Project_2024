@@ -152,9 +152,9 @@ include './php/db_connection.php';
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" onclick="admin()" class="toggle-btn white-text" id="admin-btn">ADMIN
+                <button type="button" onclick="admin()" class="toggle-btn white-text" id="admin-btn">LIBRARIAN
                     LOGIN</button>
-                <button type="button" onclick="sUser()" class="toggle-btn black-text" id="sUser-btn">SUPER-USER
+                <button type="button" onclick="sUser()" class="toggle-btn black-text" id="sUser-btn">INSTITUTE
                     LOGIN</button>
             </div>
             <form id="admin" method="POST" class="input-group">
@@ -166,7 +166,7 @@ include './php/db_connection.php';
                 </div>
             </form>
             <form id="sUser" method="POST" class="input-group">
-                <input type="text" name="sUser_id" class="input-field" placeholder="Super-User Id" required>
+                <input type="text" name="sUser_id" class="input-field" placeholder="Enter Id" required>
                 <input type="password" name="sUser_pass" class="input-field" placeholder="Enter Password" required>
                 <div class="button-container">
                     <button type="submit" name="sUser_login" class="btn-btn">LOGIN</button>

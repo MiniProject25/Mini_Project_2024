@@ -53,7 +53,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- main page -->
     <div class="container">
-        <h1 class="title">LIBRARY USAGE MONITORING SYSTEM</h1>
+        <h1 class="title">LIBRARY VISIT MONITORING SYSTEM</h1>
         <div class="row">
             <div class="col">
                 <button type="button" class="btn-lin btn btn-secondary" data-bs-toggle="modal"

@@ -27,11 +27,11 @@ if (!isset($_SESSION['role'])) {
             <?php endif; ?>
 
             <?php if ($_SESSION['role'] === 'admin'): ?>
-                <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Admin Page</span>
+                <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">LIBRARIAN PAGE</span>
             <?php endif; ?>
 
             <?php if ($_SESSION['role'] === 'super_user'): ?>
-                <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">Library Super-User Page</span>
+                <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">LIBRARY STATISTICS PAGE</span>
             <?php endif; ?>
 
             <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
@@ -101,14 +101,14 @@ if (!isset($_SESSION['role'])) {
 
     <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
         <!-- Dashboard Body -->
-    <?php if ($_SESSION['role'] === 'admin'): ?>
+        <?php if ($_SESSION['role'] === 'admin'): ?>
             <main class="mt-5 pt-3" id="admin-main">
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <?php if ($_SESSION['role'] === 'super_user'): ?>
-            <main class="mt-5 pt-3"">
+            <?php if ($_SESSION['role'] === 'super_user'): ?>
+                <main class="mt-5 pt-3"">
     <?php endif; ?>
-            <div class="container-fluid">
+            <div class=" container-fluid">
                 <div class="row">
                     <div class="card text-center mx-auto">
                         <div class="card-header">
@@ -173,11 +173,13 @@ if (!isset($_SESSION['role'])) {
                                         <div class="col-auto">
                                             <button type="reset" id="reset_stat_form" class="btn btn-danger"
                                                 style="padding: 2px">RESET</button>
+                                            <button type="button" id="print_stats" class="btn btn-primary"
+                                                style="padding: 2px">PRINT</button>
                                         </div>
 
                                     </div>
                                     <!-- Bar Graphs are displayed here -->
-                                    <div>
+                                    <div id="Overall_stats">
                                         <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
                                         <hr>
                                         <div id="lib-visit-count" style="width: 100%;"></div>
@@ -280,6 +282,10 @@ if (!isset($_SESSION['role'])) {
                                                 <button type="button" id="history_resetbtn" class="btn btn-danger"
                                                     style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">RESET</button>
                                             </div>
+                                            <div>
+                                                <button type="button" id="print_history" class="btn btn-secondary"
+                                                    style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">PRINT</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="history-filters d-flex align-items-center justify-content-between">
@@ -319,7 +325,7 @@ if (!isset($_SESSION['role'])) {
                                         </div>
                                     </div>
                                 </form>
-                                <div style="border: 1px solid #999;">
+                                <div id="hist_table" style="border: 1px solid #999;">
                                     <table id="historyTable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
@@ -345,374 +351,382 @@ if (!isset($_SESSION['role'])) {
                 <footer class="text-center">
                     <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore. All Rights Reserved.</p>
                 </footer>
-            </div>
-        </main>
-    <?php endif; ?>
-
-    <?php if ($_SESSION['role'] === 'admin'): ?>
-        <!-- Sidebar Modals -->
-        <!-- Promote Modal -->
-        <div class="modal fade" id="promoteModal" tabindex="-1" aria-labelledby="promoteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="promoteModalLabel">Promote Students</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form for File Upload -->
-                        <form method="POST" action="">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <!-- <input type="text" value="1" hidden> -->
-                                        <button id="promote1st"
-                                            onclick="confirmation('#promote1stForm','promote 1st years')"
-                                            form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year --
-                                            2nd
-                                            Year</button>
-                                    </div>
-                                    <div class="col-4">
-                                        <!-- <input type="text" value="2" hidden> -->
-                                        <button id="promote2nd"
-                                            onclick="confirmation('#promote2rdForm','promote 2rd years')"
-                                            form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year --
-                                            3rd
-                                            Year</button>
-                                    </div>
-                                    <div class="col-4">
-                                        <!-- <input type="text" value="3" hidden> -->
-                                        <button id="promote3rd"
-                                            onclick="confirmation(event,'#promote3rdForm','promote 3rd years')"
-                                            form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year --
-                                            4th
-                                            Year</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
-            </div>
-        </div>
+            </main>
+        <?php endif; ?>
 
-        <!-- Import Modal -->
-        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="importModalLabel">Import Data</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form for File Upload -->
-                        <form id="importFileForm" method="POST" action="php/import.php" enctype="multipart/form-data">
-                            <label for="file">Choose a text file:</label>
-                            <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event,'#importFileForm','import file')"
-                            form="importFileForm" class="btn btn-primary">Import</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add a Student Modal -->
-        <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form fields to add a student -->
-                        <form id="addStudentForm" method="post" action="php/insert.php"> <!-- Set action to insert.php -->
-                            <label for="usn">USN:</label>
-                            <!-- <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br> -->
-                            <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control"
-                                required><br>
-
-                            <label for="sname">Name:</label>
-                            <!-- <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br> -->
-                            <input type="text" id="sname" name="sname" placeholder="Enter Student Name" class="form-control"
-                                required><br>
-
-                            <label for="branch">Branch:</label>
-                            <select name="branch" id="branch_add" class="form-control" placeholder="Enter Branch"
-                                style="width: 100%" required>
-                                <option value="" selected disabled>Select Branch</option>
-                            </select>
-                            <br>
-
-                            <label for="regyear">Registration Year:</label>
-                            <input type="text" placeholder="Enter Year of Registration" name="regyear" class="form-control"
-                                required><br>
-
-                            <label for="section">Section:</label>
-                            <select name="section" id="section" class="form-control">
-                                <option selected disabled>Select Section</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                            </select><br>
-
-                            <label for="cyear">Year:</label>
-                            <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
-                                <option selected disabled>Select year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary closeAddStudentModal"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')"
-                            form="addStudentForm" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Remove a Student Modal -->
-        <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="removeStudentForm" method="post" action="php/Remove.php">
-                        <!-- Updated form to redirect to Remove.php -->
+        <?php if ($_SESSION['role'] === 'admin'): ?>
+            <!-- Sidebar Modals -->
+            <!-- Promote Modal -->
+            <div class="modal fade" id="promoteModal" tabindex="-1" aria-labelledby="promoteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="removeStudentModalLabel">Remove Student(s)</h5>
+                            <h5 class="modal-title" id="promoteModalLabel">Promote Students</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Content for Remove Student -->
-                            <p>Please select an option:</p>
-                            <label>
-                                <input type="radio" id="remove_4th" name="removechoice" value="option1" required> Remove 4th
-                                Year
-                            </label><br>
-                            <label>
-                                <input type="radio" id="remove_one" name="removechoice" value="option2" required> Remove
-                                a student
-                            </label><br><br>
-
-                            <!-- Hidden fields that are shown based on radio selection -->
-                            <div id="usnField" class="d-none">
-                                <label for="usn">USN:</label>
-                                <input type="text" name="usn" placeholder="Enter USN"><br><br>
-                            </div>
+                            <!-- Form for File Upload -->
+                            <form method="POST" action="">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <!-- <input type="text" value="1" hidden> -->
+                                            <button id="promote1st"
+                                                onclick="confirmation('#promote1stForm','promote 1st years')"
+                                                form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year
+                                                --
+                                                2nd
+                                                Year</button>
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- <input type="text" value="2" hidden> -->
+                                            <button id="promote2nd"
+                                                onclick="confirmation('#promote2rdForm','promote 2rd years')"
+                                                form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year
+                                                --
+                                                3rd
+                                                Year</button>
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- <input type="text" value="3" hidden> -->
+                                            <button id="promote3rd"
+                                                onclick="confirmation(event,'#promote3rdForm','promote 3rd years')"
+                                                form="promote3rdForm" class="btn btn-light ms-auto" type="button">3rd Year
+                                                --
+                                                4th
+                                                Year</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary closeRemoveModal"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" onclick="confirmation(event,'#removeStudentForm','remove student(s)')"
-                                form="removeStudentForm" class="btn btn-danger">Remove</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="editStudentForm">
+            <!-- Import Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                            <h5 class="modal-title" id="importModalLabel">Import Data</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Please select an option:</p>
-                            <label>
-                                <input type="radio" name="choice" value="updateStudent" required>
-                                Update USN
-                            </label><br>
-                            <label>
-                                <input type="radio" name="choice" value="editStudent" required>
-                                Edit a student
-                            </label><br><br>
+                            <!-- Form for File Upload -->
+                            <form id="importFileForm" method="POST" action="php/import.php" enctype="multipart/form-data">
+                                <label for="file">Choose a text file:</label>
+                                <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx"
+                                    required><br>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary closeEditModal"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="button" id="continueEditBtn" class="btn btn-danger">Continue</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" onclick="confirmation(event,'#importFileForm','import file')"
+                                form="importFileForm" class="btn btn-primary">Import</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Update Modal -->
-        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">Import Data for updating the USN</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Add a Student Modal -->
+            <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addStudentModalLabel">Add a Student</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form fields to add a student -->
+                            <form id="addStudentForm" method="post" action="php/insert.php">
+                                <!-- Set action to insert.php -->
+                                <label for="usn">USN:</label>
+                                <!-- <input type="text" id="usn" name="usn" class="form-control" placeholder="Enter USN" required><br> -->
+                                <input type="text" id="usn" placeholder="Enter Student USN" name="usn" class="form-control"
+                                    required><br>
+
+                                <label for="sname">Name:</label>
+                                <!-- <input type="text" id="sname" name="sname" class="form-control" placeholder="Enter Name" required><br> -->
+                                <input type="text" id="sname" name="sname" placeholder="Enter Student Name"
+                                    class="form-control" required><br>
+
+                                <label for="branch">Branch:</label>
+                                <select name="branch" id="branch_add" class="form-control" placeholder="Enter Branch"
+                                    style="width: 100%" required>
+                                    <option value="" selected disabled>Select Branch</option>
+                                </select>
+                                <br>
+
+                                <label for="regyear">Registration Year:</label>
+                                <input type="text" placeholder="Enter Year of Registration" name="regyear"
+                                    class="form-control" required><br>
+
+                                <label for="section">Section:</label>
+                                <select name="section" id="section" class="form-control">
+                                    <option selected disabled>Select Section</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="F">F</option>
+                                    <option value="G">G</option>
+                                    <option value="H">H</option>
+                                    <option value="I">I</option>
+                                </select><br>
+
+                                <label for="cyear">Year:</label>
+                                <select name="cyear" id="cyear" class="form-control"> <!-- Updated name to 'year' -->
+                                    <option selected disabled>Select year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary closeAddStudentModal"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')"
+                                form="addStudentForm" class="btn btn-primary">Add</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <!-- Form for File Upload -->
-                        <form id="updateFileForm" method="POST" action="php/update.php" enctype="multipart/form-data">
-                            <label for="ufile">Choose a text file:</label>
-                            <input type="file" name="ufile" id="ufile" class="form-control" accept=".csv,.xlsx"
-                                required><br>
+                </div>
+            </div>
+
+            <!-- Remove a Student Modal -->
+            <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="removeStudentForm" method="post" action="php/Remove.php">
+                            <!-- Updated form to redirect to Remove.php -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="removeStudentModalLabel">Remove Student(s)</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Content for Remove Student -->
+                                <p>Please select an option:</p>
+                                <label>
+                                    <input type="radio" id="remove_4th" name="removechoice" value="option1" required> Remove
+                                    4th
+                                    Year
+                                </label><br>
+                                <label>
+                                    <input type="radio" id="remove_one" name="removechoice" value="option2" required> Remove
+                                    a student
+                                </label><br><br>
+
+                                <!-- Hidden fields that are shown based on radio selection -->
+                                <div id="usnField" class="d-none">
+                                    <label for="usn">USN:</label>
+                                    <input type="text" name="usn" placeholder="Enter USN"><br><br>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary closeRemoveModal"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" onclick="confirmation(event,'#removeStudentForm','remove student(s)')"
+                                    form="removeStudentForm" class="btn btn-danger">Remove</button>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event,'#updateFileForm','import file details')"
-                            form="updateFileForm" class="btn btn-primary">Import</button>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="editStudentForm">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Please select an option:</p>
+                                <label>
+                                    <input type="radio" name="choice" value="updateStudent" required>
+                                    Update USN
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="choice" value="editStudent" required>
+                                    Edit a student
+                                </label><br><br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary closeEditModal"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" id="continueEditBtn" class="btn btn-danger">Continue</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- EditOne Modal -->
-        <div class="modal fade" id="editOneModal" tabindex="-1" aria-labelledby="editOneModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Update Modal -->
+            <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateModalLabel">Import Data for updating the USN</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form for File Upload -->
+                            <form id="updateFileForm" method="POST" action="php/update.php" enctype="multipart/form-data">
+                                <label for="ufile">Choose a text file:</label>
+                                <input type="file" name="ufile" id="ufile" class="form-control" accept=".csv,.xlsx"
+                                    required><br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" onclick="confirmation(event,'#updateFileForm','import file details')"
+                                form="updateFileForm" class="btn btn-primary">Import</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form action="" method="post">
-                            <div class="editUsnField">
-                                <label for="usn">USN:</label>
-                                <input type="text" name="usn" class="form-control edit_usn" style="width: 100%"><br>
-                                <button type="button" id="processUSN" class="btn btn-primary">Proceed</button>
-                            </div>
-                            <div class="edit-one-modal d-none">
-                                <div class="form-group mb-3">
-                                    <label for="name">Name:</label>
-                                    <input type="text" id="name_edit" name="name" class="form-control" required>
+                </div>
+            </div>
+
+            <!-- EditOne Modal -->
+            <div class="modal fade" id="editOneModal" tabindex="-1" aria-labelledby="editOneModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                <div class="editUsnField">
+                                    <label for="usn">USN:</label>
+                                    <input type="text" name="usn" class="form-control edit_usn" style="width: 100%"><br>
+                                    <button type="button" id="processUSN" class="btn btn-primary">Proceed</button>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="branch">Branch:</label>
-                                    <select name="branch" id="branch_edit" class="form-control" placeholder="Enter Branch"
-                                        style="width: 100%" required>
+                                <div class="edit-one-modal d-none">
+                                    <div class="form-group mb-3">
+                                        <label for="name">Name:</label>
+                                        <input type="text" id="name_edit" name="name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="branch">Branch:</label>
+                                        <select name="branch" id="branch_edit" class="form-control"
+                                            placeholder="Enter Branch" style="width: 100%" required>
+                                            <option value="" selected disabled>Select Branch</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="regyear">Registration Year:</label>
+                                        <input type="text" id="regyear_edit" name="regyear" class="form-control" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="section">Section:</label>
+                                        <select name="section" id="section_edit" class="form-control" required>
+                                            <option value="" selected disabled>Select Section</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                            <option value="H">H</option>
+                                            <option value="I">I</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="cyear">Year:</label>
+                                        <select name="cyear" id="cyear_edit" class="form-control" required>
+                                            <option value="" selected disabled>Select Year</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-none">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" onclick="confirmation(event,'','edit student')"
+                                        id="submit_edit_btn" class="btn btn-danger">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branch addition and Removal Modal -->
+            <div class="modal" id="addBranchModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add/Remove Branch</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="addRemBranchForm" method="POST" action="php/branch_add_rem.php">
+                            <div class="modal-body">
+                                <p>Please select an option:</p>
+                                <label>
+                                    <input type="radio" id="add_branch" name="branch_choice" value="addbranch" required> Add
+                                    a
+                                    Branch
+                                </label><br>
+                                <label>
+                                    <input type="radio" id="remove_branch" name="branch_choice" value="removebranch"
+                                        required>
+                                    Remove
+                                    a Branch
+                                </label><br><br>
+                                <!-- hidden field -->
+                                <div class="enter-branch-field d-none">
+                                    <label for="">Enter the name of the Branch: </label>
+                                    <input type="text" name="branch_name" id="branch_name" placeholder="Enter Branch Name">
+                                </div>
+                                <div class="select-branch-to-delete d-none">
+                                    <label for="">Select Branch to Remove: </label>
+                                    <select name="branch_to_remove" id="branch_removal" class="form-control"
+                                        placeholder="Enter Branch" style="width: 100%">
                                         <option value="" selected disabled>Select Branch</option>
                                     </select>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="regyear">Registration Year:</label>
-                                    <input type="text" id="regyear_edit" name="regyear" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="section">Section:</label>
-                                    <select name="section" id="section_edit" class="form-control" required>
-                                        <option value="" selected disabled>Select Section</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                        <option value="F">F</option>
-                                        <option value="G">G</option>
-                                        <option value="H">H</option>
-                                        <option value="I">I</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="cyear">Year:</label>
-                                    <select name="cyear" id="cyear_edit" class="form-control" required>
-                                        <option value="" selected disabled>Select Year</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
                             </div>
-                            <div class="modal-footer d-none">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn"
-                                    class="btn btn-danger">Save changes</button>
+                            <div class="modal-footer">
+                                <button type="button" id="closeBranchBtn" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <!-- Branch addition and Removal Modal -->
-        <div class="modal" id="addBranchModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add/Remove Branch</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="addRemBranchForm" method="POST" action="php/branch_add_rem.php">
-                        <div class="modal-body">
-                            <p>Please select an option:</p>
-                            <label>
-                                <input type="radio" id="add_branch" name="branch_choice" value="addbranch" required> Add a
-                                Branch
-                            </label><br>
-                            <label>
-                                <input type="radio" id="remove_branch" name="branch_choice" value="removebranch" required>
-                                Remove
-                                a Branch
-                            </label><br><br>
-                            <!-- hidden field -->
-                            <div class="enter-branch-field d-none">
-                                <label for="">Enter the name of the Branch: </label>
-                                <input type="text" name="branch_name" id="branch_name" placeholder="Enter Branch Name">
-                            </div>
-                            <div class="select-branch-to-delete d-none">
-                                <label for="">Select Branch to Remove: </label>
-                                <select name="branch_to_remove" id="branch_removal" class="form-control"
-                                    placeholder="Enter Branch" style="width: 100%">
-                                    <option value="" selected disabled>Select Branch</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="closeBranchBtn" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
+        <!-- Script -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/admin_script.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-    <!-- Script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin_script.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var message = "<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?>";
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var message = "<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?>";
-
-            if (message) {
-                alert(message);
-                <?php unset($_SESSION['message']); ?>  // Clear the session message
-            }
-        });
-    </script>
+                if (message) {
+                    alert(message);
+                    <?php unset($_SESSION['message']); ?>  // Clear the session message
+                }
+            });
+        </script>
 
 </body>
 

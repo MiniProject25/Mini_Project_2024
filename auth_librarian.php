@@ -118,7 +118,7 @@ include './php/db_connection.php';
         </div>
         <div class="form-box">
             <div class="heading-container">
-                <h2 class="form-heading">LIBRARIAN LOGIN</h2>
+                <h2 class="form-heading">LIBRARY LOGIN</h2>
             </div>
             <form method="POST" class="input-group">
                 <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
