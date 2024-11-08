@@ -115,13 +115,20 @@ if (!isset($_SESSION['role'])) {
                             <ul class="nav nav-tabs card-header-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link stats" style="text-decoration: none; color: black;"
-                                        aria-current="true" href="#">Statistics</a>
+                                        aria-current="true" href="#">Overall Statistics</a>
                                 </li>
                             <?php endif; ?>
 
                             <?php if ($_SESSION['role'] === 'admin'): ?>
                                 <li class="nav-item db">
                                     <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_user'): ?>
+                                <li class="nav-item stud_stat">
+                                    <a class="nav-link" style="text-decoration: none; color: black;" href="#">Student
+                                        Statistic</a>
                                 </li>
                             <?php endif; ?>
 
@@ -133,6 +140,9 @@ if (!isset($_SESSION['role'])) {
                         </div>
                         <div class="card-body">
                             <!-- Statistics Body -->
+                            <div class="student-stat">
+                                
+                            </div>
                             <div id="statistics-content">
                                 <form class="statInfo" id="statsInfo" action="" method="POST">
                                     <div class="row justify-content-center align-items-center g-2">

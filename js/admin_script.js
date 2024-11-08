@@ -197,12 +197,19 @@ $(document).ready(function () {
     $("#history-content").addClass("d-none");
   });
 
-  $(".db").click(function (e) {
-    e.preventDefault();
-    $("#statistics-content").addClass("d-none");
-    $("#db-content").removeClass("d-none");
-    $("#history-content").addClass("d-none");
-  });
+    $('.db').click(function (e) {
+        e.preventDefault();
+        $('#statistics-content').addClass('d-none');
+        $('#db-content').removeClass('d-none');
+        $('#history-content').addClass('d-none');
+    });
+
+    $('.stud_stat').click(function (e) {
+        e.preventDefault();
+        $('#statistics-content').addClass('d-none');
+        $('#db-content').removeClass('d-none');
+        $('#history-content').addClass('d-none');
+    });
 
   $(".history").click(function (e) {
     e.preventDefault();
