@@ -17,14 +17,24 @@ $stmt->bind_result($usn);
 $stmt->fetch();
 $stmt->close();
 
-$query = 'SELECT COUNT(*)
+$query = 'SELECT MAX(slno)  
         FROM history
         WHERE USN = ?';
 $stmt = $conn->prepare($query);
 $stmt->bind_param('s', $usn);
 $stmt->execute();
-$stmt->bind_result($visit_count);
+$stmt->bind_result($slno);
 $stmt->fetch();
 $stmt->close();
 
-echo json_encode(['visitcount' => $visit_count]);
+$query = 'SELECT Date
+        FROM history
+        WHERE slno = ?';
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $slno);
+$stmt->execute();
+$stmt->bind_result($lastdate);
+$stmt->fetch();
+$stmt->close();
+
+echo json_encode(['lastvisitdate' => $lastdate]);
