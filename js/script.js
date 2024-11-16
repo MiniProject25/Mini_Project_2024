@@ -370,6 +370,7 @@ function handleStudentLogout() {
 function handleStaffLogout(){
     let empId = $('#logoutEmp').val();
     let entryKey = $('#staffLogoutEntryKey').val();
+    console.log("empId: " + empId + " entryKey: " + entryKey);
 
     if(entryKey){
         $.ajax({
@@ -392,7 +393,7 @@ function handleStaffLogout(){
                         success:function(response){
                             if(response.success){
                                 const staffTable = $('#staffTable').DataTable();
-                                let row = staffTable.row($('button[data-empId="'+ empId+'"]').parents('tr'));
+                                let row = staffTable.row($('button[data-emp_id="'+ empId+'"]').parents('tr'));
                                 row.remove().draw();
 
                                 $('#logoutModal').modal('hide');

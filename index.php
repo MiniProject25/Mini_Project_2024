@@ -71,12 +71,14 @@ if (!isset($_SESSION['library_logged_in'])) {
                 <div class="modal-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item studentLogin">
-                            <a class="nav-link bg-light" id="studentBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                            <a class="nav-link bg-light" id="studentBtn"
+                                style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Student Login</h6>
                             </a>
                         </li>
                         <li class="nav-item staffLogin">
-                            <a class="nav-link" id="staffBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                            <a class="nav-link" id="staffBtn"
+                                style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Staff Login</h6>
                             </a>
                         </li>
@@ -179,18 +181,23 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </button>
                 </div>
                 <div class="modal-body" id="usnLogout">
-                    <p>Please enter your Entry-Key to confirm logout:</p>
-                    <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
-                    <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
+                    <form method="POST">
+                        <p>Please enter your Entry-Key to confirm logout (Student):</p>
+                        <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
+                        <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
+                    </form>
                 </div>
                 <div class="modal-body d-none" id="empLogout">
-                    <p>Please enter your Entry-Key to confirm logout:</p>
-                    <input type="password" class="form-control" id="staffLogoutEntryKey" placeholder="Enter EntryKey">
-                    <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
+                    <form method="POST">
+                        <p>Please enter your Entry-Key to confirm logout (Faculty):</p>
+                        <input type="password" class="form-control" id="staffLogoutEntryKey"
+                            placeholder="Enter EntryKey">
+                        <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cancelLogout" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmLogout">Logout</button>
+                    <button type="submit" class="btn btn-primary" id="confirmLogout">Logout</button>
                 </div>
             </div>
         </div>
@@ -203,12 +210,14 @@ if (!isset($_SESSION['library_logged_in'])) {
             <div class="dataTableContainer-header mb-1" style="border-bottom: 1px solid #d3d3d3;">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item studentTable">
-                        <a class="nav-link sBtn bg-light" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                        <a class="nav-link sBtn bg-light"
+                            style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                             <h6>Student Login</h6>
                         </a>
                     </li>
                     <li class="nav-item staffTable">
-                        <a class="nav-link fBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                        <a class="nav-link fBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;"
+                            href="#">
                             <h6>Staff Login</h6>
                         </a>
                     </li>

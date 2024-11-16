@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $entrykey = substr($empid, -3);
 
         // Insert data into the `faculty` table or update if the empid already exists
-        $sql = "INSERT INTO faculty (emp_id, Fname, dept, entry_key) 
+        $sql = "INSERT INTO faculty (emp_id, Fname, dept, EntryKey) 
             VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssss', $empid, $fname, $dept, $entrykey);

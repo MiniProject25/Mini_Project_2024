@@ -35,7 +35,7 @@ if(isset($_POST['dept'], $_POST['name'],$_POST['entryKey'])){
                 if($insertStmt->execute()){
                     echo json_encode(['success' => true, 'data' => $faculty]);
                 } else {
-                    echo json_encode(['success' => false, 'message' => 'Failed to log student into history table']);
+                    echo json_encode(['success' => false, 'message' => 'Failed to log faculty into history table']);
                 }
             }
         } else {
