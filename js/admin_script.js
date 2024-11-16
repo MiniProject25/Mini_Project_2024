@@ -564,12 +564,12 @@ $(document).ready(function () {
                 student.Cyear,
                 student.TimeIn,
                 student.TimeOut,
-                student.Date, // Keep only the existing 7 items
+                student.Date
               ])
               .draw();
           });
         } else {
-          hTable.row.add(["", "No results found", "", "", "", "", ""]).draw();
+          hTable.row.add(["", "No results found", "", "", "", "", "",""]).draw();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {

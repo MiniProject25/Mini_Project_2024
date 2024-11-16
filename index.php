@@ -26,7 +26,7 @@ if (!isset($_SESSION['library_logged_in'])) {
         <a href="#" class="navbar-brand">Library</a>
         <button class="btn-logoutlib btn btn-danger mx-3" type="button">LOGOUT</button>
     </nav>
-    
+
     <!-- Librarian Logout Modal -->
     <div class="modal libraryLogout" tabindex="-1">
         <div class="modal-dialog">
@@ -43,7 +43,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event)"
+                        <button type="submit" onclick="librarianConfirmation(event)"
                             class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -69,55 +69,93 @@ if (!isset($_SESSION['library_logged_in'])) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item studentLogin">
+                            <a class="nav-link bg-light" id="studentBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                                <h6>Student Login</h6>
+                            </a>
+                        </li>
+                        <li class="nav-item staffLogin">
+                            <a class="nav-link" id="staffBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                                <h6>Staff Login</h6>
+                            </a>
+                        </li>
+                    </ul>
                     <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" id="studentLoginForm">
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Year</label>
-                            <select name="year" class="form-select" id="year" aria-label="Select Year">
-                                <option selected disabled>Select year</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="branch" class="form-label">Branch</label>
-                            <select name="branch" class="form-select" id="branch" placeholder="Enter branch">
-                                <option selected disabled>Select branch</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="section" class="form-label">Section</label>
-                            <select name="section" class="form-select" id="section" aria-label="Select Section">
-                                <option selected disabled>Select section</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                            </select>
-                        </div>
-                        <div class="mb-3" id="studentListContainer" style="display: none;">
-                            <label for="studentName" class="form-label">Student Name</label>
-                            <select class="form-select studentName" id="studentName" name="studentName">
-                                <!-- <option selected disabled>Select student</option> -->
-                            </select>
-                        </div>
-                        <div class="mb-3" id="EntryExitKey" style="display: none;">
-                            <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label>
-                            <br>
-                            <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
-                                placeholder="Entry Key" aria-label="EntryKey">
-                        </div>
-                    </form>
+                    <!-- Student Modal -->
+                    <div id="studentLogin-content">
+                        <form method="POST" id="studentLoginForm">
+                            <div class="mb-3">
+                                <label for="year" class="form-label">Year</label>
+                                <select name="year" class="form-select" id="year" aria-label="Select Year">
+                                    <option selected disabled>Select year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="branch" class="form-label">Branch</label>
+                                <select name="branch" class="form-select" id="branch" placeholder="Enter branch">
+                                    <option selected disabled>Select branch</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="section" class="form-label">Section</label>
+                                <select name="section" class="form-select" id="section" aria-label="Select Section">
+                                    <option selected disabled>Select section</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="F">F</option>
+                                    <option value="G">G</option>
+                                    <option value="H">H</option>
+                                </select>
+                            </div>
+                            <div class="mb-3" id="studentListContainer" style="display: none;">
+                                <label for="studentName" class="form-label">Student Name</label>
+                                <select class="form-select studentName" id="studentName" name="studentName">
+                                    <!-- <option selected disabled>Select student</option> -->
+                                </select>
+                            </div>
+                            <div class="mb-3" id="EntryExitKey" style="display: none;">
+                                <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label>
+                                <br>
+                                <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
+                                    placeholder="Entry Key" aria-label="EntryKey">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Staff Modal -->
+                    <div id="staffLogin-content">
+                        <form method="POST" id="staffLoginForm">
+                            <div class="mb-3 dept d-none">
+                                <label for="dept" class="form-label">Department</label>
+                                <select name="dept" class="form-select" id="dept" placeholder="Enter department">
+                                    <option selected disabled>Enter Department</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 d-none" id="staffListContainer">
+                                <label for="staffName" class="form-label">Staff Name</label>
+                                <select class="form-select staffName" id="staffName" name="staffName">
+                                    <!-- <option selected disabled>Select student</option> -->
+                                </select>
+                            </div>
+                            <div class="mb-3 d-none" id="staffEntryExitKey">
+                                <label for="staffEntryKey">Entry Key (Last 3 Characters of your EMP_ID)</label>
+                                <br>
+                                <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
+                                    placeholder="Entry Key" aria-label="EntryKey">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="closeModal" class="btn btn-secondary"
@@ -140,10 +178,15 @@ if (!isset($_SESSION['library_logged_in'])) {
                         aria-label="Close"></button>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="usnLogout">
                     <p>Please enter your Entry-Key to confirm logout:</p>
                     <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
                     <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
+                </div>
+                <div class="modal-body d-none" id="empLogout">
+                    <p>Please enter your Entry-Key to confirm logout:</p>
+                    <input type="password" class="form-control" id="staffLogoutEntryKey" placeholder="Enter EntryKey">
+                    <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cancelLogout" data-bs-dismiss="modal">Cancel</button>
@@ -156,22 +199,58 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- Datatable -->
     <div class="mt-3 dataTableContainer">
-        <table id="LibraryTable" class="table table-striped table-bordered">
-            <thead>
-                <tr class="text-center">
-                    <th>Name</th>
-                    <th>Branch</th>
-                    <th>Section</th>
-                    <th>Year</th>
-                    <th>Time-in</th>
-                    <th>Date</th>
-                    <th>Logout</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
+        <div class="dataTableContainer-content">
+            <div class="dataTableContainer-header mb-1" style="border-bottom: 1px solid #d3d3d3;">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item studentTable">
+                        <a class="nav-link sBtn bg-light" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                            <h6>Student Login</h6>
+                        </a>
+                    </li>
+                    <li class="nav-item staffTable">
+                        <a class="nav-link fBtn" style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
+                            <h6>Staff Login</h6>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dataTableConatiner-body mt-3">
+                <div class="studentTable-content">
+                    <table id="studentTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Section</th>
+                                <th>Year</th>
+                                <th>Time-in</th>
+                                <th>Date</th>
+                                <th>Logout</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
 
-            </tbody>
-        </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="staffTable-content  d-none">
+                    <table id="staffTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Time-in</th>
+                                <th>Date</th>
+                                <th>Logout</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- copyright -->
@@ -200,7 +279,15 @@ if (!isset($_SESSION['library_logged_in'])) {
         });
 
         $(document).ready(function () {
-            $('#LibraryTable').DataTable({
+            $('#studentTable').DataTable({
+                paging: true,          // Enable pagination
+                searching: true,       // Enable search box
+                ordering: true,        // Enable column ordering
+                pageLength: 7,         // Set default number of rows per page
+                lengthMenu: [5, 10, 25, 50], // Page length options
+            });
+
+            $('#staffTable').DataTable({
                 paging: true,          // Enable pagination
                 searching: true,       // Enable search box
                 ordering: true,        // Enable column ordering
