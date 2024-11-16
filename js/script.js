@@ -62,23 +62,33 @@ $('#confirmLogout').on('click', function () {
     }
     else if($('#empLogout').is(':visible')){
         handleStaffLogout();
-        $('#stafflogoutEntryKey').val('');
+        $('#staffLogoutEntryKey').val('');
     }
     // $('#logoutEntryKey').empty();
 });
 
 // login via enter key
 $('#loginModal').on('keypress', function (e) {
-    if (e.which === 13) { // Check if Enter key is pressed
+    if (e.which === 13 && $('#studentLogin-content').is(':visible')) { // Check if Enter key is pressed
         e.preventDefault(); // Prevent default form submission
         handleStudentLogin(); // Call the login handling function
+    }
+    else if($(e.which === 13 && '#staffLogin-content').is(':visible')){
+        e.preventDefault();
+        handleStaffLogin();
     }
 });
 
 $('#logoutModal').on('keypress', function (e) {
-    if (e.which === 13) { 
+    if (e.which === 13 && $('#usnLogout').is(':visible')) { 
         e.preventDefault(); 
         handleStudentLogout(); 
+        $('#logoutEntryKey').val('');
+    }
+    else if(e.which === 13 && $('#empLogout').is(':visible')){
+        e.preventDefault(); 
+        handleStaffLogout();
+        $('#staffLogoutEntryKey').val('');
     }
 });
 
@@ -370,7 +380,7 @@ function handleStudentLogout() {
 function handleStaffLogout(){
     let empId = $('#logoutEmp').val();
     let entryKey = $('#staffLogoutEntryKey').val();
-    console.log("empId: " + empId + " entryKey: " + entryKey);
+    // console.log("empId: " + empId + " entryKey: " + entryKey);
 
     if(entryKey){
         $.ajax({
@@ -396,8 +406,8 @@ function handleStaffLogout(){
                                 let row = staffTable.row($('button[data-emp_id="'+ empId+'"]').parents('tr'));
                                 row.remove().draw();
 
+                                $('#staffLogoutEntryKey').val('');
                                 $('#logoutModal').modal('hide');
-                                $('staffLogoutEntryKey').val('');
                             }
                             else{
                                 $('#staffLogoutEntryKey').val('');
@@ -482,4 +492,10 @@ $(".staffTable").click(function(e){
     $(".staffTable-content").removeClass("d-none");
     $(".sBtn").removeClass("bg-light");
     $(".fBtn").addClass("bg-light");
+});
+
+$(".cancelLogout").click(function(e){
+    e.preventDefault();
+    $("#staffLogoutEntryKey").val('');
+    $("#logoutEntryKey").val('');
 });

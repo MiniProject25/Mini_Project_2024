@@ -6,7 +6,7 @@ if(isset($_POST['dept'], $_POST['name'],$_POST['entryKey'])){
     $name=$_POST['name'];
     $entryKey=$_POST['entryKey'];
 
-    $query="SELECT * FROM faculty WHERE Fname=? AND dept=? AND Entrykey=?";
+    $query="SELECT * FROM faculty WHERE Fname=? AND dept=? AND EntryKey=?";
     $stmt=$conn->prepare($query);
     $stmt->bind_param('sss',$name,$dept,$entryKey);
     $stmt->execute();
@@ -16,7 +16,7 @@ if(isset($_POST['dept'], $_POST['name'],$_POST['entryKey'])){
         $faculty=$result->fetch_assoc();
         $empId=$faculty['emp_id'];
 
-        $queryHistory="SELECT TimeOut FROM faculty_history WHERE emp_id=? ORDER BY DATE DESC LIMIT 1";
+        $queryHistory="SELECT TimeOut FROM faculty_history WHERE emp_id=? ORDER BY DATE DESC, TimeOut ASC LIMIT 1";
         $stmtHistory=$conn->prepare($queryHistory);
         $stmtHistory->bind_param('s',$empId);
         $stmtHistory->execute();

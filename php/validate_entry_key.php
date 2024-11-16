@@ -19,7 +19,7 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
         $usn = $student['USN'];
 
         //Check if student has logged in before (i.e., if they exist in the 'history' table)
-        $queryHistory = "SELECT TimeOut FROM history WHERE USN = ? ORDER BY Date DESC LIMIT 1";
+        $queryHistory = "SELECT TimeOut FROM history WHERE USN = ? ORDER BY Date DESC, TimeOut ASC LIMIT 1";
         $stmtHistory = $conn->prepare($queryHistory);
         $stmtHistory->bind_param('s', $usn);
         $stmtHistory->execute();
