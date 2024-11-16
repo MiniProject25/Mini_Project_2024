@@ -31,7 +31,7 @@ include './php/db_connection.php';
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(res/clg.png);
             background-position: center;
             background-size: cover;
-            position: absolute;
+            position: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
