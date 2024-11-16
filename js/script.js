@@ -1,16 +1,26 @@
 // fetching branches from the DB
 $(document).ready(function () {
     loadActiveStudents();
+    loadActiveStaff();
 
     $.ajax({
         url: './php/fetch_branches.php',
         method: 'GET',
         success: function (response) {
             $('#branch').append(response);
+            $('#dept').append(response);
         }
     });
 
     $('.studentName').select2({
+        dropdownParent: $('#loginModal'),
+        width: '100%',
+        placeholder: "Select an option",
+        allowClear: true,
+        matcher: matchCustom
+    });
+
+    $('.staffName').select2({
         dropdownParent: $('#loginModal'),
         width: '100%',
         placeholder: "Select an option",
@@ -25,20 +35,35 @@ $(document).ready(function () {
 
 // Adding record to the Data Table
 $('#acceptLogin').on('click', function () {
-    handleLogin();
-    $('#studentLoginForm')[0].reset();
-    $('#studentName').val('');
+    if($('#studentLogin-content').is(':visible')){
+        handleStudentLogin();
+        $('#studentLoginForm')[0].reset();
+        $('#studentName').val('');
 
-    $('#EntryExitKey').hide();
-    $('#studentListContainer').hide();
+        $('#EntryExitKey').hide();
+        $('#studentListContainer').hide();
 
-    // $('#studentName').empty();
+        // $('#studentName').empty();
+    }
+    else if($('#staffLogin-content').is(':visible')){
+        handleStaffLogin();
+        $('#staffLoginForm')[0].reset();
+        $('#staffName').val('');
+        $('.staffEntryExitKey').addClass('d-none');
+        $('.staffListContainer').addClass('d-none');
+    }
 });
 
 // Logout via button
 $('#confirmLogout').on('click', function () {
-    handleLogout();
-    $('#logoutEntryKey').val('');
+    if($('#usnLogout').is(':visible')){
+        handleStudentLogout();
+        $('#logoutEntryKey').val('');
+    }
+    else if($('#empLogout').is(':visible')){
+        handleStaffLogout();
+        $('#stafflogoutEntryKey').val('');
+    }
     // $('#logoutEntryKey').empty();
 });
 
@@ -46,20 +71,24 @@ $('#confirmLogout').on('click', function () {
 $('#loginModal').on('keypress', function (e) {
     if (e.which === 13) { // Check if Enter key is pressed
         e.preventDefault(); // Prevent default form submission
-        handleLogin(); // Call the login handling function
+        handleStudentLogin(); // Call the login handling function
     }
 });
 
 $('#logoutModal').on('keypress', function (e) {
     if (e.which === 13) { 
         e.preventDefault(); 
-        handleLogout(); 
+        handleStudentLogout(); 
     }
 });
 
 // Clear EntryKey when changing Student from the List (during login)
 $('#studentName').on('change', function () {
     $('#EntryKey').val('');
+});
+
+$('#staffName').on('change', function () {
+    $('#staffEntryKey').val('');
 });
 
 // fetching students from the DB
@@ -93,11 +122,34 @@ $('#section, #year, #branch').on('change', function () {
     }
 });
 
+$('#dept').on('change', function() { 
+    let dept = $('#dept').val();
+
+    if(dept){
+        $.ajax({
+            url: './php/fetch_faculty.php',
+            method: 'POST',
+            data: {
+                dept: dept
+            },
+            success: function(response){
+                $('#staffName').html(response); // Update the dropdown option
+                $('.staffListContainer').removeClass('d-none');
+                $('.staffEntryExitKey').removeClass('d-none');
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error: ", status, error);
+                alert('Failed to fetch staff. Please try again later.');
+            }
+        });
+    }
+});
+
 //////////////////////
 // DEDICATED FUNCTIONS
 //////////////////////
 // login 
-function handleLogin() {
+function handleStudentLogin() {
     let name = $('#studentName').val();
     let year = $('#year').val();
     let branch = $('#branch').val();
@@ -117,13 +169,12 @@ function handleLogin() {
                 EntryKey: EntryKey
             },
             success: function (response) {
-                $('#currTimeIn').val();
                 // console.log(response);
                 if (response.success) {
                     loadActiveStudents();
                     $('#studentLoginForm')[0].reset();
                     $('#studentName').val('');
-                    $('#EntryExitKey').hide();
+                    $('#staffEntryExitKey').hide();
                     $('#studentListContainer').hide();
                     $('#loginModal').modal('hide');
                 } else {
@@ -139,6 +190,40 @@ function handleLogin() {
     }
 }
 
+function handleStaffLogin(){
+    let name=$('#staffName').val();
+    let dept=$('#dept').val();
+    let entryKey=$('#staffEntryKey').val();
+
+    if (name && dept && entryKey) {
+        $.ajax({
+            url: './php/validate_faculty_entry_key.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                name: name,
+                dept: dept,
+                entryKey: entryKey
+            },
+            success: function(response){
+                console.log(name);
+                if(response.success){
+                    loadActiveStaff();
+                    $('#staffLoginForm')[0].reset();
+                    $('#staffName').val('');
+                    $('#staffEntryExitKey').hide();
+                    $('#staffListContainer').hide();
+                    $('#loginModal').modal('hide');
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
+    } else {
+        alert('Please fill out all fields.');
+    }
+}
+
 // Load students in the library
 function loadActiveStudents() {
     $.ajax({
@@ -147,30 +232,30 @@ function loadActiveStudents() {
         dataType: 'json',
         success: function (response) {
             // Clear the DataTable before adding new rows
-            let table = $('#LibraryTable').DataTable();
-            table.clear();
+            let studentTable = $('#studentTable').DataTable();
+            studentTable.clear();
 
             //Iterate over the response and add each student to the DataTable
             response.forEach(function (student) {
-                table.row.add([
+                studentTable.row.add([
                     student.Sname,
                     student.Branch,
                     student.Section,
                     student.Cyear,
                     student.TimeIn,
                     student.Date,
-                    `<button class="btn btn-danger logoutBtn" data-usn="${student.USN}" data-name="${student.Sname}" data-timein="${student.TimeIn}">Logout</button>`
+                    `<button class="btn btn-danger studentLogoutBtn" data-usn="${student.USN}" data-name="${student.Sname}" data-timein="${student.TimeIn}">Logout</button>`
                 ]).draw();
             });
 
-            $('#LibraryTable').off('click', '.logoutBtn').on('click', '.logoutBtn', function (event) {
+            $('#studentTable').off('click', '.studentLogoutBtn').on('click', '.studentLogoutBtn', function (event) {
                 const button = $(this);
                 const name = button.data('name');
                 const timeIn = button.data('timein');
                 const timeOut = new Date().toLocaleTimeString('en-GB');
                 
                 // Check for confirmation before proceeding with logout
-                if (studentConfirmation(name, timeIn, timeOut)) {
+                if (confirmation(name, timeIn, timeOut)) {
                     // Proceed with logout actions
                     $('#logoutUSN').val(button.data('usn'));
                     $('#logoutModal').modal('show');
@@ -183,8 +268,49 @@ function loadActiveStudents() {
     });
 }
 
+function loadActiveStaff(){
+    $.ajax({
+        url: './php/get_active_staffs.php',
+        method: 'GET',
+        dataType: 'json',
+        success:function(response){
+            let staffTable=$('#staffTable').DataTable();
+            staffTable.clear();
+
+            response.forEach(function(faculty){
+                staffTable.row.add([
+                    faculty.fname,
+                    faculty.Dept,
+                    faculty.TimeIn,
+                    faculty.Date,
+                    `<button class="btn btn-danger staffLogoutBtn" data-emp_id="${faculty.emp_id}" data-name="${faculty.fname}"
+                    data-timein="${faculty.TimeIn}">Logout</button>`
+                ]).draw();
+            });
+            $('#staffTable').off('click', '.staffLogoutBtn').on('click', '.staffLogoutBtn', function (event) {
+                const button = $(this);
+                const name = button.data('name');
+                const timeIn = button.data('timein');
+                const timeOut = new Date().toLocaleTimeString('en-GB');
+                
+                // Check for confirmation before proceeding with logout
+                if (confirmation(name, timeIn, timeOut)) {
+                    // Proceed with logout actions
+                    $('#logoutEmp').val(button.data('emp_id'));
+                    $('#usnLogout').addClass('d-none');
+                    $('#empLogout').removeClass('d-none');
+                    $('#logoutModal').modal('show');
+                }
+            });
+        },
+        error: function () {
+            alert('Failed to load active staffs.');
+        }
+    });
+}
+
 // logging out from the library
-function handleLogout() {
+function handleStudentLogout() {
     let usn = $('#logoutUSN').val();
     let entryKey = $('#logoutEntryKey').val();
     // let timeIn = $('#currTimeIn').val();
@@ -209,8 +335,8 @@ function handleLogout() {
                         success: function (response) {
                             if (response.success) {
                                 // Remove the row from the table
-                                const table = $('#LibraryTable').DataTable();
-                                let row = table.row($('button[data-usn="' + usn + '"]').parents('tr'));
+                                const studentTable = $('#studentTable').DataTable();
+                                let row = studentTable.row($('button[data-usn="' + usn + '"]').parents('tr'));
                                 row.remove().draw();
 
                                 // Hide the modal
@@ -241,6 +367,63 @@ function handleLogout() {
     }
 }
 
+function handleStaffLogout(){
+    let empId = $('#logoutEmp').val();
+    let entryKey = $('#staffLogoutEntryKey').val();
+
+    if(entryKey){
+        $.ajax({
+            url: './php/validate_faculty_logout.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                empId: empId,
+                EntryKey: entryKey
+            },
+            success: function(response){
+                if(response.success){
+                    $.ajax({
+                        url: './php/logout_staffs.php',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            empId: empId
+                        },
+                        success:function(response){
+                            if(response.success){
+                                const staffTable = $('#staffTable').DataTable();
+                                let row = staffTable.row($('button[data-empId="'+ empId+'"]').parents('tr'));
+                                row.remove().draw();
+
+                                $('#logoutModal').modal('hide');
+                                $('staffLogoutEntryKey').val('');
+                            }
+                            else{
+                                $('#staffLogoutEntryKey').val('');
+                                alert('Error during logout.');
+                            }
+                        },
+                        error: function () {
+                            $('#staffLogoutEntryKey').val('');
+                            alert('Error during logout.');
+                        }
+                    });
+                }
+                else{
+                    $('#staffLogoutEntryKey').val('');
+                    alert('Invalid Entry Key. Please try again.');
+                }
+            },
+            error: function () {
+                $('#staffLogoutEntryKey').val('');
+                alert('Error validating EntryKey.');
+            }
+        });
+    } else {
+        alert('Please enter your EntryKey.');
+    }
+}
+
 // match the input provided by the user with the entries present in the select element
 function matchCustom(params, data) {
     if ($.trim(params.term) === '') {
@@ -255,7 +438,7 @@ function matchCustom(params, data) {
     return null;
 }
 
-function confirmation(event) {
+function librarianConfirmation(event) {
     const isConfirmed = confirm("Are you sure you want to Log out from the librarian page?");
 
     if (!isConfirmed) {
@@ -263,6 +446,39 @@ function confirmation(event) {
     }
 }
 
-function studentConfirmation(name, timeIn, timeOut) {
+function confirmation(name, timeIn, timeOut) {
     return confirm(`${name},\nYour login time is ${timeIn} and your logout time will be ${timeOut}.\nAre you sure you want log out?`);
 }
+
+$(".studentLogin").click(function (e) {
+    e.preventDefault();
+    $("#staffLogin-content").addClass("d-none");
+    $("#studentLogin-content").removeClass("d-none");
+    $("#studentBtn").addClass("bg-light");
+    $("#staffBtn").removeClass("bg-light");
+});
+
+$(".staffLogin").click(function (e) {
+    e.preventDefault();
+    $(".dept").removeClass("d-none");
+    $("#staffLogin-content").removeClass("d-none");
+    $("#studentLogin-content").addClass("d-none");
+    $("#studentBtn").removeClass("bg-light");
+    $("#staffBtn").addClass("bg-light");
+});
+
+$(".studentTable").click(function(e){
+    e.preventDefault();
+    $(".studentTable-content").removeClass("d-none");
+    $(".staffTable-content").addClass("d-none");
+    $(".sBtn").addClass("bg-light");
+    $(".fBtn").removeClass("bg-light");
+});
+
+$(".staffTable").click(function(e){
+    e.preventDefault();
+    $(".studentTable-content").addClass("d-none");
+    $(".staffTable-content").removeClass("d-none");
+    $(".sBtn").removeClass("bg-light");
+    $(".fBtn").addClass("bg-light");
+});

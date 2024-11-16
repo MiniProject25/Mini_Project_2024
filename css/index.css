@@ -93,7 +93,8 @@ footer p {
     border-radius: 10px;
 }
 
-#LibraryTable {
+#studentTable,
+#staffTable {
     border-spacing: 0;
     border-collapse: collapse;
 }
@@ -105,6 +106,12 @@ footer p {
 .foot {
     font-size: 1.75rem;
 }
+
+.modal-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 
 @media (max-width: 1075px) {
     .title {
@@ -130,16 +137,16 @@ footer p {
         font-size: 1.5rem;
     }
 
-    #LibraryTable th,
-    #LibraryTable td {
+    th,
+    td {
         font-size: 0.9em;
     }
 }
 
 @media (max-width: 795px){
 
-    #LibraryTable th,
-    #LibraryTable td {
+    th,
+    td {
         font-size: 0.7em;
     }
 }
@@ -162,8 +169,8 @@ footer p {
         bottom: 125px;
     }
 
-    #LibraryTable th,
-    #LibraryTable td {
+    th,
+    td {
         font-size: 0.6em;
     }
 }
@@ -178,8 +185,8 @@ footer p {
         scale: 1.1;
     }
 
-    #LibraryTable th,
-    #LibraryTable td {
+    th,
+    td {
         font-size: 0.4em;
     }
 }
