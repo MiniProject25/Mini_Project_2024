@@ -88,6 +88,12 @@ if (!isset($_SESSION['role'])) {
                             <a href="#" data-bs-target="#formatModal" data-bs-toggle="modal"
                                 class="nav-link px-3 active">Download Format</a>
                             <hr>
+                            <a href="#" data-bs-target="#facultyAdditionModal" data-bs-toggle="modal"
+                                class="nav-link px-3 active">Add a Faculty</a>
+                            <hr>
+                            <a href="#" data-bs-target="#facultyRemovalModal" data-bs-toggle="modal"
+                                class="nav-link px-3 active">Remove a Faculty</a>
+                            <hr>
                         </li>
                     </ul>
                 </div>
@@ -352,7 +358,8 @@ if (!isset($_SESSION['role'])) {
                                     <div class="history-btn">
                                         <div class="history-deletebtn">
                                             <button type="button" id="history_deletebtn" class="btn btn-danger"
-                                                style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old Data</button>
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old
+                                                Data</button>
                                         </div>
                                         <div class="history-resetbtn">
                                             <button type="button" id="history_resetbtn" class="btn btn-primary"
@@ -803,6 +810,76 @@ if (!isset($_SESSION['role'])) {
                     <button type="button" id="closeFormatBtn" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faculty Addition Modal -->
+    <div class="modal" id="facultyAdditionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a Faculty</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addFacultyForm" method="post" action="php/insertFaculty.php">
+                    <div class="modal-body">
+                        <label for="empid">Faculty Employee ID:</label>
+                        <input type="text" id="emp_id" placeholder="Enter Faculty ID" name="emp_id" class="form-control"
+                            required><br>
+
+                        <label for="sname">Name:</label>
+                        <input type="text" id="emp_name" name="emp_name" placeholder="Enter Faculty Name"
+                            class="form-control" required><br>
+
+                        <label for="branch">Department:</label>
+                        <select name="dept" id="dept" class="form-control" placeholder="Enter Department"
+                            style="width: 100%" required>
+                            <option value="" selected disabled>Select Department</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="addFacultyBtn" class="btn btn-primary">Proceed</button>
+                        <button type="button" id="closeFacultyAdditionBtn" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faculty Removal Modal -->
+    <div class="modal" id="facultyRemovalModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Remove a Faculty</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="remFacultyForm" method="post" action="php/removeFaculty.php">
+                    <div class="modal-body">
+                        <label for="branch">Select Department:</label>
+                        <select name="f_dept" id="f_dept" class="form-control" placeholder="Select Department"
+                            style="width: 100%" required>
+                            <option value="" selected disabled>Select Department</option>
+                        </select><br>
+
+                        <label for="sname">Select Faculty:</label>
+                        <select name="fac_name" id="fac_name" class="form-control" placeholder="Select Faculty"
+                            style="width: 100%" required>
+                            <option value="" selected disabled>Select Faculty</option>
+                        </select><br>
+
+                        <label for="empid">Faculty Employee ID:</label>
+                        <input type="text" id="rem_emp_id" placeholder="Enter Faculty ID" name="rem_emp_id" class="form-control"
+                            required><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="addFacultyBtn" class="btn btn-primary">Proceed</button>
+                        <button type="button" id="closeFacultyAdditionBtn" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

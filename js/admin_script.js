@@ -172,6 +172,8 @@ $(document).ready(function () {
       $("#branch_removal").append(response);
       $("#history_branch").append(response);
       $("#stud_branch").append(response);
+      $("#dept").append(response);
+      $("#f_dept").append(response);
     },
   });
 
@@ -200,6 +202,11 @@ $(document).ready(function () {
     $("#addRemBranchForm")[0].reset();
     $(".select-branch-to-delete").addClass("d-none");
     $(".enter-branch-field").addClass("d-none");
+  });
+
+  // closing faculty add modal
+  $("#closeFacultyAdditionBtn").on("click", function () {
+    $("#addFacultyForm")[0].reset();
   });
 
   $(".stats").click(function (e) {
