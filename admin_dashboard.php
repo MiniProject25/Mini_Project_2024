@@ -189,6 +189,25 @@ if (!isset($_SESSION['role'])) {
                                     <p><strong>Total Duration:</strong> <span id="total-duration"></span></p>
                                     <p><strong>Average Duration:</strong> <span id="avg-duration"></span></p>
                                     <p><strong>Visit Count:</strong> <span id="visit-count"></span></p>
+                                    <div class="m-4 stud-history-table">
+                                        <table id="StudenthistoryTable" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>USN</th>
+                                                    <th>Student Name</th>
+                                                    <th>Branch</th>
+                                                    <th>Section</th>
+                                                    <th>Year of Study</th>
+                                                    <th>Time-in</th>
+                                                    <th>Time-out</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Table data -->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -331,13 +350,17 @@ if (!isset($_SESSION['role'])) {
                                         <input type="date" id="history_toDate" name="toDate">
                                     </div>
                                     <div class="history-btn">
-                                        <div class="history-refreshbtn">
-                                            <button type="button" id="history_refreshbtn" class="btn btn-primary"
-                                                style="padding: 3px; flex: 1; margin-right: 5px; width: 100px;">REFRESH</button>
+                                        <div class="history-deletebtn">
+                                            <button type="button" id="history_deletebtn" class="btn btn-danger"
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old Data</button>
                                         </div>
                                         <div class="history-resetbtn">
-                                            <button type="button" id="history_resetbtn" class="btn btn-danger"
-                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">RESET</button>
+                                            <button type="button" id="history_resetbtn" class="btn btn-primary"
+                                                style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
+                                        </div>
+                                        <div class="history-refreshbtn">
+                                            <button type="button" id="history_refreshbtn" class="btn btn-info"
+                                                style="padding: 3px; flex: 1;margin-left: 5px;  width: 100px;">REFRESH</button>
                                         </div>
                                         <div>
                                             <button type="button" id="print_history" class="btn btn-secondary"

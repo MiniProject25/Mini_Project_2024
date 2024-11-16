@@ -279,6 +279,7 @@ $(document).ready(function () {
       studentAverageDuration();
       studentTotalVisitCount();
       lastVisitedDate();
+      getStudHistoryTable();
     }
     else {
       $("#student_stats").hide();
@@ -636,6 +637,66 @@ $(document).ready(function () {
     ],
   });
 
+  // Student History table
+  var StudHTable = $("#StudenthistoryTable").DataTable({
+    paging: true,
+    searching: false,
+    bLengthChange: false,
+    info: true,
+    autoWidth: false,
+    columnDefs: [
+      { width: "10%", targets: 0 }, // USN
+      { width: "15%", targets: 1 }, // Student Name
+      { width: "30%", targets: 2 }, // Branch
+      { width: "5%", targets: 3 }, // Section
+      { width: "10%", targets: 4 }, // Year of Study
+      { width: "7.5%", targets: 5 }, // Time-in
+      { width: "7.5%", targets: 6 }, // Time-out
+      { width: "10%", targets: 7 }, // Date
+    ],
+  });
+
+  function getStudHistoryTable() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stud_hist_table.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(data) {
+        StudHTable.clear();
+
+        if (data && data.length > 0) {
+          data.forEach(function (student) {
+            StudHTable.row
+              .add([
+                student.USN,
+                student.Sname,
+                student.Branch,
+                student.Section,
+                student.Cyear,
+                student.TimeIn,
+                student.TimeOut,
+                student.Date, // Keep only the existing 7 items
+              ])
+              .draw();
+          });
+        } else {
+          StudHTable.row.add(["", "No results found", "", "", "", "", ""]).draw();
+        }
+      }
+    });
+  }
+
   // Event listener for the reset button
   $("#history_resetbtn").on("click", function (e) {
     e.preventDefault();
@@ -649,12 +710,26 @@ $(document).ready(function () {
     fetchHistoryTable();
   });
 
+  $("#history_deletebtn").on("click", function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: "php/delete_old_history_data.php",
+      type: 'POST',
+      dataType: 'json',
+      success: function(response) {
+        alert(response.message);
+      }
+    });
+  });  
+
   $("#history_refreshbtn").on("click", function (e) {
     e.preventDefault();
 
     handlehInputChange();
   });
 
+  // fetching history table
   function handlehInputChange() {
     const hsearchTerm = $("#history_searchInput").val().trim();
     const hyear = $("#history_Cyear").val();
