@@ -49,8 +49,8 @@ $('#acceptLogin').on('click', function () {
         handleStaffLogin();
         $('#staffLoginForm')[0].reset();
         $('#staffName').val('');
-        $('#staffEntryExitKey').hide();
-        $('#staffListContainer').hide();
+        $('.staffEntryExitKey').addClass('d-none');
+        $('.staffListContainer').addClass('d-none');
     }
 });
 
@@ -62,7 +62,7 @@ $('#confirmLogout').on('click', function () {
     }
     else if($('#empLogout').is(':visible')){
         handleStaffLogout();
-        $('#stafflogoutEntryKey').val('')
+        $('#stafflogoutEntryKey').val('');
     }
     // $('#logoutEntryKey').empty();
 });
@@ -122,10 +122,7 @@ $('#section, #year, #branch').on('change', function () {
     }
 });
 
-$('#dept').on('change', function() {
-    $('#staffListContainer').removeClass('d-none');
-    $('#staffEntryExitKey').removeClass('d-none');
-    
+$('#dept').on('change', function() { 
     let dept = $('#dept').val();
 
     if(dept){
@@ -137,15 +134,14 @@ $('#dept').on('change', function() {
             },
             success: function(response){
                 $('#staffName').html(response); // Update the dropdown option
+                $('.staffListContainer').removeClass('d-none');
+                $('.staffEntryExitKey').removeClass('d-none');
             },
             error: function (xhr, status, error) {
                 console.error("AJAX Error: ", status, error);
                 alert('Failed to fetch staff. Please try again later.');
             }
         });
-    }else{
-        $('#staffListContainer').addClass('d-none'); // Hide if any field is empty
-        $('#staffEntryExitKey').addClass('d-none');
     }
 });
 
@@ -173,7 +169,6 @@ function handleStudentLogin() {
                 EntryKey: EntryKey
             },
             success: function (response) {
-                $('#currTimeIn').val();
                 // console.log(response);
                 if (response.success) {
                     loadActiveStudents();

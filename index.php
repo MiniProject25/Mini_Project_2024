@@ -142,13 +142,13 @@ if (!isset($_SESSION['library_logged_in'])) {
                                     <option selected disabled>Enter Department</option>
                                 </select>
                             </div>
-                            <div class="mb-3 d-none" id="staffListContainer">
+                            <div class="mb-3 staffListContainer d-none">
                                 <label for="staffName" class="form-label">Staff Name</label>
                                 <select class="form-select staffName" id="staffName" name="staffName">
                                     <!-- <option selected disabled>Select student</option> -->
                                 </select>
                             </div>
-                            <div class="mb-3 d-none" id="staffEntryExitKey">
+                            <div class="mb-3 staffEntryExitKey d-none">
                                 <label for="staffEntryKey">Entry Key (Last 3 Characters of your EMP_ID)</label>
                                 <br>
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
