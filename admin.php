@@ -2,6 +2,11 @@
 session_start(); # Helps to remember who signed up
 ob_start(); # Output buffering to handle headers
 
+if (isset($_SESSION['role'])) {
+    header('Location: admin_dashboard.php');
+    exit();
+}
+
 include './php/db_connection.php';
 ?>
 

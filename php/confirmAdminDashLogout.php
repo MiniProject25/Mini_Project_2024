@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($pwd, $row['pass_hash'])) {
             unset($_SESSION['admin_id']);
             unset($_SESSION['admin_logged_in']);
+            unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
                         window.location.href = "../admin.php"; 
                         window.history.pushState(null, null, window.location.href);  
@@ -48,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($pwd, $row['pass_hash'])) {
             unset($_SESSION['sUser_id']);
             unset($_SESSION['sUser_logged_in']);
+            unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
                         window.location.href = "../admin.php"; 
                         window.history.pushState(null, null, window.location.href);  
