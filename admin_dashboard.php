@@ -17,6 +17,8 @@ if (!isset($_SESSION['role'])) {
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/admin_dash.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -74,8 +76,8 @@ if (!isset($_SESSION['role'])) {
                             <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
                                 class="nav-link px-3 active">Remove Student(s)</a>
                             <hr>
-                            <a href="#" data-bs-target="#editModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Edit Student(s)</a>
+                            <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="nav-link px-3 active">Edit
+                                Student(s)</a>
                             <hr>
                             <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
                                 class="nav-link px-3 active">Promote Students</a>
@@ -83,7 +85,7 @@ if (!isset($_SESSION['role'])) {
                             <a href="#" data-bs-target="#addBranchModal" data-bs-toggle="modal"
                                 class="nav-link px-3 active">Add/Remove a Branch</a>
                             <hr>
-                            <a href="#" data-bs-target="#formatModal" data-bs-toggle="modal" 
+                            <a href="#" data-bs-target="#formatModal" data-bs-toggle="modal"
                                 class="nav-link px-3 active">Download Format</a>
                             <hr>
                         </li>
@@ -106,16 +108,18 @@ if (!isset($_SESSION['role'])) {
                                     aria-current="true" href="#">Overall Statistics</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link stud_stat" style="text-decoration: none; color: black;"
+                                    href="#">Student-wise
+                                    Statistics</a>
+                            </li>
+
                             <?php if ($_SESSION['role'] === 'admin'): ?>
                                 <li class="nav-item db">
                                     <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
                                 </li>
                             <?php endif; ?>
 
-                            <li class="nav-item stud_stat">
-                                <a class="nav-link" style="text-decoration: none; color: black;" href="#">Student
-                                    Statistic</a>
-                            </li>
                             <li class="nav-item history">
                                 <a class="nav-link" style="text-decoration: none; color: black;" href="#">History</a>
                             </li>
@@ -123,8 +127,89 @@ if (!isset($_SESSION['role'])) {
                     </div>
                     <div class="card-body">
                         <!-- Statistics Body -->
-                        <div class="student-stat">
-
+                        <div id="student-stat-content">
+                            <form class="studStatInfo" method="POST">
+                                <div class="row justify-content-center align-items-center g-2">
+                                    <div class="col-auto">
+                                        <label for="year">Year</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select name="stud_cyear" class="form-select" id="stud_cyear"
+                                            aria-label="Select Year">
+                                            <option selected disabled>Select year</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="branch" class="ms-auto">Branch</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select name="stud_branch" class="form-select" id="stud_branch"
+                                            placeholder="Enter branch">
+                                            <option selected disabled>Select branch</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="section" class="ms-auto">Section</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select name="stud_section" class="form-select" id="stud_section"
+                                            aria-label="Select Section">
+                                            <option selected disabled>Select section</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                            <option value="H">H</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="name" class="ms-auto">Name</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select class="form-select studentName" id="studentName" name="studentName">
+                                            <!-- <option selected disabled>Select student</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="reset" id="reset_stud_stat_form" class="btn btn-danger"
+                                            style="padding: 2px">RESET</button>
+                                        <button type="button" id="print_stud_stats" class="btn btn-primary"
+                                            style="padding: 2px">PRINT</button>
+                                    </div>
+                                </div>
+                                <div class="student_stats py-4" id="student_stats">
+                                    <p><strong>Last Visit Date:</strong> <span id="last-visit-date"></span></p>
+                                    <p><strong>Total Duration:</strong> <span id="total-duration"></span></p>
+                                    <p><strong>Average Duration:</strong> <span id="avg-duration"></span></p>
+                                    <p><strong>Visit Count:</strong> <span id="visit-count"></span></p>
+                                    <div class="m-4 stud-history-table">
+                                        <table id="StudenthistoryTable" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>USN</th>
+                                                    <th>Student Name</th>
+                                                    <th>Branch</th>
+                                                    <th>Section</th>
+                                                    <th>Year of Study</th>
+                                                    <th>Time-in</th>
+                                                    <th>Time-out</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Table data -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div id="statistics-content">
                             <form class="statInfo" id="statsInfo" action="" method="POST">
@@ -265,13 +350,17 @@ if (!isset($_SESSION['role'])) {
                                         <input type="date" id="history_toDate" name="toDate">
                                     </div>
                                     <div class="history-btn">
-                                        <div class="history-refreshbtn">
-                                            <button type="button" id="history_refreshbtn" class="btn btn-primary"
-                                                style="padding: 3px; flex: 1; margin-right: 5px; width: 100px;">REFRESH</button>
+                                        <div class="history-deletebtn">
+                                            <button type="button" id="history_deletebtn" class="btn btn-danger"
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old Data</button>
                                         </div>
                                         <div class="history-resetbtn">
-                                            <button type="button" id="history_resetbtn" class="btn btn-danger"
-                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">RESET</button>
+                                            <button type="button" id="history_resetbtn" class="btn btn-primary"
+                                                style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
+                                        </div>
+                                        <div class="history-refreshbtn">
+                                            <button type="button" id="history_refreshbtn" class="btn btn-info"
+                                                style="padding: 3px; flex: 1;margin-left: 5px;  width: 100px;">REFRESH</button>
                                         </div>
                                         <div>
                                             <button type="button" id="print_history" class="btn btn-secondary"
@@ -463,7 +552,7 @@ if (!isset($_SESSION['role'])) {
                         </select><br>
 
                         <label for="cyear">Year:</label>
-                        <select name="cyear" id="cyear" class="form-control"> 
+                        <select name="cyear" id="cyear" class="form-control">
                             <option selected disabled>Select year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -695,20 +784,24 @@ if (!isset($_SESSION['role'])) {
                     <h5 class="modal-title">Download Format</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form >
+                <form>
                     <div style="margin-left:15px">
                         <label for="importStudentFormat">Import Students Format:</label><br>
-                        <img style="width: 250px; height: auto;margin-left:15px;" src="res/import-students-format-ex.png">
-                        <button  type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary" id="importStudentFormat">Download</button>
+                        <img style="width: 250px; height: auto;margin-left:15px;"
+                            src="res/import-students-format-ex.png">
+                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
+                            id="importStudentFormat">Download</button>
                     </div><br>
                     <div style="margin-left:15px">
                         <label for="updateUsnFormat">Update USN Format:</label><br>
                         <img style="width: 250px; height: 77px;margin-left:15px" src="res/update-usn-format-ex.png">
-                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary" id="updateUSNFormat">Download</button>
+                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
+                            id="updateUSNFormat">Download</button>
                     </div><br>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" id="closeFormatBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="closeFormatBtn" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -721,6 +814,7 @@ if (!isset($_SESSION['role'])) {
     <script src="js/admin_script.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script>

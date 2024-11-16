@@ -1,4 +1,15 @@
 $(document).ready(function () {
+
+  $('.studentName').select2({
+    width: '100%',
+    placeholder: "Select an option",
+    allowClear: true,
+    matcher: matchCustom
+  });
+
+  $("#student-stat-content").hide();
+  $("#student_stats").hide();
+
   // rendering default graph
   libUsagePerHour();
   libVisitCount();
@@ -160,6 +171,7 @@ $(document).ready(function () {
       $("#branch_stat").append(response);
       $("#branch_removal").append(response);
       $("#history_branch").append(response);
+      $("#stud_branch").append(response);
     },
   });
 
@@ -193,34 +205,174 @@ $(document).ready(function () {
   $(".stats").click(function (e) {
     e.preventDefault();
     $("#db-content").addClass("d-none");
-    $("#statistics-content").removeClass("d-none");
     $("#history-content").addClass("d-none");
+    $("#statistics-content").removeClass("d-none");
+    $("#student-stat-content").hide();
   });
 
-    $('.db').click(function (e) {
-        e.preventDefault();
-        $('#statistics-content').addClass('d-none');
-        $('#db-content').removeClass('d-none');
-        $('#history-content').addClass('d-none');
-    });
+  $('.db').click(function (e) {
+    e.preventDefault();
+    $('#statistics-content').addClass('d-none');
+    $('#history-content').addClass('d-none');
+    $('#db-content').removeClass('d-none');
+    $("#student-stat-content").hide();
+  });
 
-    $('.stud_stat').click(function (e) {
-        e.preventDefault();
-        $('#statistics-content').addClass('d-none');
-        $('#db-content').removeClass('d-none');
-        $('#history-content').addClass('d-none');
-    });
+  $('.stud_stat').click(function (e) {
+    e.preventDefault();
+    $('#statistics-content').addClass('d-none');
+    $('#db-content').addClass('d-none');
+    $('#history-content').addClass('d-none');
+    $("#student-stat-content").show();
+  });
 
   $(".history").click(function (e) {
     e.preventDefault();
     $("#statistics-content").addClass("d-none");
     $("#db-content").addClass("d-none");
     $("#history-content").removeClass("d-none");
+    $("#student-stat-content").hide();
   });
+
+  // fetching students for Student-wise statistics
+  $('#stud_section, #stud_cyear, #stud_branch').on('change', function () {
+    let year = $('#stud_cyear').val();
+    let branch = $('#stud_branch').val();
+    let section = $('#stud_section').val();
+
+    if (branch && section && year) {
+      $.ajax({
+        url: './php/fetch_students.php',
+        method: 'POST',
+        data: {
+          year: year,
+          branch: branch,
+          section: section
+        },
+        success: function (response) {
+          $('#studentName').html(response); // Update the dropdown option
+          $('#studentName').val(null).trigger('change');
+        },
+        error: function (xhr, status, error) {
+          console.error("AJAX Error: ", status, error);
+          alert('Failed to fetch students. Please try again later.');
+        }
+      });
+    }
+  });
+
+  $("#reset_stud_stat_form").on('click', function () {
+    $("#student_stats").hide();
+    $('#studentName').empty();
+  })
 
   // ******************************** //
   // ******* STATISTIC ******* //
   // ******************************** //
+
+  // student-wise stats
+  $("#studentName").on('change', function () {
+    let studentName = $(this).val();
+    if (studentName != null) {
+      $("#student_stats").show();
+      studentTotalDuration();
+      studentAverageDuration();
+      studentTotalVisitCount();
+      lastVisitedDate();
+      getStudHistoryTable();
+    }
+    else {
+      $("#student_stats").hide();
+    }
+  });
+
+  function lastVisitedDate() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stats/last_visit_date.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(response) {
+        $('#last-visit-date').text(response.lastvisitdate);
+      }
+    });
+  }
+
+  function studentTotalVisitCount() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stats/total_student_visit.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(response) {
+        $('#visit-count').text(response.visitcount);
+      }
+    });
+  }
+
+  function studentTotalDuration() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stats/total_time_spent_by_student.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(response) {
+        $('#total-duration').text(response.duration);
+      }
+    });
+  }
+
+  function studentAverageDuration() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stats/avg_duration_per_visit.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(response) {
+        $('#avg-duration').text(response.avgduration);
+      }
+    });
+  }
 
   // Fetch Graphs (statistics)
   $(".statInfo").on("input change", 'input[type="date"], select', function () {
@@ -485,6 +637,66 @@ $(document).ready(function () {
     ],
   });
 
+  // Student History table
+  var StudHTable = $("#StudenthistoryTable").DataTable({
+    paging: true,
+    searching: false,
+    bLengthChange: false,
+    info: true,
+    autoWidth: false,
+    columnDefs: [
+      { width: "10%", targets: 0 }, // USN
+      { width: "15%", targets: 1 }, // Student Name
+      { width: "30%", targets: 2 }, // Branch
+      { width: "5%", targets: 3 }, // Section
+      { width: "10%", targets: 4 }, // Year of Study
+      { width: "7.5%", targets: 5 }, // Time-in
+      { width: "7.5%", targets: 6 }, // Time-out
+      { width: "10%", targets: 7 }, // Date
+    ],
+  });
+
+  function getStudHistoryTable() {
+    let cyear = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
+    let sName = $("#studentName").val();
+
+    $.ajax({
+      url: "php/stud_hist_table.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        cyear: cyear,
+        branch: branch,
+        section: section,
+        sname: sName
+      },
+      success: function(data) {
+        StudHTable.clear();
+
+        if (data && data.length > 0) {
+          data.forEach(function (student) {
+            StudHTable.row
+              .add([
+                student.USN,
+                student.Sname,
+                student.Branch,
+                student.Section,
+                student.Cyear,
+                student.TimeIn,
+                student.TimeOut,
+                student.Date, // Keep only the existing 7 items
+              ])
+              .draw();
+          });
+        } else {
+          StudHTable.row.add(["", "No results found", "", "", "", "", ""]).draw();
+        }
+      }
+    });
+  }
+
   // Event listener for the reset button
   $("#history_resetbtn").on("click", function (e) {
     e.preventDefault();
@@ -498,12 +710,26 @@ $(document).ready(function () {
     fetchHistoryTable();
   });
 
+  $("#history_deletebtn").on("click", function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: "php/delete_old_history_data.php",
+      type: 'POST',
+      dataType: 'json',
+      success: function(response) {
+        alert(response.message);
+      }
+    });
+  });  
+
   $("#history_refreshbtn").on("click", function (e) {
     e.preventDefault();
 
     handlehInputChange();
   });
 
+  // fetching history table
   function handlehInputChange() {
     const hsearchTerm = $("#history_searchInput").val().trim();
     const hyear = $("#history_Cyear").val();
@@ -620,24 +846,51 @@ $("#print_stats").on("click", function () {
 });
 
 $("#print_history").on("click", function () {
-    var prtContent = document.getElementById("hist_table");
-    var WinPrint = window.open(
-      "",
-      "",
-      "left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0"
-    );
-    WinPrint.document.write(prtContent.innerHTML);
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-    WinPrint.close();
+  var prtContent = document.getElementById("hist_table");
+  var WinPrint = window.open(
+    "",
+    "",
+    "left=0,top=0,width=1920,height=1080,toolbar=0,scrollbars=0,status=0"
+  );
+  WinPrint.document.write(prtContent.innerHTML);
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
 });
 
-$("#importStudentFormat").on("click",function(){
+$("#print_stud_stats").on("click", function () {
+  var prtContent = document.getElementById("student_stats");
+  var WinPrint = window.open(
+    "",
+    "",
+    "left=0,top=0,width=1920,height=1080,toolbar=0,scrollbars=0,status=0"
+  );
+  WinPrint.document.write(prtContent.innerHTML);
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
+});
+
+$("#importStudentFormat").on("click", function () {
   window.location.href = 'php/template/import_student_format.php';
 });
 
-$("#updateUSNFormat").on("click", function(){
+$("#updateUSNFormat").on("click", function () {
   window.location.href = 'php/template/update_usn_format.php';
 });
-  
+
+// match the input provided by the user with the entries present in the select element
+function matchCustom(params, data) {
+  if ($.trim(params.term) === '') {
+    return data;
+  }
+  if (typeof data.text === 'undefined') {
+    return null;
+  }
+  if (data.text.toLowerCase().startsWith(params.term.toLowerCase())) {
+    return data;
+  }
+  return null;
+}

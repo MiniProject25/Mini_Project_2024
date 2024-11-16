@@ -101,3 +101,11 @@ footer p {
     width: 80%; /* Or any width you prefer for admins */
 }
 
+.student_stats p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.student_stats {
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
+}
