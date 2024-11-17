@@ -56,7 +56,7 @@ if (!isset($_SESSION['library_logged_in'])) {
         <h1 class="title">LIBRARY VISIT MONITORING SYSTEM</h1>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
+                <button type="button" id="StudFacLoginBtn" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
                     data-bs-target="#loginModal">LOGIN</button>
             </div>
         </div>
@@ -70,14 +70,14 @@ if (!isset($_SESSION['library_logged_in'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item studentLogin">
-                            <a class="nav-link bg-light" id="studentBtn"
+                        <li class="nav-item">
+                            <a class="nav-link bg-light studentLogin" id="studentBtn"
                                 style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Student Login</h6>
                             </a>
                         </li>
-                        <li class="nav-item staffLogin">
-                            <a class="nav-link" id="staffBtn"
+                        <li class="nav-item">
+                            <a class="nav-link staffLogin" id="staffBtn"
                                 style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Staff Login</h6>
                             </a>
@@ -156,11 +156,16 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
                             </div>
+                            <div class="mb-3 facAuth d-none">
+                                <label for="password">Enter Library Password:</label><br>
+                                <input type="password" class="form-control mt-2" name="pass"
+                                    id="pass_to_enter_fac_login" placeholder="Enter Password" required>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="closeModal" class="btn btn-secondary"
+                <div class="modal-footer loginFacultyOrStudentFooter">
+                    <button type="button" id="closeLoginModalBtn" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="acceptLogin">Accept</button>
                 </div>
@@ -192,6 +197,9 @@ if (!isset($_SESSION['library_logged_in'])) {
                         <p>Please enter your Entry-Key to confirm logout (Faculty):</p>
                         <input type="password" class="form-control" id="staffLogoutEntryKey"
                             placeholder="Enter EntryKey">
+                        <label class="mt-3" for="password">Enter Library Password:</label><br>
+                        <input type="password" class="form-control mt-2" name="pass" id="pass_to_logout_fac"
+                            placeholder="Enter Password" required>
                         <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
                     </form>
                 </div>
@@ -278,13 +286,19 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- Datatable Script -->
     <script>
-        $('#closeModal, .closebtn, .cancelLogout').on('click', function () {
+        $('#closeLoginModalBtn, .closebtn, .cancelLogout').on('click', function () {
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
             $('#studentName').val('');
             $('#studentListContainer').hide();
             $('#EntryExitKey').hide();
             $('#logoutEntryKey').val('');
+
+            $("#pass_to_logout_fac").val('');
+            $("#staffLoginForm")[0].reset();
+            $(".staffListContainer").addClass("d-none");
+            $(".staffEntryExitKey").addClass("d-none");
+            $('.facAuth').addClass("d-none");
         });
 
         $(document).ready(function () {

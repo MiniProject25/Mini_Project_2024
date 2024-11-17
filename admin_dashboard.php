@@ -191,10 +191,12 @@ if (!isset($_SESSION['role'])) {
                                     </div>
                                 </div>
                                 <div class="student_stats py-4" id="student_stats">
-                                    <p><strong>Last Visit Date:</strong> <span id="last-visit-date"></span></p>
-                                    <p><strong>Total Duration:</strong> <span id="total-duration"></span></p>
-                                    <p><strong>Average Duration:</strong> <span id="avg-duration"></span></p>
-                                    <p><strong>Visit Count:</strong> <span id="visit-count"></span></p>
+                                    <div style="margin: 0 auto; width: 300px; text-align: left;" class="left-align">
+                                        <p><strong>Last Visit Date:</strong> <span id="last-visit-date"></span></p>
+                                        <p><strong>Total Duration:</strong> <span id="total-duration"></span></p>
+                                        <p><strong>Average Duration:</strong> <span id="avg-duration"></span></p>
+                                        <p><strong>Visit Count:</strong> <span id="visit-count"></span></p>
+                                    </div>
                                     <div class="m-4 stud-history-table">
                                         <table id="StudenthistoryTable" class="table table-striped table-bordered">
                                             <thead>
