@@ -137,14 +137,6 @@ if (!isset($_SESSION['library_logged_in'])) {
 
                     <!-- Staff Modal -->
                     <div id="staffLogin-content">
-                        <!-- <div class="mb-3" id="fac_auth">
-                            <form method="POST">
-                                <label for="password">Enter Library Password:</label><br>
-                                <input type="text" class="form-control mt-2" name="pass"
-                                    id="pass_to_enter_fac_login" placeholder="Enter Password" required>
-                                <button type="submit" id="fac_login_access_btn" class="btn btn-primary mt-3">Submit</button>
-                            </form>
-                        </div> -->
                         <form method="POST" id="staffLoginForm">
                             <div class="mb-3 dept d-none">
                                 <label for="dept" class="form-label">Department</label>
@@ -163,6 +155,11 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 <br>
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
+                            </div>
+                            <div class="mb-3 facAuth d-none">
+                                <label for="password">Enter Library Password:</label><br>
+                                <input type="password" class="form-control mt-2" name="pass"
+                                    id="pass_to_enter_fac_login" placeholder="Enter Password" required>
                             </div>
                         </form>
                     </div>
@@ -200,6 +197,9 @@ if (!isset($_SESSION['library_logged_in'])) {
                         <p>Please enter your Entry-Key to confirm logout (Faculty):</p>
                         <input type="password" class="form-control" id="staffLogoutEntryKey"
                             placeholder="Enter EntryKey">
+                        <label class="mt-3" for="password">Enter Library Password:</label><br>
+                        <input type="password" class="form-control mt-2" name="pass" id="pass_to_logout_fac"
+                            placeholder="Enter Password" required>
                         <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
                     </form>
                 </div>
@@ -294,10 +294,11 @@ if (!isset($_SESSION['library_logged_in'])) {
             $('#EntryExitKey').hide();
             $('#logoutEntryKey').val('');
 
+            $("#pass_to_logout_fac").val('');
             $("#staffLoginForm")[0].reset();
             $(".staffListContainer").addClass("d-none");
             $(".staffEntryExitKey").addClass("d-none");
-
+            $('.facAuth').addClass("d-none");
         });
 
         $(document).ready(function () {

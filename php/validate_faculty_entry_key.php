@@ -1,57 +1,76 @@
 <?php
+session_start();
 include 'db_connection.php';
 
-if(isset($_POST['dept'], $_POST['name'],$_POST['entryKey'])){
-    $dept= $_POST['dept'];
-    $name=$_POST['name'];
-    $entryKey=$_POST['entryKey'];
+if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'])) {
+    $dept = $_POST['dept'];
+    $name = $_POST['name'];
+    $entryKey = $_POST['entryKey'];
+    $admin_id = $_SESSION['libadmin_id'];
+    $pass = $_POST['pass'];
 
-    $query="SELECT * FROM faculty WHERE Fname=? AND dept=? AND EntryKey=?";
-    $stmt=$conn->prepare($query);
-    $stmt->bind_param('sss',$name,$dept,$entryKey);
+    $sql = "SELECT pass_hash FROM admin WHERE admin_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $admin_id);
     $stmt->execute();
-    $result=$stmt->get_result();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-    if($result->num_rows==1){
-        $faculty=$result->fetch_assoc();
-        $empId=$faculty['emp_id'];
+    if (isset($pass)) {
+        if (password_verify($pass, $row['pass_hash'])) {
+            $query = "SELECT * FROM faculty WHERE Fname=? AND dept=? AND EntryKey=?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('sss', $name, $dept, $entryKey);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-        $queryHistory="SELECT TimeOut FROM faculty_history WHERE emp_id=? ORDER BY DATE DESC, TimeOut ASC LIMIT 1";
-        $stmtHistory=$conn->prepare($queryHistory);
-        $stmtHistory->bind_param('s',$empId);
-        $stmtHistory->execute();
-        $resultHistory=$stmtHistory->get_result();
+            if ($result->num_rows == 1) {
+                $faculty = $result->fetch_assoc();
+                $empId = $faculty['emp_id'];
 
-        if($resultHistory->num_rows>0){
-            $row=$resultHistory->fetch_assoc();
+                $queryHistory = "SELECT TimeOut FROM faculty_history WHERE emp_id=? ORDER BY DATE DESC, TimeOut ASC LIMIT 1";
+                $stmtHistory = $conn->prepare($queryHistory);
+                $stmtHistory->bind_param('s', $empId);
+                $stmtHistory->execute();
+                $resultHistory = $stmtHistory->get_result();
 
-            if(is_null($row['TimeOut'])){
-                echo json_encode(['success' => false, 'message' => 'Faculty is already in the library.']);
-            }else{
-                $insertQuery="INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
-                $insertStmt=$conn->prepare($insertQuery);
-                $insertStmt->bind_param('ss',$empId,$dept);
-                
-                if($insertStmt->execute()){
-                    echo json_encode(['success' => true, 'data' => $faculty]);
+                if ($resultHistory->num_rows > 0) {
+                    $row = $resultHistory->fetch_assoc();
+
+                    if (is_null($row['TimeOut'])) {
+                        echo json_encode(['success' => false, 'message' => 'Faculty is already in the library.']);
+                    } else {
+                        $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
+                        $insertStmt = $conn->prepare($insertQuery);
+                        $insertStmt->bind_param('ss', $empId, $dept);
+
+                        if ($insertStmt->execute()) {
+                            echo json_encode(['success' => true, 'data' => $faculty]);
+                        } else {
+                            echo json_encode(['success' => false, 'message' => 'Failed to log faculty into history table']);
+                        }
+                    }
                 } else {
-                    echo json_encode(['success' => false, 'message' => 'Failed to log faculty into history table']);
+                    $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
+                    $insertStmt = $conn->prepare($insertQuery);
+                    $insertStmt->bind_param('ss', $empId, $dept);
+
+                    if ($insertStmt->execute()) {
+                        echo json_encode(['success' => true, 'data' => $faculty, 'message' => 'First-time login successful.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Failed to log first-time faculty into history table']);
+                    }
                 }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Faculty not found or invalid entry key']);
             }
         } else {
-            $insertQuery="INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
-                $insertStmt=$conn->prepare($insertQuery);
-                $insertStmt->bind_param('ss',$empId,$dept);
-                
-                if($insertStmt->execute()){
-                    echo json_encode(['success' => true, 'data' => $faculty, 'message' => 'First-time login successful.']);
-                } else {
-                    echo json_encode(['success' => false, 'message' => 'Failed to log first-time faculty into history table']);
-                }
+            echo json_encode(['success' => false, 'message' => "Incorrect password"]);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Faculty not found or invalid entry key']);
+        echo json_encode(['success' => false, 'message' => "Enter the password again"]);
     }
-} else{
+
+} else {
     echo json_encode(['success' => false, 'message' => 'Invalid input data']);
 }
