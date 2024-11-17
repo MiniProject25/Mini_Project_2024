@@ -276,6 +276,8 @@ function loadActiveStudents() {
                 if (confirmation(name, timeIn, timeOut)) {
                     // Proceed with logout actions
                     $('#logoutUSN').val(button.data('usn'));
+                    $('#usnLogout').removeClass('d-none');
+                    $('#empLogout').addClass('d-none');
                     $('#logoutModal').modal('show');
                 }
             });
