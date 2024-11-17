@@ -25,6 +25,8 @@ body, button {
 }
 
 /* Align year, section, branch, and search in the same line */
+.staffHistory-filters,
+.staffDb-filters,
 .history-filters,
 .db-filters {
     display: flex;
@@ -33,6 +35,8 @@ body, button {
 }
 
 /* Style individual filter dropdowns */
+.staffHistory-filters div,
+.staffDb-filters div,
 .history-filters div,
 .db-filters div {
     display: flex;
@@ -40,12 +44,16 @@ body, button {
 }
 
 /* Adjust label and select styling for consistency */
+.staffHistory-filters label,
+.staffDb-filters label,
 .history-filters label,
 .db-filters label {
     margin-right: 8px;
     font-weight: bold;
 }
 
+.staffHistory-filters select,
+.staffDb-filters select,
 .history-filters select,
 .db-filters select {
     padding: 5px;
@@ -54,13 +62,16 @@ body, button {
 }
 
 /* Ensure DataTables search box is inline */
+.staffHistoryTable_filter,
+.staffDataTables_filter,
 .historyTable_filter,
 .dataTables_filter {
     display: flex;
     align-items: center;
 }
 
-.dataTables_filter label,
+
+.staffDataTables_filter label,
 .dataTables_filter label {
     margin-right: 8px;
     font-weight: bold;
@@ -68,6 +79,8 @@ body, button {
 
 /* Adjust for responsive behavior if needed */
 @media (max-width: 768px) {
+    .staffHistory-filters,
+    .staffDb-filters,
     .history-filters,
     .db-filters {
         flex-direction: column;
@@ -75,6 +88,7 @@ body, button {
     }
 }
 
+.staffDataTables_wrapper,
 .dataTables_wrapper {
     width: 100%;
     overflow-x: auto;
@@ -106,6 +120,8 @@ footer p {
     margin-bottom: 0.5rem;
 }
 
+#db-content,
+#history-content,
 .student_stats {
     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
 }

@@ -4,16 +4,14 @@ include 'db_connection.php';
 $data = array();
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$year = isset($_GET['year']) ? $_GET['year'] : '';
-$branch = isset($_GET['branch']) ? $_GET['branch'] : '';
-$section = isset($_GET['section']) ? $_GET['section'] : '';
+$dept = isset($_GET['dept']) ? $_GET['dept'] : '';
 $fromDate = isset($_GET['fromDate']) ? $_GET['fromDate'] : '';
 $toDate = isset($_GET['toDate']) ? $_GET['toDate'] : '';
 
 // SQL Query
-$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
-        FROM users u 
-        INNER JOIN history h ON u.USN = h.USN 
+$sql = "SELECT f.fname, f.emp_id, f.dept, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
+        FROM faculty f 
+        INNER JOIN faculty_history h ON f.emp_id = h.emp_id
         WHERE 1=1";
 
 $params = [];
@@ -21,7 +19,7 @@ $types = '';
 
 // Apply filters based on user input
 if (!empty($search)) {
-    $sql .= " AND (u.USN LIKE ? OR u.Sname LIKE ? OR DATE_FORMAT(h.Date, '%d-%m-%Y') LIKE ?)";
+    $sql .= " AND (f.emp_id LIKE ? OR f.fname LIKE ? OR DATE_FORMAT(h.Date, '%d-%m-%Y') LIKE ?)";
     $searchParam = '%' . $search . '%';
     $params[] = $searchParam;
     $params[] = $searchParam;
@@ -29,21 +27,9 @@ if (!empty($search)) {
     $types .= 'sss';
 }
 
-if (!empty($year)) {
-    $sql .= " AND u.Cyear = ?";
-    $params[] = $year;
-    $types .= 'i';
-}
-
-if (!empty($branch)) {
-    $sql .= " AND u.Branch = ?";
-    $params[] = $branch;
-    $types .= 's';
-}
-
-if (!empty($section)) {
-    $sql .= " AND u.Section = ?";
-    $params[] = $section;
+if (!empty($dept)) {
+    $sql .= " AND f.dept = ?";
+    $params[] = $dept;
     $types .= 's';
 }
 

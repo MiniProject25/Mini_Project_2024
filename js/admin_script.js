@@ -174,6 +174,8 @@ $(document).ready(function () {
       $("#stud_branch").append(response);
       $("#dept").append(response);
       $("#f_dept").append(response);
+      $("#staffHistory_dept").append(response);
+      $("#staffDb_dept").append(response);
     },
   });
 
@@ -578,8 +580,23 @@ $(document).ready(function () {
   // ******* END OF STATISTIC ******* //
   // ******************************** //
 
-  // DB Table
-  // $('#db-content').removeClass('d-none');
+  ///////////////////////////////////////////////////////////////////////////
+  /////////////////////// Student DB Table //////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+  $('.studDbBtn').on('click', function(){
+    $('.studentDb').removeClass('d-none');
+    $('.staffDb').addClass('d-none');
+    $('.studDbBtn').addClass('bg-light');
+    $('.staffDbBtn').removeClass('bg-light');
+  });
+  
+  $('.staffDbBtn').on('click', function(){
+    $('.studentDb').addClass('d-none');
+    $('.staffDb').removeClass('d-none');
+    $('.studDbBtn').removeClass('bg-light');
+    $('.staffDbBtn').addClass('bg-light');
+  });
+  //////////////////////////////////////////////////////////////////////////
   var table = $("#dbtable").DataTable({
     paging: false, // Disable pagination
     searching: false, // Disable default search box
@@ -624,19 +641,14 @@ $(document).ready(function () {
   }
 
   // Set up event listeners for filter inputs
-  $("#searchInput").on("keyup", handleInputChange);
+  $("#searchInput").on("input keyup", handleInputChange);
   $("#Cyear, #branch, #db_section").on("change", handleInputChange);
 
   // Initial fetch to load all data on page load
   fetchTableData();
 
   // AJAX function to fetch data and update the DataTable
-  function fetchTableData(
-    searchTerm = "",
-    year = "",
-    branch = "",
-    section = ""
-  ) {
+  function fetchTableData(searchTerm = "",year = "",branch = "",section = "") {
     $.ajax({
       url: "php/db_users.php",
       method: "GET",
@@ -659,13 +671,11 @@ $(document).ready(function () {
               student.RegYear,
               student.Section,
               student.Cyear,
-            ]);
+            ]).draw();
           });
         } else {
-          table.row.add(["", "No results found", "", "", "", ""]);
+          table.draw();
         }
-
-        table.draw(); // Refresh the table display
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.error("Error fetching data: " + textStatus, errorThrown);
@@ -673,28 +683,74 @@ $(document).ready(function () {
     });
   }
 
-  // History Table
-  var hTable = $("#historyTable").DataTable({
+  ///////////////////////////////////////////////////////////////////////////
+  /////////////////////// Staff DB Table //////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
+  var staffDbTable = $('#staffDbTable').DataTable({
     paging: false, // Disable pagination
     searching: false, // Disable default search box
     ordering: false,
     bLengthChange: false, // Disable length change
     info: false, // Disable info text
     autoWidth: false,
-    scrollX: false, // Enable horizontal scroll if needed
-    columnDefs: [
-      { width: "10%", targets: 0 }, // USN
-      { width: "15%", targets: 1 }, // Student Name
-      { width: "30%", targets: 2 }, // Branch
-      { width: "5%", targets: 3 }, // Section
-      { width: "10%", targets: 4 }, // Year of Study
-      { width: "7.5%", targets: 5 }, // Time-in
-      { width: "7.5%", targets: 6 }, // Time-out
-      { width: "10%", targets: 7 }, // Date
-    ],
+    scrollX: false, // Enable horizontal scroll
   });
 
-  // Student History table
+  fetchStaffTableData();
+
+  function fetchStaffTableData(searchTerm="",dept=""){
+    $.ajax({
+      url:'./php/faculty_db.php',
+      method: 'GET',
+      data: {
+        search: searchTerm,
+        dept: dept
+      },
+      dataType: 'json',
+      success: function(data){
+        staffDbTable.clear();
+
+        if(data&&data.length>0){
+          data.forEach(function(faculty){
+            staffDbTable.row.add([
+              faculty.emp_id,
+              faculty.fname,
+              faculty.dept
+            ]).draw();
+          });
+        } else {
+          staffDbTable.draw();
+        }
+      },
+      error:function (jqXHR, textStatus, errorThrown) {
+        console.error("Error fetching data: " + textStatus, errorThrown);
+      },
+    });
+  }
+
+  $('#staffDb_searchInput').on('input keyup', handleStaffDbInputChange);
+  $('#staffDb_dept').on('change', handleStaffDbInputChange);
+
+  function handleStaffDbInputChange(){
+    const searchTerm = $('#staffDb_searchInput').val().trim();
+    const dept= $('#staffDb_dept').val()
+
+    fetchStaffTableData(searchTerm,dept);
+  }
+
+  $('#staffDb_resetbtn').on('click', function(e){
+    e.preventDefault();
+
+    $('#staffDb_searchInput').val('');
+    $('#staffDbForm').find('select').prop('selectedIndex',0);
+
+    fetchStaffTableData();
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// Stat Student History table /////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
   var StudHTable = $("#StudenthistoryTable").DataTable({
     paging: true,
     searching: false,
@@ -748,11 +804,48 @@ $(document).ready(function () {
               .draw();
           });
         } else {
-          StudHTable.row.add(["", "No results found", "", "", "", "", ""]).draw();
+          StudHTable.draw();
         }
       }
     });
   }
+
+  //////////////////////////////////////////////////////////////
+  /////////////////// History Table ////////////////////////////
+  //////////////////////////////////////////////////////////////
+  $('.stud').on('click', function(){
+    $('.studentHistory').removeClass('d-none');
+    $('.staffHistory').addClass('d-none');
+    $('.stud').addClass('bg-light');
+    $('.staff').removeClass('bg-light');
+  });
+  
+  $('.staff').on('click', function(){
+    $('.studentHistory').addClass('d-none');
+    $('.staffHistory').removeClass('d-none');
+    $('.stud').removeClass('bg-light');
+    $('.staff').addClass('bg-light');
+  });
+  /////////////////////////////////////////////////////////////
+  var hTable = $("#historyTable").DataTable({
+    paging: false, // Disable pagination
+    searching: false, // Disable default search box
+    ordering: false,
+    bLengthChange: false, // Disable length change
+    info: false, // Disable info text
+    autoWidth: false,
+    scrollX: false, // Enable horizontal scroll if needed
+    columnDefs: [
+      { width: "10%", targets: 0 }, // USN
+      { width: "15%", targets: 1 }, // Student Name
+      { width: "30%", targets: 2 }, // Branch
+      { width: "5%", targets: 3 }, // Section
+      { width: "10%", targets: 4 }, // Year of Study
+      { width: "7.5%", targets: 5 }, // Time-in
+      { width: "7.5%", targets: 6 }, // Time-out
+      { width: "10%", targets: 7 }, // Date
+    ],
+  });
 
   // Event listener for the reset button
   $("#history_resetbtn").on("click", function (e) {
@@ -796,31 +889,15 @@ $(document).ready(function () {
     const htoDate = $("#history_toDate").val();
 
     // Call your fetch data function with the current values
-    fetchHistoryTable(
-      hsearchTerm,
-      hyear,
-      hbranch,
-      hsection,
-      hfromDate,
-      htoDate
-    );
+    fetchHistoryTable(hsearchTerm,hyear,hbranch,hsection,hfromDate,htoDate);
   }
 
-  $("#history_searchInput").on("keyup", handlehInputChange);
-  $(
-    "#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate"
-  ).on("change", handlehInputChange);
+  $("#history_searchInput").on("input keyup", handlehInputChange);
+  $("#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate").on("change", handlehInputChange);
 
   fetchHistoryTable();
 
-  function fetchHistoryTable(
-    hsearchTerm = "",
-    hyear = "",
-    hbranch = "",
-    hsection = "",
-    hfromDate = "",
-    htoDate = ""
-  ) {
+  function fetchHistoryTable(hsearchTerm = "",hyear = "",hbranch = "",hsection = "",hfromDate = "",htoDate = "") {
     $.ajax({
       url: "php/history_table.php",
       method: "GET",
@@ -838,8 +915,7 @@ $(document).ready(function () {
 
         if (data && data.length > 0) {
           data.forEach(function (student) {
-            hTable.row
-              .add([
+            hTable.row.add([
                 student.USN,
                 student.Sname,
                 student.Branch,
@@ -848,11 +924,10 @@ $(document).ready(function () {
                 student.TimeIn,
                 student.TimeOut,
                 student.Date
-              ])
-              .draw();
+              ]).draw();
           });
         } else {
-          hTable.row.add(["", "No results found", "", "", "", "", "",""]).draw();
+          hTable.draw();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -860,7 +935,108 @@ $(document).ready(function () {
       },
     });
   }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////// Staff History Table //////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  var staffHTable = $("#staffHistoryTable").DataTable({
+    paging: false, // Disable pagination
+    searching: false, // Disable default search box
+    ordering: false,
+    bLengthChange: false, // Disable length change
+    info: false, // Disable info text
+    autoWidth: false,
+    scrollX: false, // Enable horizontal scroll if needed
+    columnDefs: [
+      { width: "20%", targets: 0 }, 
+      { width: "20%", targets: 1 }, 
+      { width: "30%", targets: 2 }, 
+      { width: "10%", targets: 3 }, 
+      { width: "10%", targets: 4 },
+      { width: "10%", targets: 5 }
+    ],
+  });
+
+  fetchStaffHistoryTable();
+
+  function fetchStaffHistoryTable(searchTerm="",dept="",fromDate="",toDate=""){
+    $.ajax({
+      url: './php/staff_hist_table.php',
+      method: 'GET',
+      data:{
+        search: searchTerm,
+        dept: dept,
+        fromDate: fromDate,
+        toDate: toDate
+      },
+      dataType: 'json',
+      success: function(data){
+        staffHTable.clear();
+
+        if(data&&data.length>0){
+          data.forEach(function(faculty){
+            staffHTable.row.add([
+              faculty.emp_id,
+              faculty.fname,
+              faculty.dept,
+              faculty.TimeIn,
+              faculty.TimeOut,
+              faculty.Date
+            ]).draw();
+          });
+        }else {
+          staffHTable.draw();
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error("Error fetching data: " + textStatus, errorThrown);
+      },
+    });
+  }
+
+  $("#staffHistory_searchInput").on("input keyup", handleStaffInputChange);
+  $("#staffHistory_dept,#staffHistory_fromDate, #staffHistory_toDate").on("change", handleStaffInputChange);
+  
+  function handleStaffInputChange(){
+    const searchTerm = $('#staffHistory_searchInput').val().trim();
+    const dept = $('#staffHistory_dept').val();
+    const fromDate = $('#staffHistory_fromDate').val();
+    const toDate = $('#staffHistory_toDate').val();
+
+    fetchStaffHistoryTable(searchTerm,dept,fromDate,toDate);
+  }
+
+  $('#staffHistory_deletebtn').on('click', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      url: './php/delete_old_staff_history.php',
+      type: 'POST',
+      dataType: 'json',
+      success:function(response){
+        alert(response.message);
+      }
+    })
+  });
+
+  $('#staffHistory_resetbtn').on('click', function(e){
+    e.preventDefault();
+
+    $('#staffHistoryForm').find('input[type="date"]').val('');
+    $('#staffHistoryForm').find('select').prop('selectedIndex',0);
+    $('#staffHistory_searchInput').val('');
+
+    fetchStaffHistoryTable();
+  });
+
+  $('#staffHistory_refreshbtn').on('click', function(e){
+    e.preventDefault();
+
+    handleStaffInputChange();
+  });
 });
+
+
 
 function confirmation(event, formSelector, txt) {
   const isConfirmed = confirm("Are you sure you want to " + txt + "?");
@@ -904,6 +1080,20 @@ $("#print_stats").on("click", function () {
 
 $("#print_history").on("click", function () {
   var prtContent = document.getElementById("hist_table");
+  var WinPrint = window.open(
+    "",
+    "",
+    "left=0,top=0,width=1920,height=1080,toolbar=0,scrollbars=0,status=0"
+  );
+  WinPrint.document.write(prtContent.innerHTML);
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
+});
+
+$("#print_staffHistory").on("click", function () {
+  var prtContent = document.getElementById("staffHist_table");
   var WinPrint = window.open(
     "",
     "",
