@@ -56,7 +56,7 @@ if (!isset($_SESSION['library_logged_in'])) {
         <h1 class="title">LIBRARY VISIT MONITORING SYSTEM</h1>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
+                <button type="button" id="StudFacLoginBtn" class="btn-lin btn btn-secondary" data-bs-toggle="modal"
                     data-bs-target="#loginModal">LOGIN</button>
             </div>
         </div>
@@ -70,14 +70,14 @@ if (!isset($_SESSION['library_logged_in'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item studentLogin">
-                            <a class="nav-link bg-light" id="studentBtn"
+                        <li class="nav-item">
+                            <a class="nav-link bg-light studentLogin" id="studentBtn"
                                 style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Student Login</h6>
                             </a>
                         </li>
-                        <li class="nav-item staffLogin">
-                            <a class="nav-link" id="staffBtn"
+                        <li class="nav-item">
+                            <a class="nav-link staffLogin" id="staffBtn"
                                 style="text-decoration: none; color: black; border-color: #D3D3D3;" href="#">
                                 <h6>Staff Login</h6>
                             </a>
@@ -137,6 +137,14 @@ if (!isset($_SESSION['library_logged_in'])) {
 
                     <!-- Staff Modal -->
                     <div id="staffLogin-content">
+                        <!-- <div class="mb-3" id="fac_auth">
+                            <form method="POST">
+                                <label for="password">Enter Library Password:</label><br>
+                                <input type="text" class="form-control mt-2" name="pass"
+                                    id="pass_to_enter_fac_login" placeholder="Enter Password" required>
+                                <button type="submit" id="fac_login_access_btn" class="btn btn-primary mt-3">Submit</button>
+                            </form>
+                        </div> -->
                         <form method="POST" id="staffLoginForm">
                             <div class="mb-3 dept d-none">
                                 <label for="dept" class="form-label">Department</label>
@@ -159,8 +167,8 @@ if (!isset($_SESSION['library_logged_in'])) {
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="closeModal" class="btn btn-secondary"
+                <div class="modal-footer loginFacultyOrStudentFooter">
+                    <button type="button" id="closeLoginModalBtn" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="acceptLogin">Accept</button>
                 </div>
@@ -278,13 +286,18 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- Datatable Script -->
     <script>
-        $('#closeModal, .closebtn, .cancelLogout').on('click', function () {
+        $('#closeLoginModalBtn, .closebtn, .cancelLogout').on('click', function () {
             // Clear the form fields when the modal is closed
             $('#studentLoginForm')[0].reset();
             $('#studentName').val('');
             $('#studentListContainer').hide();
             $('#EntryExitKey').hide();
             $('#logoutEntryKey').val('');
+
+            $("#staffLoginForm")[0].reset();
+            $(".staffListContainer").addClass("d-none");
+            $(".staffEntryExitKey").addClass("d-none");
+
         });
 
         $(document).ready(function () {

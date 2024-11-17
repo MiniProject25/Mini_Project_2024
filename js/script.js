@@ -35,7 +35,7 @@ $(document).ready(function () {
 
 // Adding record to the Data Table
 $('#acceptLogin').on('click', function () {
-    if($('#studentLogin-content').is(':visible')){
+    if ($('#studentLogin-content').is(':visible')) {
         handleStudentLogin();
         $('#studentLoginForm')[0].reset();
         $('#studentName').val('');
@@ -45,7 +45,7 @@ $('#acceptLogin').on('click', function () {
 
         // $('#studentName').empty();
     }
-    else if($('#staffLogin-content').is(':visible')){
+    else if ($('#staffLogin-content').is(':visible')) {
         handleStaffLogin();
         $('#staffLoginForm')[0].reset();
         $('#staffName').val('');
@@ -56,11 +56,11 @@ $('#acceptLogin').on('click', function () {
 
 // Logout via button
 $('#confirmLogout').on('click', function () {
-    if($('#usnLogout').is(':visible')){
+    if ($('#usnLogout').is(':visible')) {
         handleStudentLogout();
         $('#logoutEntryKey').val('');
     }
-    else if($('#empLogout').is(':visible')){
+    else if ($('#empLogout').is(':visible')) {
         handleStaffLogout();
         $('#staffLogoutEntryKey').val('');
     }
@@ -73,20 +73,20 @@ $('#loginModal').on('keypress', function (e) {
         e.preventDefault(); // Prevent default form submission
         handleStudentLogin(); // Call the login handling function
     }
-    else if($(e.which === 13 && '#staffLogin-content').is(':visible')){
+    else if (e.which === 13 && $('#staffLogin-content').is(':visible')) {
         e.preventDefault();
         handleStaffLogin();
     }
 });
 
 $('#logoutModal').on('keypress', function (e) {
-    if (e.which === 13 && $('#usnLogout').is(':visible')) { 
-        e.preventDefault(); 
-        handleStudentLogout(); 
+    if (e.which === 13 && $('#usnLogout').is(':visible')) {
+        e.preventDefault();
+        handleStudentLogout();
         $('#logoutEntryKey').val('');
     }
-    else if(e.which === 13 && $('#empLogout').is(':visible')){
-        e.preventDefault(); 
+    else if (e.which === 13 && $('#empLogout').is(':visible')) {
+        e.preventDefault();
         handleStaffLogout();
         $('#staffLogoutEntryKey').val('');
     }
@@ -119,6 +119,7 @@ $('#section, #year, #branch').on('change', function () {
             success: function (response) {
                 $('#studentListContainer').show();
                 $('#studentName').html(response); // Update the dropdown option
+                $('#studentName').val(null).trigger('change');
                 $('#EntryExitKey').show();
             },
             error: function (xhr, status, error) {
@@ -132,17 +133,17 @@ $('#section, #year, #branch').on('change', function () {
     }
 });
 
-$('#dept').on('change', function() { 
+$('#dept').on('change', function () {
     let dept = $('#dept').val();
 
-    if(dept){
+    if (dept) {
         $.ajax({
             url: './php/fetch_faculty.php',
             method: 'POST',
             data: {
                 dept: dept
             },
-            success: function(response){
+            success: function (response) {
                 $('#staffName').html(response); // Update the dropdown option
                 $('.staffListContainer').removeClass('d-none');
                 $('.staffEntryExitKey').removeClass('d-none');
@@ -200,10 +201,10 @@ function handleStudentLogin() {
     }
 }
 
-function handleStaffLogin(){
-    let name=$('#staffName').val();
-    let dept=$('#dept').val();
-    let entryKey=$('#staffEntryKey').val();
+function handleStaffLogin() {
+    let name = $('#staffName').val();
+    let dept = $('#dept').val();
+    let entryKey = $('#staffEntryKey').val();
 
     if (name && dept && entryKey) {
         $.ajax({
@@ -215,9 +216,9 @@ function handleStaffLogin(){
                 dept: dept,
                 entryKey: entryKey
             },
-            success: function(response){
+            success: function (response) {
                 console.log(name);
-                if(response.success){
+                if (response.success) {
                     loadActiveStaff();
                     $('#staffLoginForm')[0].reset();
                     $('#staffName').val('');
@@ -263,7 +264,7 @@ function loadActiveStudents() {
                 const name = button.data('name');
                 const timeIn = button.data('timein');
                 const timeOut = new Date().toLocaleTimeString('en-GB');
-                
+
                 // Check for confirmation before proceeding with logout
                 if (confirmation(name, timeIn, timeOut)) {
                     // Proceed with logout actions
@@ -278,16 +279,16 @@ function loadActiveStudents() {
     });
 }
 
-function loadActiveStaff(){
+function loadActiveStaff() {
     $.ajax({
         url: './php/get_active_staffs.php',
         method: 'GET',
         dataType: 'json',
-        success:function(response){
-            let staffTable=$('#staffTable').DataTable();
+        success: function (response) {
+            let staffTable = $('#staffTable').DataTable();
             staffTable.clear();
 
-            response.forEach(function(faculty){
+            response.forEach(function (faculty) {
                 staffTable.row.add([
                     faculty.fname,
                     faculty.Dept,
@@ -302,7 +303,7 @@ function loadActiveStaff(){
                 const name = button.data('name');
                 const timeIn = button.data('timein');
                 const timeOut = new Date().toLocaleTimeString('en-GB');
-                
+
                 // Check for confirmation before proceeding with logout
                 if (confirmation(name, timeIn, timeOut)) {
                     // Proceed with logout actions
@@ -377,12 +378,12 @@ function handleStudentLogout() {
     }
 }
 
-function handleStaffLogout(){
+function handleStaffLogout() {
     let empId = $('#logoutEmp').val();
     let entryKey = $('#staffLogoutEntryKey').val();
     // console.log("empId: " + empId + " entryKey: " + entryKey);
 
-    if(entryKey){
+    if (entryKey) {
         $.ajax({
             url: './php/validate_faculty_logout.php',
             method: 'POST',
@@ -391,8 +392,8 @@ function handleStaffLogout(){
                 empId: empId,
                 EntryKey: entryKey
             },
-            success: function(response){
-                if(response.success){
+            success: function (response) {
+                if (response.success) {
                     $.ajax({
                         url: './php/logout_staffs.php',
                         method: 'POST',
@@ -400,16 +401,16 @@ function handleStaffLogout(){
                         data: {
                             empId: empId
                         },
-                        success:function(response){
-                            if(response.success){
+                        success: function (response) {
+                            if (response.success) {
                                 const staffTable = $('#staffTable').DataTable();
-                                let row = staffTable.row($('button[data-emp_id="'+ empId+'"]').parents('tr'));
+                                let row = staffTable.row($('button[data-emp_id="' + empId + '"]').parents('tr'));
                                 row.remove().draw();
 
                                 $('#staffLogoutEntryKey').val('');
                                 $('#logoutModal').modal('hide');
                             }
-                            else{
+                            else {
                                 $('#staffLogoutEntryKey').val('');
                                 alert('Error during logout.');
                             }
@@ -420,7 +421,7 @@ function handleStaffLogout(){
                         }
                     });
                 }
-                else{
+                else {
                     $('#staffLogoutEntryKey').val('');
                     alert('Invalid Entry Key. Please try again.');
                 }
@@ -473,12 +474,45 @@ $(".staffLogin").click(function (e) {
     e.preventDefault();
     $(".dept").removeClass("d-none");
     $("#staffLogin-content").removeClass("d-none");
+    // $(".staffListContainer").show();
+    // $(".staffEntryExitKey").show();
+    // $('#fac_auth').removeClass("d-none");
     $("#studentLogin-content").addClass("d-none");
     $("#studentBtn").removeClass("bg-light");
     $("#staffBtn").addClass("bg-light");
+
+    // if($('#fac_auth').is(':visible')) {
+    //     $('.loginFacultyOrStudentFooter').addClass('d-none');
+    // }else {
+    //     $('.loginFacultyOrStudentFooter').removeClass('d-none');
+    // }
 });
 
-$(".studentTable").click(function(e){
+// $("#fac_login_access_btn").on('click', function(e) {
+//     e.preventDefault();
+//     let pass = $('#pass_to_enter_fac_login').val();
+
+//     $.ajax({
+//         url: "php/validateEntryToFacultyLogin.php",
+//         method: 'POST',
+//         dateType: 'json',
+//         data: {
+//             pass: pass
+//         },
+//         success: function(response) {
+//             if(response.success) {
+//                 console.log("Bruh");
+//                 $("#fac_auth").hide();
+//                 $(".main-login").show();
+//             }
+//             else {
+//                 console.log("No Bruh");
+//             }
+//         }
+//     });
+// });
+
+$(".studentTable").click(function (e) {
     e.preventDefault();
     $(".studentTable-content").removeClass("d-none");
     $(".staffTable-content").addClass("d-none");
@@ -486,7 +520,7 @@ $(".studentTable").click(function(e){
     $(".fBtn").removeClass("bg-light");
 });
 
-$(".staffTable").click(function(e){
+$(".staffTable").click(function (e) {
     e.preventDefault();
     $(".studentTable-content").addClass("d-none");
     $(".staffTable-content").removeClass("d-none");
@@ -494,8 +528,14 @@ $(".staffTable").click(function(e){
     $(".fBtn").addClass("bg-light");
 });
 
-$(".cancelLogout").click(function(e){
+$(".cancelLogout").click(function (e) {
     e.preventDefault();
     $("#staffLogoutEntryKey").val('');
     $("#logoutEntryKey").val('');
 });
+
+// $("#StudFacLoginBtn").on("click", function() {
+//     if ($('#studentLogin-content').is(':visible')) {
+//         $('#fac_auth').addClass('d-none');
+//     }
+// });
