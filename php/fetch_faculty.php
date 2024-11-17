@@ -20,5 +20,4 @@ if ($result->num_rows > 0) {
 else {
     echo "<option disabled>No staffs available</option>";
 }
-
 ?>

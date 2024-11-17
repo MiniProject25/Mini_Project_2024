@@ -209,6 +209,11 @@ $(document).ready(function () {
     $("#addFacultyForm")[0].reset();
   });
 
+  $("#closeFacultyRemovalBtn").on("click", function (e) {
+    $("#remFacultyForm")[0].reset();
+    $("#fac_name").empty();
+  });
+
   $(".stats").click(function (e) {
     e.preventDefault();
     $("#db-content").addClass("d-none");
@@ -241,6 +246,51 @@ $(document).ready(function () {
     $("#student-stat-content").hide();
   });
 
+  // fetching faculty names when selecting a department (during faculty removal)
+  $("#f_dept").on("change", function() {
+    let deptSelected = $(this).val();
+
+    $.ajax({
+      url: 'php/fetch_faculty.php',
+      type: 'POST',
+      data: {
+        dept: deptSelected
+      },
+      success: function(response) {
+        $("#fac_name").html(response);
+        $("#fac_name").val(null).trigger('change');
+      },
+      error: function (xhr, status, error) {
+        console.error("AJAX Error: ", status, error);
+        alert('Failed to fetch students. Please try again later.');
+      }
+    });
+  });
+
+  // removing a faculty from faculty table
+  $("#remFacultyBtn").on('click', function() {
+    let dept = $("#f_dept").val();
+    let fname = $("#fac_name").val();
+    let empid = $("#rem_emp_id").val();
+
+    console.log("Emp ID " + empid);
+
+    $.ajax({
+      url: 'php/removeFaculty.php',
+      dataType: 'json',
+      type: 'POST',
+      data: {
+        dept: dept,
+        fname: fname,
+        empid: empid
+      },
+      success: function(response) {
+        alert(response.message);
+        window.location.href = 'admin_dashboard.php';
+      }
+    });
+  });
+
   // fetching students for Student-wise statistics
   $('#stud_section, #stud_cyear, #stud_branch').on('change', function () {
     let year = $('#stud_cyear').val();
@@ -271,7 +321,7 @@ $(document).ready(function () {
   $("#reset_stud_stat_form").on('click', function () {
     $("#student_stats").hide();
     $('#studentName').empty();
-  })
+  });
 
   // ******************************** //
   // ******* STATISTIC ******* //

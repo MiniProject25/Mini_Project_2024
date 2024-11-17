@@ -856,7 +856,7 @@ if (!isset($_SESSION['role'])) {
                     <h5 class="modal-title">Remove a Faculty</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="remFacultyForm" method="post" action="php/removeFaculty.php">
+                <form id="remFacultyForm" method="post">
                     <div class="modal-body">
                         <label for="branch">Select Department:</label>
                         <select name="f_dept" id="f_dept" class="form-control" placeholder="Select Department"
@@ -875,8 +875,8 @@ if (!isset($_SESSION['role'])) {
                             required><br>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="addFacultyBtn" class="btn btn-primary">Proceed</button>
-                        <button type="button" id="closeFacultyAdditionBtn" class="btn btn-secondary"
+                        <button type="button" id="remFacultyBtn" class="btn btn-primary">Proceed</button>
+                        <button type="button" id="closeFacultyRemovalBtn" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
