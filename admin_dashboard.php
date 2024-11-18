@@ -630,7 +630,7 @@ if (!isset($_SESSION['role'])) {
                                 <div class="col-4">
                                     <!-- <input type="text" value="1" hidden> -->
                                     <button id="promote1st"
-                                        onclick="confirmation('#promote1stForm','promote 1st years')"
+                                        onclick="confirmation(event, '#promote1stForm','promote 1st years')"
                                         form="promote1stForm" class="btn btn-light ms-auto" type="button">1st Year
                                         --
                                         2nd
@@ -639,7 +639,7 @@ if (!isset($_SESSION['role'])) {
                                 <div class="col-4">
                                     <!-- <input type="text" value="2" hidden> -->
                                     <button id="promote2nd"
-                                        onclick="confirmation('#promote2rdForm','promote 2rd years')"
+                                        onclick="confirmation(event, '#promote2rdForm','promote 2rd years')"
                                         form="promote2rdForm" class="btn btn-light ms-auto" type="button">2nd Year
                                         --
                                         3rd
@@ -848,7 +848,7 @@ if (!isset($_SESSION['role'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close clearUsnField" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post">
