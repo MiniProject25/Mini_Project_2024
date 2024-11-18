@@ -118,6 +118,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                                     <option value="F">F</option>
                                     <option value="G">G</option>
                                     <option value="H">H</option>
+                                    <option value="I">I</option>
                                 </select>
                             </div>
                             <div class="mb-3" id="studentListContainer" style="display: none;">
@@ -306,7 +307,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                 paging: true,          // Enable pagination
                 searching: true,       // Enable search box
                 ordering: true,        // Enable column ordering
-                pageLength: 7,         // Set default number of rows per page
+                pageLength: 5,         // Set default number of rows per page
                 lengthMenu: [5, 10, 25, 50], // Page length options
             });
 
@@ -314,7 +315,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                 paging: true,          // Enable pagination
                 searching: true,       // Enable search box
                 ordering: true,        // Enable column ordering
-                pageLength: 7,         // Set default number of rows per page
+                pageLength: 5,         // Set default number of rows per page
                 lengthMenu: [5, 10, 25, 50], // Page length options
             });
         });

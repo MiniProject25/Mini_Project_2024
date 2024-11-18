@@ -173,6 +173,7 @@ if (!isset($_SESSION['role'])) {
                                             <option value="F">F</option>
                                             <option value="G">G</option>
                                             <option value="H">H</option>
+                                            <option value="I">I</option>
                                         </select>
                                     </div>
                                     <div class="col-auto">
@@ -489,6 +490,8 @@ if (!isset($_SESSION['role'])) {
                                                         <option value="E">E</option>
                                                         <option value="F">F</option>
                                                         <option value="G">G</option>
+                                                        <option value="H">H</option>
+                                                        <option value="I">I</option>          
                                                     </select>
                                                 </div>
                                                 <div class="history-search">

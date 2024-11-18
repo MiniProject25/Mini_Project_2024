@@ -72,10 +72,14 @@ $('#loginModal').on('keypress', function (e) {
     if (e.which === 13 && $('#studentLogin-content').is(':visible')) { // Check if Enter key is pressed
         e.preventDefault(); // Prevent default form submission
         handleStudentLogin(); // Call the login handling function
+        $('#EntryExitKey').hide();
+        $('#studentListContainer').hide();
     }
     else if (e.which === 13 && $('#staffLogin-content').is(':visible')) {
         e.preventDefault();
         handleStaffLogin();
+        $('.staffEntryExitKey').addClass('d-none');
+        $('.staffListContainer').addClass('d-none');
     }
 });
 
@@ -187,8 +191,8 @@ function handleStudentLogin() {
                     loadActiveStudents();
                     $('#studentLoginForm')[0].reset();
                     $('#studentName').val('');
-                    $('#staffEntryExitKey').hide();
-                    $('#studentListContainer').hide();
+                    // $('#EntryExitKey').hide();
+                    // $('#studentListContainer').hide();
                     $('#loginModal').modal('hide');
                 } else {
                     alert(response.message);
