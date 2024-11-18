@@ -335,8 +335,14 @@ if (!isset($_SESSION['role'])) {
                                                     </div>
                                                     <div class="db-search">
                                                         <label for="searchInput" class="me-2">Search:</label>
-                                                        <input type="search" id="searchInput" class="form-control"
-                                                            placeholder="Search...">
+                                                        <!-- <input type="search" id="searchInput" class="form-control"
+                                                            placeholder="Search..."> -->
+                                                        <div class="input-group">
+                                                            <input type="search" id="searchInput" class="form-control"
+                                                                placeholder="Search...">
+                                                            <button id="clearSearchBtn" class="btn btn-outline-secondary"
+                                                                type="button">X</button>
+                                                        </div>
                                                     </div>
                                                     <div class="db-resetbtn">
                                                         <button type="button" id="db_resetbtn" class="btn btn-danger"
@@ -371,8 +377,14 @@ if (!isset($_SESSION['role'])) {
                                                     </div>
                                                     <div class="staffDb-search">
                                                         <label for="staffDb_searchInput">Search:</label>
-                                                        <input type="search" id="staffDb_searchInput" class="form-control"
-                                                            placeholder="Search...">
+                                                        <!-- <input type="search" id="staffDb_searchInput" class="form-control"
+                                                            placeholder="Search..."> -->
+                                                        <div class="input-group">
+                                                            <input type="search" id="staffDb_searchInput" class="form-control"
+                                                                placeholder="Search...">
+                                                            <button id="clearStaffSearchBtn" class="btn btn-outline-secondary"
+                                                                type="button">X</button>
+                                                        </div>
                                                     </div>
                                                     <div class="staffDb-resetbtn">
                                                         <button type="button" id="staffDb_resetbtn" class="btn btn-danger"
@@ -491,7 +503,7 @@ if (!isset($_SESSION['role'])) {
                                                         <option value="F">F</option>
                                                         <option value="G">G</option>
                                                         <option value="H">H</option>
-                                                        <option value="I">I</option>          
+                                                        <option value="I">I</option>
                                                     </select>
                                                 </div>
                                                 <div class="history-search">

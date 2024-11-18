@@ -94,6 +94,12 @@ body, button {
     overflow-x: auto;
 }
 
+#searchInput::-webkit-search-cancel-button,
+#staffDb_searchInput::-webkit-search-cancel-button {
+    -webkit-appearance: none; /* Disable the built-in clear button */
+    appearance: none;
+}
+
 footer {
     background-color: #f8f9fa; /* Light background color */
     padding: 10px 0; /* Padding for the top and bottom */
