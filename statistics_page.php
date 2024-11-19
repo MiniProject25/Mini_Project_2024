@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['sUser_logged_in'])) {
+    header("Location: admin.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

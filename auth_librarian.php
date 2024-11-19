@@ -2,6 +2,8 @@
 session_start(); # Helps to remember who signed up
 ob_start(); # Output buffering to handle headers
 
+
+
 include './php/db_connection.php';
 ?>
 
