@@ -1055,14 +1055,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
     </div>
 
     <!-- Script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/highcharts.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/admin_script.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap5.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/accessibility.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
