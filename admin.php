@@ -197,7 +197,6 @@ include './php/db_connection.php';
             if (password_verify($password, $adminData['pass_hash'])) {
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_id'] = $adminData['admin_id'];
-                $_SESSION['role'] = 'admin';
                 header("Location: admin_dashboard.php");
                 exit;
             } else {
@@ -223,8 +222,7 @@ include './php/db_connection.php';
             if (password_verify($password, $sUserData['pass_hash'])) {
                 $_SESSION['sUser_logged_in'] = true;
                 $_SESSION['sUser_id'] = $sUserData['sUser_id'];
-                $_SESSION['role'] = 'super_user';
-                header("Location: admin_dashboard.php");
+                header("Location: statistics_page.php");
                 exit;
             } else {
                 echo "<script>alert('Invalid ID or Password!');</script>";

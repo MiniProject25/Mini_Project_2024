@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['role'])) {
-    header('Location: admin.php');
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +21,7 @@ if (!isset($_SESSION['role'])) {
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">
-                <?php if ($_SESSION['role'] === 'admin'): ?>LIBRARIAN PAGE<?php endif; ?>
-                <?php if ($_SESSION['role'] === 'super_user'): ?>LIBRARY STATISTICS PAGE<?php endif; ?>
+                LIBRARIAN PAGE
             </span>
             <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
                 data-bs-toggle="modal">Logout</a>
@@ -59,7 +53,7 @@ if (!isset($_SESSION['role'])) {
         </div>
     </div>
 
-    <?php if ($_SESSION['role'] === 'admin'): ?>
+    
         <!-- Offcanvas Sidebar -->
         <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
@@ -99,11 +93,11 @@ if (!isset($_SESSION['role'])) {
                 </div>
             </div>
         </div>
-    <?php endif; ?>
+    
 
 
     <!-- Dashboard Body -->
-    <main class="mt-5 pt-3" <?php if ($_SESSION['role'] === 'admin'): ?> id="admin-main" <?php endif; ?>>
+    <main id="admin-main" class="mt-5 pt-3">
         <div class=" container-fluid">
             <div class="row">
                 <div class="card text-center mx-auto">
@@ -120,11 +114,11 @@ if (!isset($_SESSION['role'])) {
                                     Statistics</a>
                             </li>
 
-                            <?php if ($_SESSION['role'] === 'admin'): ?>
+                            
                                 <li class="nav-item db">
                                     <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
                                 </li>
-                            <?php endif; ?>
+                            
 
                             <li class="nav-item history">
                                 <a class="nav-link" style="text-decoration: none; color: black;" href="#">History</a>
@@ -278,7 +272,7 @@ if (!isset($_SESSION['role'])) {
                             <br>
                         </div>
 
-                        <?php if ($_SESSION['role'] === 'admin'): ?>
+                        
                             <!-- DB Body -->
                             <div id="db-content" class="d-none">
                                 <div class="db m-3">
@@ -409,7 +403,7 @@ if (!isset($_SESSION['role'])) {
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
+                        
 
 
                         <!-- History Body -->
