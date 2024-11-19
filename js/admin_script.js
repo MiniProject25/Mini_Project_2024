@@ -90,6 +90,10 @@ $(document).ready(function () {
     }
   });
 
+  $(".clearUsnField").on('click', function() {
+    $(".edit_usn").val('');
+  })
+
   // editing student information
   let usnInput; // stores the usn of the student whose details are being edited.
   $("#processUSN").on("click", function (e) {
@@ -122,6 +126,7 @@ $(document).ready(function () {
                 $("#regyear_edit").val(dataResponse.data.regyear);
                 $("#section_edit").val(dataResponse.data.section);
                 $("#cyear_edit").val(dataResponse.data.cyear);
+                $(".edit_usn").val('');
 
                 // Show the form fields and footer
                 $(".editUsnField").addClass("d-none");
@@ -135,15 +140,17 @@ $(document).ready(function () {
             },
             error: function () {
               alert("An error occurred while fetching student details.");
+              $(".edit_usn").val('');
             },
           });
         } else {
           alert("The USN does not exist in the database.");
+          $(".edit_usn").val('');
         }
       },
       error: function () {
         alert("An error occurred while checking the USN.");
-      },
+      }
     });
   });
 

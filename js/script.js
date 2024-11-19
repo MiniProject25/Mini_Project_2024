@@ -442,7 +442,7 @@ function handleStaffLogout() {
                 else {
                     $('#staffLogoutEntryKey').val('');
                     $('#pass_to_logout_fac').val('');
-                    alert('Invalid Entry Key. Please try again.');
+                    alert('Invalid Credentials Entered. Please try again.');
                 }
             },
             error: function () {
