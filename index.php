@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['library_logged_in'])) {
-    header("Location: auth_librarian.php");
+    header("Location: index_page_auth.php");
     exit();
 }
 ?>

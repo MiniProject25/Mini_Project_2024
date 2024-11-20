@@ -3,7 +3,7 @@ session_start(); # Helps to remember who signed up
 ob_start(); # Output buffering to handle headers
 
 if (isset($_SESSION['role'])) {
-    header('Location: admin_dashboard.php');
+    header('Location: librarian.php');
     exit();
 }
 
