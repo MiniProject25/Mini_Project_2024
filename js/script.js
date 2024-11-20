@@ -208,12 +208,11 @@ function handleStudentLogin() {
 }
 
 function handleStaffLogin() {
-    let pass = $('#pass_to_enter_fac_login').val();
     let name = $('#staffName').val();
     let dept = $('#dept').val();
     let entryKey = $('#staffEntryKey').val();
 
-    if (name && dept && entryKey && pass) {
+    if (name && dept && entryKey) {
         $.ajax({
             url: './php/validate_faculty_entry_key.php',
             method: 'POST',
@@ -222,7 +221,6 @@ function handleStaffLogin() {
                 name: name,
                 dept: dept,
                 entryKey: entryKey,
-                pass: pass
             },
             success: function (response) {
                 // console.log(name);
@@ -232,11 +230,9 @@ function handleStaffLogin() {
                     $('#staffName').val('');
                     $('#staffEntryExitKey').addClass("d-none");
                     $('#staffListContainer').addClass("d-none");
-                    $('.facAuth').addClass("d-none");
                     $('#loginModal').modal('hide');
                 } else {
                     $('#staffLoginForm')[0].reset();
-                    $('.facAuth').addClass("d-none");
                     alert(response.message);
                 }
             }
@@ -393,11 +389,10 @@ function handleStudentLogout() {
 
 function handleStaffLogout() {
     let empId = $('#logoutEmp').val();
-    let pass = $('#pass_to_logout_fac').val();
     let entryKey = $('#staffLogoutEntryKey').val();
     // console.log("empId: " + empId + " entryKey: " + entryKey);
 
-    if (entryKey && pass) {
+    if (entryKey) {
         $.ajax({
             url: './php/validate_faculty_logout.php',
             method: 'POST',
@@ -405,7 +400,6 @@ function handleStaffLogout() {
             data: {
                 empId: empId,
                 EntryKey: entryKey,
-                pass: pass
             },
             success: function (response) {
                 if (response.success) {
@@ -423,31 +417,26 @@ function handleStaffLogout() {
                                 row.remove().draw();
 
                                 $('#staffLogoutEntryKey').val('');
-                                $('#pass_to_logout_fac').val('');
                                 $('#logoutModal').modal('hide');
                             }
                             else {
                                 $('#staffLogoutEntryKey').val('');
-                                $('#pass_to_logout_fac').val('');
                                 alert('Error during logout.');
                             }
                         },
                         error: function () {
                             $('#staffLogoutEntryKey').val('');
-                            $('#pass_to_logout_fac').val('');
                             alert('Error during logout.');
                         }
                     });
                 }
                 else {
                     $('#staffLogoutEntryKey').val('');
-                    $('#pass_to_logout_fac').val('');
                     alert('Invalid Credentials Entered. Please try again.');
                 }
             },
             error: function () {
                 $('#staffLogoutEntryKey').val('');
-                $('#pass_to_logout_fac').val('');
                 alert(response.message);
             }
         });

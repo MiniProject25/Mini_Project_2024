@@ -16,9 +16,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/admin_dash.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+    <link href="css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -121,7 +121,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
                             
                                 <li class="nav-item db">
-                                    <a class="nav-link" style="text-decoration: none; color: black;" href="#">DB</a>
+                                    <a class="nav-link" style="text-decoration: none; color: black;" href="#">Users</a>
                                 </li>
                             
 
@@ -278,7 +278,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
 
                         
-                            <!-- DB Body -->
+                            <!-- Users Body -->
                             <div id="db-content" class="d-none">
                                 <div class="db m-3">
                                     <div class="db-header">
@@ -286,13 +286,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <li class="nav-item">
                                                 <a class="nav-link bg-light studDbBtn"
                                                     style="text-decoration: none; color: black; border-color: #D3D3D3;"
-                                                    aria-current="true" href="#">Student DB</a>
+                                                    aria-current="true" href="#">Student Users</a>
                                             </li>
 
                                             <li class="nav-item">
                                                 <a class="nav-link staffDbBtn"
                                                     style="text-decoration: none; color: black; border-color: #D3D3D3;"
-                                                    href="#">Staff DB</a>
+                                                    href="#">Staff Users</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -853,7 +853,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <form action="" method="post">
                         <div class="editUsnField">
                             <label for="usn">USN:</label>
-                            <input type="text" name="usn" class="form-control edit_usn" style="width: 100%"><br>
+                            <input type="text" name="usn" class="form-control edit_usn" style="width: 100%" placeholder="Enter USN"><br>
                             <button type="button" id="processUSN" class="btn btn-primary">Proceed</button>
                         </div>
                         <div class="edit-one-modal d-none">
@@ -898,8 +898,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 </select>
                             </div>
                         </div>
-                        <div class="modal-footer d-none">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="modal-footer edit-one-footer d-none">
+                            <button type="button" class="btn btn-secondary clearUsnField" data-bs-dismiss="modal">Close</button>
                             <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn"
                                 class="btn btn-danger">Save changes</button>
                         </div>

@@ -92,7 +92,9 @@ $(document).ready(function () {
 
   $(".clearUsnField").on('click', function() {
     $(".edit_usn").val('');
-  })
+    $('.edit-one-modal,.edit-one-footer').addClass('d-none');
+    $('.editUsnField').removeClass('d-none');
+  });
 
   // editing student information
   let usnInput; // stores the usn of the student whose details are being edited.
@@ -230,7 +232,7 @@ $(document).ready(function () {
 
   $("#closeFacultyRemovalBtn").on("click", function (e) {
     $("#remFacultyForm")[0].reset();
-    $("#fac_name").empty();
+    $("#fac_name").val('');
   });
 
   $(".stats").click(function (e) {
@@ -1068,7 +1070,8 @@ function confirmation(event, formSelector, txt) {
 $(".closeRemoveModal").on("click", function () {
   $("#regYearField").addClass("d-none");
   $("#usnField").addClass("d-none");
-  $("#remove_set, #remove_one").prop("checked", false);
+  // $("#remove_set, #remove_one").prop("checked", false);
+  $('#removeStudentForm')[0].reset();
 });
 
 $(".closeEditModal").on("click", function () {

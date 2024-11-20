@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($num == 0) {
         $fname = $_POST['emp_name'];
         $dept = $_POST['dept'];
-        $entrykey = substr($empid, -3);
+        $entrykey = substr($empid, -5);
 
         // Insert data into the `faculty` table or update if the empid already exists
         $sql = "INSERT INTO faculty (emp_id, Fname, dept, EntryKey) 

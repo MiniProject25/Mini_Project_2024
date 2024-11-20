@@ -157,11 +157,6 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
                             </div>
-                            <div class="mb-3 facAuth d-none">
-                                <label for="password">Enter Library Password:</label><br>
-                                <input type="password" class="form-control mt-2" name="pass"
-                                    id="pass_to_enter_fac_login" placeholder="Enter Password" required>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -198,9 +193,6 @@ if (!isset($_SESSION['library_logged_in'])) {
                         <p>Please enter your Entry-Key to confirm logout (Faculty):</p>
                         <input type="password" class="form-control" id="staffLogoutEntryKey"
                             placeholder="Enter EntryKey">
-                        <label class="mt-3" for="password">Enter Library Password:</label><br>
-                        <input type="password" class="form-control mt-2" name="pass" id="pass_to_logout_fac"
-                            placeholder="Enter Password" required>
                         <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
                     </form>
                 </div>

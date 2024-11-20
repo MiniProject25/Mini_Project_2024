@@ -11,14 +11,14 @@ if (!isset($_SESSION['sUser_logged_in'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistics Dashboard</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/admin_dash.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+    <link href="css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -434,14 +434,14 @@ if (!isset($_SESSION['sUser_logged_in'])) {
 
 
     <!-- Script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/highcharts.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/admin_script.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap5.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/accessibility.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
