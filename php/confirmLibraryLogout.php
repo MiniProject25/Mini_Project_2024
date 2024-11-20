@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         unset($_SESSION['libadmin_id']);
         unset($_SESSION['library_logged_in']); 
         echo '<script type="text/JavaScript">  
-                    window.location.href = "../index_auth_page.php"; 
+                    window.location.href = "../index_page_auth.php"; 
                     window.history.pushState(null, null, window.location.href);  
                     window.onpopstate = function () {
                         window.history.pushState(null, null, window.location.href);  
