@@ -152,7 +152,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 </select>
                             </div>
                             <div class="mb-3 staffEntryExitKey d-none">
-                                <label for="staffEntryKey">Entry Key (Last 3 Characters of your EMP_ID)</label>
+                                <label for="staffEntryKey">Entry Key (Last 5 Characters of your EMP_ID)</label>
                                 <br>
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
@@ -265,7 +265,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
     <!-- copyright -->
     <footer class="text-center copyright mt-1">
-        <p class="foot fw-bold">&copy; 2024 CEC & Canara High School Association Mangalore. All
+        <p class="foot fw-bold">&copy; 2024 Canara Engineering College. All
             Rights Reserved.</p>
     </footer>
 

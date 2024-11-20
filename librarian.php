@@ -606,7 +606,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center">
-                <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore. All Rights Reserved.</p>
+                <p class="mb-0">&copy; 2024 Canara Engineering College. All Rights Reserved.</p>
             </footer>
         </div>
     </main>
