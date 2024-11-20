@@ -2,11 +2,6 @@
 session_start(); # Helps to remember who signed up
 ob_start(); # Output buffering to handle headers
 
-if (isset($_SESSION['role'])) {
-    header('Location: admin_dashboard.php');
-    exit();
-}
-
 include './php/db_connection.php';
 ?>
 
@@ -197,7 +192,7 @@ include './php/db_connection.php';
             if (password_verify($password, $adminData['pass_hash'])) {
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_id'] = $adminData['admin_id'];
-                header("Location: admin_dashboard.php");
+                header("Location: librarian.php");
                 exit;
             } else {
                 echo "<script>alert('Invalid ID or Password!');</script>";
@@ -222,7 +217,7 @@ include './php/db_connection.php';
             if (password_verify($password, $sUserData['pass_hash'])) {
                 $_SESSION['sUser_logged_in'] = true;
                 $_SESSION['sUser_id'] = $sUserData['sUser_id'];
-                header("Location: statistics_page.php");
+                header("Location: cec.php");
                 exit;
             } else {
                 echo "<script>alert('Invalid ID or Password!');</script>";

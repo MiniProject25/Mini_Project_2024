@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['sUser_logged_in'])) {
-    header("Location: admin.php");
+    header("Location: admin_auth.php");
     exit();
 }
 ?>
@@ -13,7 +13,7 @@ if (!isset($_SESSION['sUser_logged_in'])) {
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Statistics Dashboard</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/admin_dash.css" />
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
@@ -427,7 +427,7 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center">
-                <p class="mb-0">&copy; 2024 CEC & Canara High School Association Mangalore. All Rights Reserved.</p>
+                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
             </footer>
         </div>
     </main>

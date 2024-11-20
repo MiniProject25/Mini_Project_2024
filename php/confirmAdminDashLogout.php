@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             unset($_SESSION['admin_logged_in']);
             unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
-                        window.location.href = "../admin.php"; 
+                        window.location.href = "../admin_auth.php"; 
                         window.history.pushState(null, null, window.location.href);  
                         window.onpopstate = function () {
                             window.history.pushState(null, null, window.location.href);  
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // echo json_encode(['success' => false, 'message' => "Invalid password"]);  
             echo '<script type="text/javascript">
                     alert("Invalid Password!");
-                    window.location.href = "../admin_dashboard.php";
+                    window.location.href = "../librarian.php";
                 </script>';
             // header('location: ../admin_dashboard.php');
         }
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             unset($_SESSION['sUser_logged_in']);
             unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
-                        window.location.href = "../admin.php"; 
+                        window.location.href = "../admin_auth.php"; 
                         window.history.pushState(null, null, window.location.href);  
                         window.onpopstate = function () {
                             window.history.pushState(null, null, window.location.href);  
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // echo json_encode(['success' => false, 'message' => "Invalid password"]);  
             echo '<script type="text/javascript">
                     alert("Invalid Password!");
-                    window.location.href = "../admin_dashboard.php";
+                    window.location.href = "../cec.php";
                 </script>';
             // header('location: ../admin_dashboard.php');
         }

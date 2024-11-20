@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: admin.php");
+    header("Location: admin_auth.php");
     exit();
 }
 ?>
@@ -606,7 +606,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center">
-                <p class="mb-0">&copy; 2024 Canara Engineering College. All Rights Reserved.</p>
+                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
             </footer>
         </div>
     </main>

@@ -2,8 +2,6 @@
 session_start(); # Helps to remember who signed up
 ob_start(); # Output buffering to handle headers
 
-
-
 include './php/db_connection.php';
 ?>
 
@@ -13,7 +11,7 @@ include './php/db_connection.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Library Login Page</title>
     <style>
         /* Your CSS code remains unchanged */
         * {
