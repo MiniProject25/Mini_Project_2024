@@ -49,7 +49,7 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onclick="confirmation(event,'', 'log out')"
+                        <button value="InstLogout" name="InstLogout" type="submit" onclick="confirmation(event,'', 'log out')"
                             class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>

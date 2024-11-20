@@ -3,7 +3,7 @@ session_start();
 include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_SESSION['admin_id'])) {
+    if (isset($_SESSION['admin_id']) && isset($_POST['LibLogout'])) {
         $pwd = $_POST['pwd-logout'];
         $admin_id = $_SESSION['admin_id'];
 
@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($pwd, $row['pass_hash'])) {
             unset($_SESSION['admin_id']);
             unset($_SESSION['admin_logged_in']);
-            unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
                         window.location.href = "../admin_auth.php"; 
                         window.history.pushState(null, null, window.location.href);  
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $stmt->close();
-    } elseif (isset($_SESSION['sUser_id'])) {
+    } elseif (isset($_SESSION['sUser_id']) && isset($_POST['InstLogout'])) {
         $pwd = $_POST['pwd-logout'];
         $sUser_id = $_SESSION['sUser_id'];
 
@@ -49,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($pwd, $row['pass_hash'])) {
             unset($_SESSION['sUser_id']);
             unset($_SESSION['sUser_logged_in']);
-            unset($_SESSION['role']);
             echo '<script type="text/JavaScript">  
                         window.location.href = "../admin_auth.php"; 
                         window.history.pushState(null, null, window.location.href);  
