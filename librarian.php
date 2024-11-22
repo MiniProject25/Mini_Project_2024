@@ -37,7 +37,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <div class="modal" id="adminLogoutModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/confirmAdminDashLogout.php" method="POST">
+                <form action="php/confirmAdminDashLogout.php" id="adminLogoutForm" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title">Logout</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -739,7 +739,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary closeAddStudentModal"
+                    <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')"
                         form="addStudentForm" class="btn btn-primary">Add</button>
@@ -777,7 +777,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary closeRemoveModal"
+                        <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                         <button type="submit" onclick="confirmation(event,'#removeStudentForm','remove student(s)')"
                             form="removeStudentForm" class="btn btn-danger">Remove</button>
@@ -944,7 +944,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="closeBranchBtn" class="btn btn-secondary"
+                        <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                         <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
                     </div>
@@ -1010,7 +1010,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="addFacultyBtn" class="btn btn-primary">Proceed</button>
-                        <button type="button" id="closeFacultyAdditionBtn" class="btn btn-secondary"
+                        <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -1045,7 +1045,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             class="form-control" required><br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="remFacultyBtn" class="btn btn-primary">Proceed</button>
+                        <button type="button" class="btn btn-primary">Proceed</button>
                         <button type="button" id="closeFacultyRemovalBtn" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                     </div>

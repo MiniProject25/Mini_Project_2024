@@ -31,7 +31,7 @@ if (!isset($_SESSION['library_logged_in'])) {
     <div class="modal libraryLogout" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/confirmLibraryLogout.php" method="POST">
+                <form action="php/confirmLibraryLogout.php" id="libLogoutForm" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title">Logout</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -83,8 +83,9 @@ if (!isset($_SESSION['library_logged_in'])) {
                             </a>
                         </li>
                     </ul>
-                    <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
+                    <button type="button" data-bs-dismiss="modal" class="btn-close"
                         aria-label="Close"></button>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <!-- Student Modal -->
@@ -161,7 +162,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </div>
                 </div>
                 <div class="modal-footer loginFacultyOrStudentFooter">
-                    <button type="button" id="closeLoginModalBtn" class="btn btn-secondary"
+                    <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="acceptLogin">Accept</button>
                 </div>
@@ -275,43 +276,6 @@ if (!isset($_SESSION['library_logged_in'])) {
     <script src="js/dataTables.bootstrap5.min.js"></script>
     <script src="js/select2.min.js"></script>
     <script src="js/script.js"></script>
-
-    <!-- Datatable Script -->
-    <script>
-        $('#closeLoginModalBtn, .closebtn, .cancelLogout').on('click', function () {
-            // Clear the form fields when the modal is closed
-            $('#studentLoginForm')[0].reset();
-            $('#studentName').val('');
-            $('#studentListContainer').hide();
-            $('#EntryExitKey').hide();
-            $('#logoutEntryKey').val('');
-
-            $("#pass_to_logout_fac").val('');
-            $("#staffLoginForm")[0].reset();
-            $(".staffListContainer").addClass("d-none");
-            $(".staffEntryExitKey").addClass("d-none");
-            $('.facAuth').addClass("d-none");
-        });
-
-        $(document).ready(function () {
-            $('#studentTable').DataTable({
-                paging: true,          // Enable pagination
-                searching: true,       // Enable search box
-                ordering: true,        // Enable column ordering
-                pageLength: 5,         // Set default number of rows per page
-                lengthMenu: [5, 10, 25, 50], // Page length options
-            });
-
-            $('#staffTable').DataTable({
-                paging: true,          // Enable pagination
-                searching: true,       // Enable search box
-                ordering: true,        // Enable column ordering
-                pageLength: 5,         // Set default number of rows per page
-                lengthMenu: [5, 10, 25, 50], // Page length options
-            });
-        });
-    </script>
-
 
 </body>
 

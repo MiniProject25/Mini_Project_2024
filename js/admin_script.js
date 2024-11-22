@@ -90,7 +90,7 @@ $(document).ready(function () {
     }
   });
 
-  $(".clearUsnField").on('click', function() {
+  $("#editOneModal").on('hidden.bs.modal', function() {
     $(".edit_usn").val('');
     $('.edit-one-modal,.edit-one-footer').addClass('d-none');
     $('.editUsnField').removeClass('d-none');
@@ -219,20 +219,20 @@ $(document).ready(function () {
   });
 
   // Closing the branch add/remove modal
-  $("#closeBranchBtn").on("click", function () {
+  $("#addBranchModal").on("hidden.bs.modal", function () {
     $("#addRemBranchForm")[0].reset();
     $(".select-branch-to-delete").addClass("d-none");
     $(".enter-branch-field").addClass("d-none");
   });
 
   // closing faculty add modal
-  $("#closeFacultyAdditionBtn").on("click", function () {
+  $("#facultyAdditionModal").on("hidden.bs.modal", function () {
     $("#addFacultyForm")[0].reset();
   });
 
-  $("#closeFacultyRemovalBtn").on("click", function (e) {
+  $("#facultyRemovalModal").on("hidden.bs.modal", function (e) {
     $("#remFacultyForm")[0].reset();
-    $("#fac_name").val('');
+    $("#fac_name").val('').find("option:first").prop("disabled", true);
   });
 
   $(".stats").click(function (e) {
@@ -278,8 +278,8 @@ $(document).ready(function () {
         dept: deptSelected
       },
       success: function (response) {
-        $("#fac_name").html(response);
-        $("#fac_name").val(null).trigger('change');
+        let defaultOption = '<option value="" selected disabled>Select Faculty</option>';
+        $("#fac_name").html(defaultOption + response);
       },
       error: function (xhr, status, error) {
         console.error("AJAX Error: ", status, error);
@@ -1067,20 +1067,34 @@ function confirmation(event, formSelector, txt) {
   }
 }
 
-$(".closeRemoveModal").on("click", function () {
+$("#removeStudentModal").on('hidden.bs.modal', function () {
   $("#regYearField").addClass("d-none");
   $("#usnField").addClass("d-none");
   // $("#remove_set, #remove_one").prop("checked", false);
   $('#removeStudentForm')[0].reset();
 });
 
-$(".closeEditModal").on("click", function () {
-  // $('#editRadio').prop('checked', false);
+$('#editModal').on('hidden.bs.modal', function () {
+  // Reset the form
   $("#editStudentForm")[0].reset();
 });
 
-$(".closeAddStudentModal").on("click", function () {
+$('#importModal').on('hidden.bs.modal', function () {
+  // Reset the form
+  $("#importFileForm")[0].reset();
+});
+
+$('#updateModal').on('hidden.bs.modal', function () {
+  // Reset the form
+  $("#updateFileForm")[0].reset();
+});
+
+$("#addStudentModal").on('hidden.bs.modal', function () {
   $("#addStudentForm")[0].reset();
+});
+
+$('#adminLogoutModal').on('hidden.bs.modal', function(){
+  $('#adminLogoutForm')[0].reset();
 });
 
 // Printing Statistics

@@ -31,6 +31,22 @@ $(document).ready(function () {
     $('.btn-logoutlib').on('click', function () {
         $('.libraryLogout').modal('show');
     });
+
+    $('#studentTable').DataTable({
+        paging: true,          // Enable pagination
+        searching: true,       // Enable search box
+        ordering: true,        // Enable column ordering
+        pageLength: 5,         // Set default number of rows per page
+        lengthMenu: [5, 10, 25, 50], // Page length options
+    });
+
+    $('#staffTable').DataTable({
+        paging: true,          // Enable pagination
+        searching: true,       // Enable search box
+        ordering: true,        // Enable column ordering
+        pageLength: 5,         // Set default number of rows per page
+        lengthMenu: [5, 10, 25, 50], // Page length options
+    });
 });
 
 // Adding record to the Data Table
@@ -548,3 +564,22 @@ $(".cancelLogout").click(function (e) {
 //         $('#fac_auth').addClass('d-none');
 //     }
 // });
+
+$('.libraryLogout').on('hidden.bs.modal', function(){
+    $('#pwd-logout').val('');
+});
+
+$('#loginModal,#logoutModal').on('hidden.bs.modal', function () {
+    // Clear the form fields when the modal is closed
+    $('#studentLoginForm')[0].reset();
+    $('#studentName').val('');
+    $('#studentListContainer').hide();
+    $('#EntryExitKey').hide();
+    $('#logoutEntryKey').val('');
+
+    $("#pass_to_logout_fac").val('');
+    $("#staffLoginForm")[0].reset();
+    $(".staffListContainer").addClass("d-none");
+    $(".staffEntryExitKey").addClass("d-none");
+    $('.facAuth').addClass("d-none");
+});

@@ -37,7 +37,7 @@ if (!isset($_SESSION['sUser_logged_in'])) {
     <div class="modal" id="adminLogoutModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/confirmAdminDashLogout.php" method="POST">
+                <form action="php/confirmAdminDashLogout.php" id="adminLogoutForm" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title">Logout</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
