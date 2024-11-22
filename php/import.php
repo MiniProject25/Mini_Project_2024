@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if ($usn && $sname) {
 
                             if (strcasecmp($x,'USN') && strcasecmp($x,'Uni')) {
-                                $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear, last_promoted_at) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE())");
                                 $stmt->bind_param("ssssisi", $usn, $sname, $branch, $section, $regyear, $entrykey, $cyear);
                                 $stmt->execute();
                             } else {
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($usn && $sname) {
 
                         if (strcasecmp($x,'USN') && strcasecmp($x,'Uni')) {
-                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            $stmt = $conn->prepare("INSERT IGNORE INTO users (usn, sname, branch, section, regyear, entrykey, cyear, last_promoted_at) VALUES (?, ?, ?, ?, ?, ?, ?,CURDATE())");
                             $stmt->bind_param("ssssisi", $usn, $sname, $branch, $section, $regyear, $entrykey, $cyear);
                             $stmt->execute();
                         } else {

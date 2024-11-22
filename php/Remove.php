@@ -6,6 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removechoice'])) {
     // Get the selected option
     $choice = $_POST['removechoice'];
 
+    $currentTimestamp = date('Y-m-d H:i:s');
+
     // removing 4th year students off the DB
     if ($choice == 'option1') {
         // Check if any users exist with the given year of study

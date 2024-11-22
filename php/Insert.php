@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $entrykey = substr($usn, -3);
 
         // Insert data into the `users` table or update if the USN already exists
-        $sql = "INSERT INTO users (usn, Sname, branch, regyear, section, entrykey, Cyear) 
-            VALUES ('$usn', '$name', '$branch', '$regyear', '$section', '$entrykey','$year')";
+        $sql = "INSERT INTO users (usn, Sname, branch, regyear, section, entrykey, Cyear, last_promoted_at) 
+            VALUES ('$usn', '$name', '$branch', '$regyear', '$section', '$entrykey','$year',CURDATE())";
 
         if ($conn->query($sql) === TRUE) {
             $_SESSION['message'] = "Record updated successfully";
