@@ -1045,8 +1045,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             class="form-control" required><br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Proceed</button>
-                        <button type="button" id="closeFacultyRemovalBtn" class="btn btn-secondary"
+                        <button type="button" id="remFacultyBtn" class="btn btn-primary">Proceed</button>
+                        <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
