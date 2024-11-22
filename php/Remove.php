@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removechoice'])) {
     // removing 4th year students off the DB
     if ($choice == 'option1') {
         // Check if any users exist with the given year of study
-        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE Cyear = 4");
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE Cyear = 4 AND (last_promoted_at IS NULL OR last_promoted_at < DATE_SUB('$currentTimestamp', INTERVAL 2 MONTH))");
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removechoice'])) {
 
         // If users exist, delete the records
         if ($bnum > 0) {
-            $stmt = $conn->prepare("DELETE FROM users WHERE Cyear = 4");
+            $stmt = $conn->prepare("DELETE FROM users WHERE Cyear = 4 AND (last_promoted_at IS NULL OR last_promoted_at < DATE_SUB('$currentTimestamp', INTERVAL 2 MONTH))");
             $stmt->execute();
 
             // Verify deletion
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE Cyear = 4");
+            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE Cyear = 4 AND (last_promoted_at IS NULL OR last_promoted_at < DATE_SUB('$currentTimestamp', INTERVAL 2 MONTH))");
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
@@ -80,6 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removechoice'])) {
 }
 
 $conn->close();
-header("Location: ../admin_dashboard.php");
+header("Location: ../librarian.php");
 exit;
 ?>

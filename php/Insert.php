@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close the connection
     $conn->close();
-    header("Location: ../admin_dashboard.php");
+    header("Location: ../librarian.php");
     exit;
 }
 ?>

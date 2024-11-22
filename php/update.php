@@ -70,16 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             $_SESSION['message'] = "USN updated Successfully.";
-            header("Location: ../admin_dashboard.php");
+            header("Location: ../librarian.php");
             exit;
         } else {
             $_SESSION['message'] = "Upload failed. Only .csv and .xlsx files are allowed.";
-            header("Location: ../admin_dashboard.php");
+            header("Location: ../librarian.php");
             exit;
         }
     } else {
         $_SESSION['message'] = "There was an error uploading the file.";
-        header("Location: ../admin_dashboard.php");
+        header("Location: ../librarian.php");
         exit;
     }
 }

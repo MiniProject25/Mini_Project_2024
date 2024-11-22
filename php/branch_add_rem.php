@@ -24,13 +24,13 @@ if ($chosenOption == 'addbranch') {
         if ($stmt->execute()) {
             // echo json_encode(['success' => true, 'message' => 'Created a Branch Successfully']);
             echo '<script type="text/javascript"> alert("Succesfully Added the Branch"); 
-                    window.location.href = "../admin_dashboard.php";
+                    window.location.href = "../librarian.php";
                 </script>';
         }
         else {
             // echo json_encode(['success' => false, 'message' => 'Failed to create a branch']);
             echo '<script type="text/javascript"> alert("Failed to create a branch"); 
-                    window.location.href = "../admin_dashboard.php";
+                    window.location.href = "../librarian.php";
                 </script>';
         }
     }
@@ -44,13 +44,13 @@ else if ($chosenOption == 'removebranch') {
     if ($stmt->execute()) {
         // echo json_encode(['success' => true, 'message' => 'Deleted the Branch Successfully']);
         echo '<script type="text/javascript"> alert("Succesfully Deleted the Branch"); 
-                window.location.href = "../admin_dashboard.php";
+                window.location.href = "../librarian.php";
                 </script>';
     }
     else {
         // echo json_encode(['success' => false, 'message' => 'Failed to delete the branch']);
         echo '<script type="text/javascript"> alert("Failed to Delete the Branch"); 
-                window.location.href = "../admin_dashboard.php";
+                window.location.href = "../librarian.php";
             </script>';
     }
 }
