@@ -25,6 +25,8 @@ body, button {
 }
 
 /* Align year, section, branch, and search in the same line */
+.stud-filters,
+.stat-filters,
 .staffHistory-filters,
 .staffDb-filters,
 .history-filters,
@@ -35,6 +37,8 @@ body, button {
 }
 
 /* Style individual filter dropdowns */
+.stud-filters div,
+.stat-filters div,
 .staffHistory-filters div,
 .staffDb-filters div,
 .history-filters div,
@@ -44,6 +48,8 @@ body, button {
 }
 
 /* Adjust label and select styling for consistency */
+.stud-filters label,
+.stat-filters label,
 .staffHistory-filters label,
 .staffDb-filters label,
 .history-filters label,
@@ -52,6 +58,8 @@ body, button {
     font-weight: bold;
 }
 
+.stud-filters select,
+.stat-filters select,
 .staffHistory-filters select,
 .staffDb-filters select,
 .history-filters select,
@@ -70,7 +78,8 @@ body, button {
     align-items: center;
 }
 
-
+.stud-filters label,
+.stat-filters label,
 .staffDataTables_filter label,
 .dataTables_filter label {
     margin-right: 8px;
@@ -79,6 +88,8 @@ body, button {
 
 /* Adjust for responsive behavior if needed */
 @media (max-width: 768px) {
+    .stud-filters,
+    .stat-filters
     .staffHistory-filters,
     .staffDb-filters,
     .history-filters,

@@ -49,7 +49,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button value="LibLogout" name="LibLogout" type="submit" onclick="confirmation(event,'', 'log out')"
+                        <button value="LibLogout" name="LibLogout" type="submit"
+                            onclick="confirmation(event,'', 'log out')"
                             class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -58,47 +59,47 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-    
-        <!-- Offcanvas Sidebar -->
-        <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-body p-0">
-                <div class="navbar-dark">
-                    <ul class="navbar-nav">
-                        <li>
-                            <a href="#" data-bs-target="#importModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Import</a>
-                            <hr>
-                            <a href="#" data-bs-target="#addStudentModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Add a Student</a>
-                            <hr>
-                            <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Remove Student(s)</a>
-                            <hr>
-                            <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="nav-link px-3 active">Edit
-                                Student(s)</a>
-                            <hr>
-                            <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Promote Students</a>
-                            <hr>
-                            <a href="#" data-bs-target="#addBranchModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Add/Remove a Branch</a>
-                            <hr>
-                            <a href="#" data-bs-target="#formatModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Download Format</a>
-                            <hr>
-                            <a href="#" data-bs-target="#facultyAdditionModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Add a Faculty</a>
-                            <hr>
-                            <a href="#" data-bs-target="#facultyRemovalModal" data-bs-toggle="modal"
-                                class="nav-link px-3 active">Remove a Faculty</a>
-                            <hr>
-                        </li>
-                    </ul>
-                </div>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-body p-0">
+            <div class="navbar-dark">
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="#" data-bs-target="#importModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Import</a>
+                        <hr>
+                        <a href="#" data-bs-target="#addStudentModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add a Student</a>
+                        <hr>
+                        <a href="#" data-bs-target="#removeStudentModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Remove Student(s)</a>
+                        <hr>
+                        <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="nav-link px-3 active">Edit
+                            Student(s)</a>
+                        <hr>
+                        <a href="#" data-bs-target="#promoteModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Promote Students</a>
+                        <hr>
+                        <a href="#" data-bs-target="#addBranchModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add/Remove a Branch</a>
+                        <hr>
+                        <a href="#" data-bs-target="#formatModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Download Format</a>
+                        <hr>
+                        <a href="#" data-bs-target="#facultyAdditionModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add a Faculty</a>
+                        <hr>
+                        <a href="#" data-bs-target="#facultyRemovalModal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Remove a Faculty</a>
+                        <hr>
+                    </li>
+                </ul>
             </div>
         </div>
-    
+    </div>
+
 
 
     <!-- Dashboard Body -->
@@ -119,11 +120,11 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     Statistics</a>
                             </li>
 
-                            
-                                <li class="nav-item db">
-                                    <a class="nav-link" style="text-decoration: none; color: black;" href="#">Users</a>
-                                </li>
-                            
+
+                            <li class="nav-item db">
+                                <a class="nav-link" style="text-decoration: none; color: black;" href="#">Users</a>
+                            </li>
+
 
                             <li class="nav-item history">
                                 <a class="nav-link" style="text-decoration: none; color: black;" href="#">History</a>
@@ -134,12 +135,10 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <!-- Statistics Body -->
                         <div id="student-stat-content">
                             <form class="studStatInfo" method="POST">
-                                <div class="row justify-content-center align-items-center g-2">
-                                    <div class="col-auto">
-                                        <label for="year">Year</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select name="stud_cyear" class="form-select" id="stud_cyear"
+                                <div class="stud-filters d-flex align-items-center justify-content-between">
+                                    <div class="stud-year">
+                                        <label for="stud_cyear">Year:</label>
+                                        <select name="stud_cyear" class="form-control" id="stud_cyear"
                                             aria-label="Select Year">
                                             <option selected disabled>Select year</option>
                                             <option value="1">1</option>
@@ -148,20 +147,16 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="4">4</option>
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <label for="branch" class="ms-auto">Branch</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select name="stud_branch" class="form-select" id="stud_branch"
+                                    <div class="stud-branch">
+                                        <label for="stud_branch">Branch:</label>
+                                        <select name="stud_branch" class="form-control" id="stud_branch"
                                             placeholder="Enter branch">
                                             <option selected disabled>Select branch</option>
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <label for="section" class="ms-auto">Section</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select name="stud_section" class="form-select" id="stud_section"
+                                    <div class="stud-section">
+                                        <label for="stud_section">Section:</label>
+                                        <select name="stud_section" class="form-control" id="stud_section"
                                             aria-label="Select Section">
                                             <option selected disabled>Select section</option>
                                             <option value="A">A</option>
@@ -175,21 +170,28 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="I">I</option>
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <label for="name" class="ms-auto">Name</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="form-select studentName" id="studentName" name="studentName">
-                                            <!-- <option selected disabled>Select student</option> -->
+                                    <div class="stud-name">
+                                        <label for="studentName">Name:</label>
+                                        <select class="form-control studentName" id="studentName" name="studentName">
+                                            <!-- Options will be dynamically populated -->
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <button type="reset" id="reset_stud_stat_form" class="btn btn-danger"
-                                            style="padding: 2px">RESET</button>
-                                        <button type="button" id="print_stud_stats" class="btn btn-primary"
-                                            style="padding: 2px">PRINT</button>
+                                    <div class="stud-btn">
+                                        <div class="stud-resetbtn">
+                                            <button type="reset" id="reset_stud_stat_form" class="btn btn-danger"
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">RESET</button>
+                                        </div>
+                                        <div class="stud-refreshbtn">
+                                            <button type="button" id="refresh_stud_stat_form" class="btn btn-info"
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">REFRESH</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="print_stud_stats" class="btn btn-primary"
+                                                style="padding: 3px; flex: 1; margin-right: 8px;">PRINT</button>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="student_stats py-4" id="student_stats">
                                     <div style="margin: 0 auto; width: 300px; text-align: left;" class="left-align">
                                         <p><strong>Last Visit Date:</strong> <span id="last-visit-date"></span></p>
@@ -221,34 +223,35 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                         <div id="statistics-content">
                             <form class="statInfo" id="statsInfo" action="" method="POST">
-                                <div class="row justify-content-center align-items-center g-2">
-                                    <div class="col-auto">
-                                        <label for="from_date">From</label>
+                                <div class="stat-filters d-flex align-items-center justify-content-between">
+                                    <div class="stat-fromDate">
+                                        <label for="from_date">From:</label>
+                                        <input type="date" class="form-control" id="from_date" name="date_from">
                                     </div>
-                                    <div class="col-auto">
-                                        <input class="form-control" type="date" name="date_from" id="from_date">
+                                    <div class="stat-toDate">
+                                        <label for="to_date">To:</label>
+                                        <input type="date" class="form-control" id="to_date" name="date_to">
                                     </div>
-                                    <div class="col-auto">
-                                        <label for="to_date" class="ms-auto">To</label>
+                                    <div class="stat-btn">
+                                        <div class="stat-resetbtn">
+                                            <button type="reset" id="reset_stat_form" class="btn btn-danger"
+                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">RESET</button>
+                                        </div>
+                                        <div class="stat-refreshbtn">
+                                            <button type="button" id="refresh_stat_form" class="btn btn-info"
+                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">REFRESH</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="print_stats" class="btn btn-primary"
+                                                style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">PRINT</button>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input class="form-control" type="date" name="date_to" id="to_date">
-                                    </div>
-                                    <div class="col-auto">
-                                        <label for="branch" class="ms-auto">Branch</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="form-select" name="branch" id="branch_stat"
-                                            placeholder="Enter Branch" required>
-                                            <option value="" selected disabled>Select Branch</option>
-                                            <option value="">All</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-auto">
-                                        <label for="Cyear" class="ms-auto">Year:</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="form-select" name="Cyear" id="Cyear_edit">
+                                </div>
+
+                                <div class="stat-filters d-flex align-items-center justify-content-between mt-3">
+                                    <div class="stat-year">
+                                        <label for="Cyear_edit">Year:</label>
+                                        <select name="Cyear" id="Cyear_edit" class="form-control">
                                             <option value="" selected>All</option>
                                             <option value="1">I</option>
                                             <option value="2">II</option>
@@ -256,14 +259,15 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="4">IV</option>
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <button type="reset" id="reset_stat_form" class="btn btn-danger"
-                                            style="padding: 2px">RESET</button>
-                                        <button type="button" id="print_stats" class="btn btn-primary"
-                                            style="padding: 2px">PRINT</button>
+                                    <div class="stat-branch">
+                                        <label for="branch_stat">Branch:</label>
+                                        <select name="branch" id="branch_stat" class="form-control">
+                                            <option value="" selected disabled>Select Branch</option>
+                                            <option value="">All</option>
+                                        </select>
                                     </div>
-
                                 </div>
+
                                 <!-- Bar Graphs are displayed here -->
                                 <div id="Overall_stats">
                                     <div class="mt-3" id="lib-usage-per-hour" style="width: 100%;"></div>
@@ -277,138 +281,138 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <br>
                         </div>
 
-                        
-                            <!-- Users Body -->
-                            <div id="db-content" class="d-none">
-                                <div class="db m-3">
-                                    <div class="db-header">
-                                        <ul class="nav nav-tabs hist-header-tabs border-bottom">
-                                            <li class="nav-item">
-                                                <a class="nav-link bg-light studDbBtn"
-                                                    style="text-decoration: none; color: black; border-color: #D3D3D3;"
-                                                    aria-current="true" href="#">Student Users</a>
-                                            </li>
 
-                                            <li class="nav-item">
-                                                <a class="nav-link staffDbBtn"
-                                                    style="text-decoration: none; color: black; border-color: #D3D3D3;"
-                                                    href="#">Staff Users</a>
-                                            </li>
-                                        </ul>
+                        <!-- Users Body -->
+                        <div id="db-content" class="d-none">
+                            <div class="db m-3">
+                                <div class="db-header">
+                                    <ul class="nav nav-tabs hist-header-tabs border-bottom">
+                                        <li class="nav-item">
+                                            <a class="nav-link bg-light studDbBtn"
+                                                style="text-decoration: none; color: black; border-color: #D3D3D3;"
+                                                aria-current="true" href="#">Student Users</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link staffDbBtn"
+                                                style="text-decoration: none; color: black; border-color: #D3D3D3;"
+                                                href="#">Staff Users</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="db-body mt-3">
+                                    <div class="studentDb">
+                                        <h2><b>Student Users Table</b></h2>
+                                        <form class="dbForm" id="dbForm">
+                                            <div class="db-filters d-flex align-items-center justify-content-between">
+                                                <div class="db-year">
+                                                    <label for="Cyear">Year:</label>
+                                                    <select name="Cyear" id="Cyear" class="form-control">
+                                                        <option value="" selected>All</option>
+                                                        <option value="1">I</option>
+                                                        <option value="2">II</option>
+                                                        <option value="3">III</option>
+                                                        <option value="4">IV</option>
+                                                    </select>
+                                                </div>
+                                                <div class="db-branch">
+                                                    <label for="branch">Branch:</label>
+                                                    <select name="branch" id="branch" class="form-control">
+                                                        <option value="" selected>All</option>
+                                                    </select>
+                                                </div>
+                                                <div class="db-section">
+                                                    <label for="db_section">Section:</label>
+                                                    <select name="section" id="db_section" class="form-control">
+                                                        <option value="" selected>All</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="C">C</option>
+                                                        <option value="D">D</option>
+                                                        <option value="E">E</option>
+                                                        <option value="F">F</option>
+                                                        <option value="G">G</option>
+                                                        <option value="H">H</option>
+                                                        <option value="I">I</option>
+                                                    </select>
+                                                </div>
+                                                <div class="db-search">
+                                                    <label for="searchInput" class="me-2">Search:</label>
+                                                    <!-- <input type="search" id="searchInput" class="form-control"
+                                                            placeholder="Search..."> -->
+                                                    <div class="input-group">
+                                                        <input type="search" id="searchInput" class="form-control"
+                                                            placeholder="Search...">
+                                                        <button id="clearSearchBtn" class="btn btn-outline-secondary"
+                                                            type="button">X</button>
+                                                    </div>
+                                                </div>
+                                                <div class="db-resetbtn">
+                                                    <button type="button" id="db_resetbtn" class="btn btn-danger"
+                                                        style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <table id="dbtable" class="table table-striped table-bordered border-secondary">
+                                            <thead>
+                                                <th>USN</th>
+                                                <th>Student Name</th>
+                                                <th>Branch</th>
+                                                <th>Year of Registration</th>
+                                                <th>Section</th>
+                                                <th>Year of Study</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="db-body mt-3">
-                                        <div class="studentDb">
-                                            <h2><b>Student Users Table</b></h2>
-                                            <form class="dbForm" id="dbForm">
-                                                <div class="db-filters d-flex align-items-center justify-content-between">
-                                                    <div class="db-year">
-                                                        <label for="Cyear">Year:</label>
-                                                        <select name="Cyear" id="Cyear" class="form-control">
-                                                            <option value="" selected>All</option>
-                                                            <option value="1">I</option>
-                                                            <option value="2">II</option>
-                                                            <option value="3">III</option>
-                                                            <option value="4">IV</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="db-branch">
-                                                        <label for="branch">Branch:</label>
-                                                        <select name="branch" id="branch" class="form-control">
-                                                            <option value="" selected>All</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="db-section">
-                                                        <label for="db_section">Section:</label>
-                                                        <select name="section" id="db_section" class="form-control">
-                                                            <option value="" selected>All</option>
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="C">C</option>
-                                                            <option value="D">D</option>
-                                                            <option value="E">E</option>
-                                                            <option value="F">F</option>
-                                                            <option value="G">G</option>
-                                                            <option value="H">H</option>
-                                                            <option value="I">I</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="db-search">
-                                                        <label for="searchInput" class="me-2">Search:</label>
-                                                        <!-- <input type="search" id="searchInput" class="form-control"
+                                    <div class="staffDb d-none">
+                                        <h2><b>Staff Users Table</b></h2>
+                                        <form id="staffDbForm">
+                                            <div
+                                                class="staffDb-filters d-flex align-items-center justify-content-between">
+                                                <div class="staffDb-dept">
+                                                    <label for="staffDb_dept">Department:</label>
+                                                    <select name="dept" id="staffDb_dept">
+                                                        <option value="" selected>All</option>
+                                                    </select>
+                                                </div>
+                                                <div class="staffDb-search">
+                                                    <label for="staffDb_searchInput">Search:</label>
+                                                    <!-- <input type="search" id="staffDb_searchInput" class="form-control"
                                                             placeholder="Search..."> -->
-                                                        <div class="input-group">
-                                                            <input type="search" id="searchInput" class="form-control"
-                                                                placeholder="Search...">
-                                                            <button id="clearSearchBtn" class="btn btn-outline-secondary"
-                                                                type="button">X</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="db-resetbtn">
-                                                        <button type="button" id="db_resetbtn" class="btn btn-danger"
-                                                            style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
+                                                    <div class="input-group">
+                                                        <input type="search" id="staffDb_searchInput"
+                                                            class="form-control" placeholder="Search...">
+                                                        <button id="clearStaffSearchBtn"
+                                                            class="btn btn-outline-secondary" type="button">X</button>
                                                     </div>
                                                 </div>
-                                            </form>
-                                            <table id="dbtable" class="table table-striped table-bordered border-secondary">
-                                                <thead>
-                                                    <th>USN</th>
-                                                    <th>Student Name</th>
-                                                    <th>Branch</th>
-                                                    <th>Year of Registration</th>
-                                                    <th>Section</th>
-                                                    <th>Year of Study</th>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="staffDb d-none">
-                                            <h2><b>Staff Users Table</b></h2>
-                                            <form id="staffDbForm">
-                                                <div
-                                                    class="staffDb-filters d-flex align-items-center justify-content-between">
-                                                    <div class="staffDb-dept">
-                                                        <label for="staffDb_dept">Department:</label>
-                                                        <select name="dept" id="staffDb_dept">
-                                                            <option value="" selected>All</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="staffDb-search">
-                                                        <label for="staffDb_searchInput">Search:</label>
-                                                        <!-- <input type="search" id="staffDb_searchInput" class="form-control"
-                                                            placeholder="Search..."> -->
-                                                        <div class="input-group">
-                                                            <input type="search" id="staffDb_searchInput" class="form-control"
-                                                                placeholder="Search...">
-                                                            <button id="clearStaffSearchBtn" class="btn btn-outline-secondary"
-                                                                type="button">X</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="staffDb-resetbtn">
-                                                        <button type="button" id="staffDb_resetbtn" class="btn btn-danger"
-                                                            style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
-                                                    </div>
+                                                <div class="staffDb-resetbtn">
+                                                    <button type="button" id="staffDb_resetbtn" class="btn btn-danger"
+                                                        style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
                                                 </div>
-                                            </form>
-                                            <table id="staffDbTable"
-                                                class="table table-striped table-bordered border-secondary">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Employee Id</th>
-                                                        <th>Name</th>
-                                                        <th>Department</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            </div>
+                                        </form>
+                                        <table id="staffDbTable"
+                                            class="table table-striped table-bordered border-secondary">
+                                            <thead>
+                                                <tr>
+                                                    <th>Employee Id</th>
+                                                    <th>Name</th>
+                                                    <th>Department</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        
+                        </div>
+
 
 
                         <!-- History Body -->
@@ -606,7 +610,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center">
-                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
+                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian
+                    Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
             </footer>
         </div>
     </main>
@@ -739,8 +744,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" onclick="confirmation(event,'#addStudentForm','Add Student')"
                         form="addStudentForm" class="btn btn-primary">Add</button>
                 </div>
@@ -777,8 +781,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" onclick="confirmation(event,'#removeStudentForm','remove student(s)')"
                             form="removeStudentForm" class="btn btn-danger">Remove</button>
                     </div>
@@ -847,13 +850,15 @@ if (!isset($_SESSION['admin_logged_in'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editOneModalLabel">Edit Student Information</h5>
-                    <button type="button" class="btn-close clearUsnField" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close clearUsnField" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post">
                         <div class="editUsnField">
                             <label for="usn">USN:</label>
-                            <input type="text" name="usn" class="form-control edit_usn" style="width: 100%" placeholder="Enter USN"><br>
+                            <input type="text" name="usn" class="form-control edit_usn" style="width: 100%"
+                                placeholder="Enter USN"><br>
                             <button type="button" id="processUSN" class="btn btn-primary">Proceed</button>
                         </div>
                         <div class="edit-one-modal d-none">
@@ -899,7 +904,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             </div>
                         </div>
                         <div class="modal-footer edit-one-footer d-none">
-                            <button type="button" class="btn btn-secondary clearUsnField" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary clearUsnField"
+                                data-bs-dismiss="modal">Close</button>
                             <button type="submit" onclick="confirmation(event,'','edit student')" id="submit_edit_btn"
                                 class="btn btn-danger">Save changes</button>
                         </div>
@@ -944,8 +950,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" id="addRemBranchBtn" class="btn btn-primary">Proceed</button>
                     </div>
                 </form>
@@ -1010,8 +1015,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="addFacultyBtn" class="btn btn-primary">Proceed</button>
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
@@ -1046,8 +1050,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="remFacultyBtn" class="btn btn-primary">Proceed</button>
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

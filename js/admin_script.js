@@ -1,20 +1,19 @@
 $(document).ready(function () {
-
-  $('#clearSearchBtn').click(function () {
-    $('#searchInput').val(''); // Clear the input field
-    $('#searchInput').trigger('input'); // Trigger the input event to reset any filtering
+  $("#clearSearchBtn").click(function () {
+    $("#searchInput").val(""); // Clear the input field
+    $("#searchInput").trigger("input"); // Trigger the input event to reset any filtering
   });
 
-  $('#clearStaffSearchBtn').click(function () {
-    $('#staffDb_searchInput').val(''); // Clear the input field
-    $('#staffDb_searchInput').trigger('input'); // Trigger the input event to reset any filtering
+  $("#clearStaffSearchBtn").click(function () {
+    $("#staffDb_searchInput").val(""); // Clear the input field
+    $("#staffDb_searchInput").trigger("input"); // Trigger the input event to reset any filtering
   });
 
-  $('.studentName').select2({
-    width: '100%',
+  $(".studentName").select2({
+    width: "100%",
     placeholder: "Select an option",
     allowClear: true,
-    matcher: matchCustom
+    matcher: matchCustom,
   });
 
   $("#student-stat-content").hide();
@@ -29,6 +28,12 @@ $(document).ready(function () {
   $("#reset_stat_form").on("click", function () {
     $("#statsInfo").find('input[type="date"]').val("");
     $("#statsInfo").find("select").prop("selectedIndex", 0);
+    libUsagePerHour();
+    libVisitCount();
+    avgVisitDuration();
+  });
+
+  $("#refresh_stat_form").on("click", function () {
     libUsagePerHour();
     libVisitCount();
     avgVisitDuration();
@@ -90,10 +95,10 @@ $(document).ready(function () {
     }
   });
 
-  $("#editOneModal").on('hidden.bs.modal', function() {
-    $(".edit_usn").val('');
-    $('.edit-one-modal,.edit-one-footer').addClass('d-none');
-    $('.editUsnField').removeClass('d-none');
+  $("#editOneModal").on("hidden.bs.modal", function () {
+    $(".edit_usn").val("");
+    $(".edit-one-modal,.edit-one-footer").addClass("d-none");
+    $(".editUsnField").removeClass("d-none");
   });
 
   // editing student information
@@ -128,7 +133,7 @@ $(document).ready(function () {
                 $("#regyear_edit").val(dataResponse.data.regyear);
                 $("#section_edit").val(dataResponse.data.section);
                 $("#cyear_edit").val(dataResponse.data.cyear);
-                $(".edit_usn").val('');
+                $(".edit_usn").val("");
 
                 // Show the form fields and footer
                 $(".editUsnField").addClass("d-none");
@@ -142,17 +147,17 @@ $(document).ready(function () {
             },
             error: function () {
               alert("An error occurred while fetching student details.");
-              $(".edit_usn").val('');
+              $(".edit_usn").val("");
             },
           });
         } else {
           alert("The USN does not exist in the database.");
-          $(".edit_usn").val('');
+          $(".edit_usn").val("");
         }
       },
       error: function () {
         alert("An error occurred while checking the USN.");
-      }
+      },
     });
   });
 
@@ -232,7 +237,7 @@ $(document).ready(function () {
 
   $("#facultyRemovalModal").on("hidden.bs.modal", function (e) {
     $("#remFacultyForm")[0].reset();
-    $("#fac_name").val('').find("option:first").prop("disabled", true);
+    $("#fac_name").val("").find("option:first").prop("disabled", true);
   });
 
   $(".stats").click(function (e) {
@@ -243,19 +248,19 @@ $(document).ready(function () {
     $("#student-stat-content").hide();
   });
 
-  $('.db').click(function (e) {
+  $(".db").click(function (e) {
     e.preventDefault();
-    $('#statistics-content').addClass('d-none');
-    $('#history-content').addClass('d-none');
-    $('#db-content').removeClass('d-none');
+    $("#statistics-content").addClass("d-none");
+    $("#history-content").addClass("d-none");
+    $("#db-content").removeClass("d-none");
     $("#student-stat-content").hide();
   });
 
-  $('.stud_stat').click(function (e) {
+  $(".stud_stat").click(function (e) {
     e.preventDefault();
-    $('#statistics-content').addClass('d-none');
-    $('#db-content').addClass('d-none');
-    $('#history-content').addClass('d-none');
+    $("#statistics-content").addClass("d-none");
+    $("#db-content").addClass("d-none");
+    $("#history-content").addClass("d-none");
     $("#student-stat-content").show();
   });
 
@@ -272,24 +277,25 @@ $(document).ready(function () {
     let deptSelected = $(this).val();
 
     $.ajax({
-      url: 'php/fetch_faculty.php',
-      type: 'POST',
+      url: "php/fetch_faculty.php",
+      type: "POST",
       data: {
-        dept: deptSelected
+        dept: deptSelected,
       },
       success: function (response) {
-        let defaultOption = '<option value="" selected disabled>Select Faculty</option>';
+        let defaultOption =
+          '<option value="" selected disabled>Select Faculty</option>';
         $("#fac_name").html(defaultOption + response);
       },
       error: function (xhr, status, error) {
         console.error("AJAX Error: ", status, error);
-        alert('Failed to fetch students. Please try again later.');
-      }
+        alert("Failed to fetch students. Please try again later.");
+      },
     });
   });
 
   // removing a faculty from faculty table
-  $("#remFacultyBtn").on('click', function () {
+  $("#remFacultyBtn").on("click", function () {
     let dept = $("#f_dept").val();
     let fname = $("#fac_name").val();
     let empid = $("#rem_emp_id").val();
@@ -297,51 +303,60 @@ $(document).ready(function () {
     console.log("Emp ID " + empid);
 
     $.ajax({
-      url: 'php/removeFaculty.php',
-      dataType: 'json',
-      type: 'POST',
+      url: "php/removeFaculty.php",
+      dataType: "json",
+      type: "POST",
       data: {
         dept: dept,
         fname: fname,
-        empid: empid
+        empid: empid,
       },
       success: function (response) {
         alert(response.message);
-        window.location.href = 'admin_dashboard.php';
-      }
+        window.location.href = "admin_dashboard.php";
+      },
     });
   });
 
   // fetching students for Student-wise statistics
-  $('#stud_section, #stud_cyear, #stud_branch').on('change', function () {
-    let year = $('#stud_cyear').val();
-    let branch = $('#stud_branch').val();
-    let section = $('#stud_section').val();
+  $("#stud_section, #stud_cyear, #stud_branch").on("change", function () {
+    let year = $("#stud_cyear").val();
+    let branch = $("#stud_branch").val();
+    let section = $("#stud_section").val();
 
     if (branch && section && year) {
       $.ajax({
-        url: './php/fetch_students.php',
-        method: 'POST',
+        url: "./php/fetch_students.php",
+        method: "POST",
         data: {
           year: year,
           branch: branch,
-          section: section
+          section: section,
         },
         success: function (response) {
-          $('#studentName').html(response); // Update the dropdown option
-          $('#studentName').val(null).trigger('change');
+          $("#studentName").html(response); // Update the dropdown option
+          $("#studentName").val(null).trigger("change");
         },
         error: function (xhr, status, error) {
           console.error("AJAX Error: ", status, error);
-          alert('Failed to fetch students. Please try again later.');
-        }
+          alert("Failed to fetch students. Please try again later.");
+        },
       });
     }
   });
 
-  $("#reset_stud_stat_form").on('click', function () {
+  $("#reset_stud_stat_form").on("click", function () {
     $("#student_stats").hide();
-    $('#studentName').empty();
+    $("#studentName").empty();
+  });
+
+  $("#refresh_stud_stat_form").on("click", function () {
+    $("#student_stats").show();
+    studentTotalDuration();
+    studentAverageDuration();
+    studentTotalVisitCount();
+    lastVisitedDate();
+    getStudHistoryTable();
   });
 
   // ******************************** //
@@ -349,7 +364,7 @@ $(document).ready(function () {
   // ******************************** //
 
   // student-wise stats
-  $("#studentName").on('change', function () {
+  $("#studentName").on("change", function () {
     let studentName = $(this).val();
     if (studentName != null) {
       $("#student_stats").show();
@@ -358,8 +373,7 @@ $(document).ready(function () {
       studentTotalVisitCount();
       lastVisitedDate();
       getStudHistoryTable();
-    }
-    else {
+    } else {
       $("#student_stats").hide();
     }
   });
@@ -372,17 +386,17 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/stats/last_visit_date.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
         cyear: cyear,
         branch: branch,
         section: section,
-        sname: sName
+        sname: sName,
       },
       success: function (response) {
-        $('#last-visit-date').text(response.lastvisitdate);
-      }
+        $("#last-visit-date").text(response.lastvisitdate);
+      },
     });
   }
 
@@ -394,17 +408,17 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/stats/total_student_visit.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
         cyear: cyear,
         branch: branch,
         section: section,
-        sname: sName
+        sname: sName,
       },
       success: function (response) {
-        $('#visit-count').text(response.visitcount);
-      }
+        $("#visit-count").text(response.visitcount);
+      },
     });
   }
 
@@ -416,17 +430,17 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/stats/total_time_spent_by_student.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
         cyear: cyear,
         branch: branch,
         section: section,
-        sname: sName
+        sname: sName,
       },
       success: function (response) {
-        $('#total-duration').text(response.duration);
-      }
+        $("#total-duration").text(response.duration);
+      },
     });
   }
 
@@ -438,17 +452,17 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/stats/avg_duration_per_visit.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
         cyear: cyear,
         branch: branch,
         section: section,
-        sname: sName
+        sname: sName,
       },
       success: function (response) {
-        $('#avg-duration').text(response.avgduration);
-      }
+        $("#avg-duration").text(response.avgduration);
+      },
     });
   }
 
@@ -602,18 +616,18 @@ $(document).ready(function () {
   ///////////////////////////////////////////////////////////////////////////
   /////////////////////// Student DB Table //////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
-  $('.studDbBtn').on('click', function () {
-    $('.studentDb').removeClass('d-none');
-    $('.staffDb').addClass('d-none');
-    $('.studDbBtn').addClass('bg-light');
-    $('.staffDbBtn').removeClass('bg-light');
+  $(".studDbBtn").on("click", function () {
+    $(".studentDb").removeClass("d-none");
+    $(".staffDb").addClass("d-none");
+    $(".studDbBtn").addClass("bg-light");
+    $(".staffDbBtn").removeClass("bg-light");
   });
 
-  $('.staffDbBtn').on('click', function () {
-    $('.studentDb').addClass('d-none');
-    $('.staffDb').removeClass('d-none');
-    $('.studDbBtn').removeClass('bg-light');
-    $('.staffDbBtn').addClass('bg-light');
+  $(".staffDbBtn").on("click", function () {
+    $(".studentDb").addClass("d-none");
+    $(".staffDb").removeClass("d-none");
+    $(".studDbBtn").removeClass("bg-light");
+    $(".staffDbBtn").addClass("bg-light");
   });
   //////////////////////////////////////////////////////////////////////////
   var table = $("#dbtable").DataTable({
@@ -667,7 +681,12 @@ $(document).ready(function () {
   fetchTableData();
 
   // AJAX function to fetch data and update the DataTable
-  function fetchTableData(searchTerm = "", year = "", branch = "", section = "") {
+  function fetchTableData(
+    searchTerm = "",
+    year = "",
+    branch = "",
+    section = ""
+  ) {
     $.ajax({
       url: "php/db_users.php",
       method: "GET",
@@ -683,14 +702,16 @@ $(document).ready(function () {
 
         if (data && data.length > 0) {
           data.forEach(function (student) {
-            table.row.add([
-              student.USN,
-              student.Sname,
-              student.Branch,
-              student.RegYear,
-              student.Section,
-              student.Cyear,
-            ]).draw();
+            table.row
+              .add([
+                student.USN,
+                student.Sname,
+                student.Branch,
+                student.RegYear,
+                student.Section,
+                student.Cyear,
+              ])
+              .draw();
           });
         } else {
           table.draw();
@@ -706,7 +727,7 @@ $(document).ready(function () {
   /////////////////////// Staff DB Table //////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
-  var staffDbTable = $('#staffDbTable').DataTable({
+  var staffDbTable = $("#staffDbTable").DataTable({
     paging: false, // Disable pagination
     searching: false, // Disable default search box
     ordering: false,
@@ -720,23 +741,21 @@ $(document).ready(function () {
 
   function fetchStaffTableData(searchTerm = "", dept = "") {
     $.ajax({
-      url: './php/faculty_db.php',
-      method: 'GET',
+      url: "./php/faculty_db.php",
+      method: "GET",
       data: {
         search: searchTerm,
-        dept: dept
+        dept: dept,
       },
-      dataType: 'json',
+      dataType: "json",
       success: function (data) {
         staffDbTable.clear();
 
         if (data && data.length > 0) {
           data.forEach(function (faculty) {
-            staffDbTable.row.add([
-              faculty.emp_id,
-              faculty.fname,
-              faculty.dept
-            ]).draw();
+            staffDbTable.row
+              .add([faculty.emp_id, faculty.fname, faculty.dept])
+              .draw();
           });
         } else {
           staffDbTable.draw();
@@ -748,21 +767,21 @@ $(document).ready(function () {
     });
   }
 
-  $('#staffDb_searchInput').on('input keyup', handleStaffDbInputChange);
-  $('#staffDb_dept').on('change', handleStaffDbInputChange);
+  $("#staffDb_searchInput").on("input keyup", handleStaffDbInputChange);
+  $("#staffDb_dept").on("change", handleStaffDbInputChange);
 
   function handleStaffDbInputChange() {
-    const searchTerm = $('#staffDb_searchInput').val().trim();
-    const dept = $('#staffDb_dept').val()
+    const searchTerm = $("#staffDb_searchInput").val().trim();
+    const dept = $("#staffDb_dept").val();
 
     fetchStaffTableData(searchTerm, dept);
   }
 
-  $('#staffDb_resetbtn').on('click', function (e) {
+  $("#staffDb_resetbtn").on("click", function (e) {
     e.preventDefault();
 
-    $('#staffDb_searchInput').val('');
-    $('#staffDbForm').find('select').prop('selectedIndex', 0);
+    $("#staffDb_searchInput").val("");
+    $("#staffDbForm").find("select").prop("selectedIndex", 0);
 
     fetchStaffTableData();
   });
@@ -796,13 +815,13 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/stud_hist_table.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
         cyear: cyear,
         branch: branch,
         section: section,
-        sname: sName
+        sname: sName,
       },
       success: function (data) {
         StudHTable.clear();
@@ -825,25 +844,25 @@ $(document).ready(function () {
         } else {
           StudHTable.draw();
         }
-      }
+      },
     });
   }
 
   //////////////////////////////////////////////////////////////
   /////////////////// History Table ////////////////////////////
   //////////////////////////////////////////////////////////////
-  $('.stud').on('click', function () {
-    $('.studentHistory').removeClass('d-none');
-    $('.staffHistory').addClass('d-none');
-    $('.stud').addClass('bg-light');
-    $('.staff').removeClass('bg-light');
+  $(".stud").on("click", function () {
+    $(".studentHistory").removeClass("d-none");
+    $(".staffHistory").addClass("d-none");
+    $(".stud").addClass("bg-light");
+    $(".staff").removeClass("bg-light");
   });
 
-  $('.staff').on('click', function () {
-    $('.studentHistory').addClass('d-none');
-    $('.staffHistory').removeClass('d-none');
-    $('.stud').removeClass('bg-light');
-    $('.staff').addClass('bg-light');
+  $(".staff").on("click", function () {
+    $(".studentHistory").addClass("d-none");
+    $(".staffHistory").removeClass("d-none");
+    $(".stud").removeClass("bg-light");
+    $(".staff").addClass("bg-light");
   });
   /////////////////////////////////////////////////////////////
   var hTable = $("#historyTable").DataTable({
@@ -884,11 +903,11 @@ $(document).ready(function () {
 
     $.ajax({
       url: "php/delete_old_history_data.php",
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       success: function (response) {
         alert(response.message);
-      }
+      },
     });
   });
 
@@ -908,15 +927,31 @@ $(document).ready(function () {
     const htoDate = $("#history_toDate").val();
 
     // Call your fetch data function with the current values
-    fetchHistoryTable(hsearchTerm, hyear, hbranch, hsection, hfromDate, htoDate);
+    fetchHistoryTable(
+      hsearchTerm,
+      hyear,
+      hbranch,
+      hsection,
+      hfromDate,
+      htoDate
+    );
   }
 
   $("#history_searchInput").on("input keyup", handlehInputChange);
-  $("#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate").on("change", handlehInputChange);
+  $(
+    "#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate"
+  ).on("change", handlehInputChange);
 
   fetchHistoryTable();
 
-  function fetchHistoryTable(hsearchTerm = "", hyear = "", hbranch = "", hsection = "", hfromDate = "", htoDate = "") {
+  function fetchHistoryTable(
+    hsearchTerm = "",
+    hyear = "",
+    hbranch = "",
+    hsection = "",
+    hfromDate = "",
+    htoDate = ""
+  ) {
     $.ajax({
       url: "php/history_table.php",
       method: "GET",
@@ -934,16 +969,18 @@ $(document).ready(function () {
 
         if (data && data.length > 0) {
           data.forEach(function (student) {
-            hTable.row.add([
-              student.USN,
-              student.Sname,
-              student.Branch,
-              student.Section,
-              student.Cyear,
-              student.TimeIn,
-              student.TimeOut,
-              student.Date
-            ]).draw();
+            hTable.row
+              .add([
+                student.USN,
+                student.Sname,
+                student.Branch,
+                student.Section,
+                student.Cyear,
+                student.TimeIn,
+                student.TimeOut,
+                student.Date,
+              ])
+              .draw();
           });
         } else {
           hTable.draw();
@@ -972,36 +1009,43 @@ $(document).ready(function () {
       { width: "30%", targets: 2 },
       { width: "10%", targets: 3 },
       { width: "10%", targets: 4 },
-      { width: "10%", targets: 5 }
+      { width: "10%", targets: 5 },
     ],
   });
 
   fetchStaffHistoryTable();
 
-  function fetchStaffHistoryTable(searchTerm = "", dept = "", fromDate = "", toDate = "") {
+  function fetchStaffHistoryTable(
+    searchTerm = "",
+    dept = "",
+    fromDate = "",
+    toDate = ""
+  ) {
     $.ajax({
-      url: './php/staff_hist_table.php',
-      method: 'GET',
+      url: "./php/staff_hist_table.php",
+      method: "GET",
       data: {
         search: searchTerm,
         dept: dept,
         fromDate: fromDate,
-        toDate: toDate
+        toDate: toDate,
       },
-      dataType: 'json',
+      dataType: "json",
       success: function (data) {
         staffHTable.clear();
 
         if (data && data.length > 0) {
           data.forEach(function (faculty) {
-            staffHTable.row.add([
-              faculty.emp_id,
-              faculty.fname,
-              faculty.dept,
-              faculty.TimeIn,
-              faculty.TimeOut,
-              faculty.Date
-            ]).draw();
+            staffHTable.row
+              .add([
+                faculty.emp_id,
+                faculty.fname,
+                faculty.dept,
+                faculty.TimeIn,
+                faculty.TimeOut,
+                faculty.Date,
+              ])
+              .draw();
           });
         } else {
           staffHTable.draw();
@@ -1014,48 +1058,49 @@ $(document).ready(function () {
   }
 
   $("#staffHistory_searchInput").on("input keyup", handleStaffInputChange);
-  $("#staffHistory_dept,#staffHistory_fromDate, #staffHistory_toDate").on("change", handleStaffInputChange);
+  $("#staffHistory_dept,#staffHistory_fromDate, #staffHistory_toDate").on(
+    "change",
+    handleStaffInputChange
+  );
 
   function handleStaffInputChange() {
-    const searchTerm = $('#staffHistory_searchInput').val().trim();
-    const dept = $('#staffHistory_dept').val();
-    const fromDate = $('#staffHistory_fromDate').val();
-    const toDate = $('#staffHistory_toDate').val();
+    const searchTerm = $("#staffHistory_searchInput").val().trim();
+    const dept = $("#staffHistory_dept").val();
+    const fromDate = $("#staffHistory_fromDate").val();
+    const toDate = $("#staffHistory_toDate").val();
 
     fetchStaffHistoryTable(searchTerm, dept, fromDate, toDate);
   }
 
-  $('#staffHistory_deletebtn').on('click', function (e) {
+  $("#staffHistory_deletebtn").on("click", function (e) {
     e.preventDefault();
 
     $.ajax({
-      url: './php/delete_old_staff_history.php',
-      type: 'POST',
-      dataType: 'json',
+      url: "./php/delete_old_staff_history.php",
+      type: "POST",
+      dataType: "json",
       success: function (response) {
         alert(response.message);
-      }
-    })
+      },
+    });
   });
 
-  $('#staffHistory_resetbtn').on('click', function (e) {
+  $("#staffHistory_resetbtn").on("click", function (e) {
     e.preventDefault();
 
-    $('#staffHistoryForm').find('input[type="date"]').val('');
-    $('#staffHistoryForm').find('select').prop('selectedIndex', 0);
-    $('#staffHistory_searchInput').val('');
+    $("#staffHistoryForm").find('input[type="date"]').val("");
+    $("#staffHistoryForm").find("select").prop("selectedIndex", 0);
+    $("#staffHistory_searchInput").val("");
 
     fetchStaffHistoryTable();
   });
 
-  $('#staffHistory_refreshbtn').on('click', function (e) {
+  $("#staffHistory_refreshbtn").on("click", function (e) {
     e.preventDefault();
 
     handleStaffInputChange();
   });
 });
-
-
 
 function confirmation(event, formSelector, txt) {
   const isConfirmed = confirm("Are you sure you want to " + txt + "?");
@@ -1067,34 +1112,34 @@ function confirmation(event, formSelector, txt) {
   }
 }
 
-$("#removeStudentModal").on('hidden.bs.modal', function () {
+$("#removeStudentModal").on("hidden.bs.modal", function () {
   $("#regYearField").addClass("d-none");
   $("#usnField").addClass("d-none");
   // $("#remove_set, #remove_one").prop("checked", false);
-  $('#removeStudentForm')[0].reset();
+  $("#removeStudentForm")[0].reset();
 });
 
-$('#editModal').on('hidden.bs.modal', function () {
+$("#editModal").on("hidden.bs.modal", function () {
   // Reset the form
   $("#editStudentForm")[0].reset();
 });
 
-$('#importModal').on('hidden.bs.modal', function () {
+$("#importModal").on("hidden.bs.modal", function () {
   // Reset the form
   $("#importFileForm")[0].reset();
 });
 
-$('#updateModal').on('hidden.bs.modal', function () {
+$("#updateModal").on("hidden.bs.modal", function () {
   // Reset the form
   $("#updateFileForm")[0].reset();
 });
 
-$("#addStudentModal").on('hidden.bs.modal', function () {
+$("#addStudentModal").on("hidden.bs.modal", function () {
   $("#addStudentForm")[0].reset();
 });
 
-$('#adminLogoutModal').on('hidden.bs.modal', function(){
-  $('#adminLogoutForm')[0].reset();
+$("#adminLogoutModal").on("hidden.bs.modal", function () {
+  $("#adminLogoutForm")[0].reset();
 });
 
 // Printing Statistics
@@ -1155,19 +1200,19 @@ $("#print_stud_stats").on("click", function () {
 });
 
 $("#importStudentFormat").on("click", function () {
-  window.location.href = 'php/template/import_student_format.php';
+  window.location.href = "php/template/import_student_format.php";
 });
 
 $("#updateUSNFormat").on("click", function () {
-  window.location.href = 'php/template/update_usn_format.php';
+  window.location.href = "php/template/update_usn_format.php";
 });
 
 // match the input provided by the user with the entries present in the select element
 function matchCustom(params, data) {
-  if ($.trim(params.term) === '') {
+  if ($.trim(params.term) === "") {
     return data;
   }
-  if (typeof data.text === 'undefined') {
+  if (typeof data.text === "undefined") {
     return null;
   }
   if (data.text.toLowerCase().startsWith(params.term.toLowerCase())) {
