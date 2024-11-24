@@ -11,7 +11,7 @@ if (!isset($_SESSION['sUser_logged_in'])) {
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistics Dashboard</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -49,7 +49,8 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button value="InstLogout" name="InstLogout" type="submit" onclick="confirmation(event,'', 'log out')"
+                        <button value="InstLogout" name="InstLogout" type="submit"
+                            onclick="confirmation(event,'', 'log out')"
                             class="confirmLibraryLogout btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -137,6 +138,8 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                                     <div class="col-auto">
                                         <button type="reset" id="reset_stud_stat_form" class="btn btn-danger"
                                             style="padding: 2px">RESET</button>
+                                        <button type="button" id="refresh_stud_stat_form" class="btn btn-info"
+                                            style="padding: 3px; flex: 1; margin-right: 8px;">REFRESH</button>
                                         <button type="button" id="print_stud_stats" class="btn btn-primary"
                                             style="padding: 2px">PRINT</button>
                                     </div>
@@ -210,6 +213,8 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                                     <div class="col-auto">
                                         <button type="reset" id="reset_stat_form" class="btn btn-danger"
                                             style="padding: 2px">RESET</button>
+                                        <button type="button" id="refresh_stat_form" class="btn btn-info"
+                                            style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">REFRESH</button>
                                         <button type="button" id="print_stats" class="btn btn-primary"
                                             style="padding: 2px">PRINT</button>
                                     </div>
@@ -427,7 +432,8 @@ if (!isset($_SESSION['sUser_logged_in'])) {
                 </div>
             </div>
             <footer class="text-center">
-                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
+                <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian
+                    Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
             </footer>
         </div>
     </main>
