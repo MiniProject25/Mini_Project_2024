@@ -132,19 +132,16 @@ if (($new_pass == $reentered_pass) && isset($_POST['user_pass_change'])) {
     }
 } else {
     if(isset($_POST['user_pass_change'])) {
-        echo "BRUH 4";
         echo '<script type="text/javascript">';
         echo 'alert("Passwords do not match");';
         echo 'window.location.href = "../index_page_auth.php";';
         echo '</script>';
     } else if (isset($_POST['super_user_pass_change'])) {
-        echo "BRUH 5";
         echo '<script type="text/javascript">';
         echo 'alert("Passwords do not match");';
         echo 'window.location.href = "../admin_auth.php";';
         echo '</script>';
     } else if(isset($_POST['admin_pass_change'])) {
-        echo "BRUH 6";
         echo '<script type="text/javascript">';
         echo 'alert("Passwords do not match");';
         echo 'window.location.href = "../admin_auth.php";';
