@@ -12,101 +12,8 @@ include './php/db_connection.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Login Page</title>
-    <style>
-        /* Your CSS code remains unchanged */
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
-
-        .hero {
-            height: 100%;
-            width: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(res/clg.png);
-            background-position: center;
-            background-size: cover;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo-container {
-            width: 15%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 2% auto;
-        }
-
-        .logo img {
-            height: 100px;
-            width: auto;
-        }
-
-        .form-box {
-            width: 380px;
-            height: 300px;
-            position: relative;
-            margin: 2% auto;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .form-heading {
-            font-size: 24px;
-            color: #fff;
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        .heading-container{
-            background: #1e3c72;
-        }
-
-        .input-group {
-            position: absolute;
-            width: 280px;
-            top: 120px;
-            transition: left 0.5s;
-            left: 50px;
-            margin-bottom: 50px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 10px 0;
-            margin: 5px 0;
-            border: none;
-            border-bottom: 1px solid #999;
-            outline: none;
-            background: transparent;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .btn-btn {
-            width: 40%;
-            padding: 10px 30px;
-            cursor: pointer;
-            background: #1e3c72;
-            border: 0;
-            outline: none;
-            border-radius: 30px;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/index_login.css" />
 </head>
 
 <body>
@@ -123,9 +30,42 @@ include './php/db_connection.php';
             <form method="POST" class="input-group">
                 <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
                 <input type="password" name="password" class="input-field" placeholder="Password" required>
+                <div class="change_password_container">
+                    <a name="user_pass_change" data-bs-target="#change_pass_modal" data-bs-toggle="modal"
+                        style="text-decoration: none; color: gray; font-size: small" href="#">Change
+                        password</a>
+                </div>
                 <div class="button-container">
                     <button type="submit" name="login" class="btn-btn">LOGIN</button>
                     <button type="reset" class="btn-btn">RESET</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="change_pass_modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form method="POST" action="php/change_pass.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Change Password
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password"
+                            id="new_pass">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password"
+                            id="re_new_pass">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="user_pass_change" id="submit_change_pass"
+                            class="btn btn-primary">Save</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -171,11 +111,11 @@ include './php/db_connection.php';
         }
     }
 
-    $conn->close();
     ob_end_flush();
+    $conn->close();
     ?>
 
-    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
