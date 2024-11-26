@@ -45,8 +45,9 @@ if (($new_pass == $reentered_pass) && isset($_POST['user_pass_change'])) {
             // header("Location: ../index.php");
         }
     }
+
+    unset($_POST['user_pass_change']);
 } else if (($new_pass == $reentered_pass) && isset($_POST['super_user_pass_change'])) {
-    echo "BRUH 2";
 
     $result = $conn->query("SELECT sUser_id FROM super_user");
     $admin = $result->fetch_assoc();
@@ -88,6 +89,7 @@ if (($new_pass == $reentered_pass) && isset($_POST['user_pass_change'])) {
             // header("Location: ../index.php");
         }
     }
+    unset($_POST['super_user_pass_change']);
 } else if(($new_pass == $reentered_pass) && isset($_POST['admin_pass_change'])) {
 
     $result = $conn->query("SELECT admin_id FROM admin");
@@ -130,6 +132,7 @@ if (($new_pass == $reentered_pass) && isset($_POST['user_pass_change'])) {
             // header("Location: ../index.php");
         }
     }
+    unset($_POST['admin_pass_change']);
 } else {
     if(isset($_POST['user_pass_change'])) {
         echo '<script type="text/javascript">';

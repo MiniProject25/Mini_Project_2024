@@ -48,8 +48,7 @@ include './php/db_connection.php';
                 <input type="text" name="sUser_id" class="input-field" placeholder="Enter Id" required>
                 <input type="password" name="sUser_pass" class="input-field" placeholder="Enter Password" required>
                 <div class="change_password_container" style="margin-top: 10px;">
-                    <a data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" 
-                        name="super_user_pass_change" style="text-decoration: none; color: gray; font-size: small"
+                    <a data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" style="text-decoration: none; color: gray; font-size: small"
                         href="#">Change password</a>
                 </div>
                 <div class="button-container">
@@ -60,6 +59,7 @@ include './php/db_connection.php';
         </div>
     </div>
 
+    <!-- modals -->
     <div class="modal fade" id="admin_pass_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <form method="POST" action="php/change_pass.php">
@@ -71,16 +71,14 @@ include './php/db_connection.php';
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password"
-                            id="new_pass">
-                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password"
-                            id="re_new_pass">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" name="admin_pass_change" id="submit_change_pass"
+                        <button type="submit" name="admin_pass_change"
                             class="btn btn-primary">Save</button>
                     </div>
                 </div>
@@ -99,16 +97,14 @@ include './php/db_connection.php';
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password"
-                            id="new_pass">
-                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password"
-                            id="re_new_pass">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" name="super_user_pass_change" id="submit_change_pass"
+                        <button type="submit" name="super_user_pass_change"
                             class="btn btn-primary">Save</button>
                     </div>
                 </div>
@@ -163,7 +159,7 @@ include './php/db_connection.php';
                 echo "<script>alert('Invalid ID or Password!');</script>";
             }
         } else {
-            echo "<script>alert('Invalid ID or Password!');</script>";
+            echo "<script>alert('Invalid ID');</script>";
         }
 
         $stmt->close();
