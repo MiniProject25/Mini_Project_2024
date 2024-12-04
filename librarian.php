@@ -1,4 +1,4 @@
-<?php
+<a?php
 session_start();
 
 if (!isset($_SESSION['admin_logged_in'])) {
@@ -28,8 +28,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">
                 LIBRARIAN PAGE
             </span>
+            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#select_role" data-bs-toggle="modal">CHANGE PASSWORD</a>
             <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
-                data-bs-toggle="modal">Logout</a>
+                data-bs-toggle="modal">LOGOUT</a>
         </div>
     </nav>
 
@@ -100,7 +101,84 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
+    <!-- Password Change Modals -->
+    <div class="modal fade" id="select_role" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Select Role
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" data-bs-target="#admin_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Librarian</button>
+                        <button type="button" data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Institute Personnel</button>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="admin_pass_change"
+                            class="btn btn-primary">Save</button>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <div class="modal fade" id="admin_pass_modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form method="POST" action="php/change_pass.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Change Password
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="admin_pass_change"
+                            class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="super_user_pass_modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form method="POST" action="php/change_pass.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Change Password
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="super_user_pass_change"
+                            class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Dashboard Body -->
     <main id="admin-main" class="mt-5 pt-3">

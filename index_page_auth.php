@@ -30,11 +30,11 @@ include './php/db_connection.php';
             <form method="POST" class="input-group">
                 <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
                 <input type="password" name="password" class="input-field" placeholder="Password" required>
-                <div class="change_password_container">
+                <!-- <div class="change_password_container">
                     <a name="user_pass_change" data-bs-target="#change_pass_modal" data-bs-toggle="modal"
                         style="text-decoration: none; color: gray; font-size: small" href="#">Change
                         password</a>
-                </div>
+                </div> -->
                 <div class="button-container">
                     <button type="submit" name="login" class="btn-btn">LOGIN</button>
                     <button type="reset" class="btn-btn">RESET</button>
@@ -43,7 +43,7 @@ include './php/db_connection.php';
         </div>
     </div>
 
-    <div class="modal fade" id="change_pass_modal" tabindex="-1">
+    <!-- <div class="modal fade" id="change_pass_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <form method="POST" action="php/change_pass.php">
                 <div class="modal-content">
@@ -69,7 +69,7 @@ include './php/db_connection.php';
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <!-- PHP Code Here -->
     <?php

@@ -34,11 +34,11 @@ include './php/db_connection.php';
             <form id="admin" method="POST" class="input-group">
                 <input type="text" name="admin_id" class="input-field" placeholder="Admin ID" required>
                 <input type="password" name="admin_pass" class="input-field" placeholder="Password" required>
-                <div class="change_password_container" style="margin-top: 10px;">
+                <!-- <div class="change_password_container" style="margin-top: 10px;">
                     <a data-bs-target="#admin_pass_modal" data-bs-toggle="modal"
                         name="admin_pass_change" style="text-decoration: none; color: gray; font-size: small"
                         href="#">Change password</a>
-                </div>
+                </div> -->
                 <div class="button-container">
                     <button type="submit" name="admin_login" class="btn-btn">LOGIN</button>
                     <button type="reset" class="btn-btn">RESET</button>
@@ -47,66 +47,13 @@ include './php/db_connection.php';
             <form id="sUser" method="POST" class="input-group">
                 <input type="text" name="sUser_id" class="input-field" placeholder="Enter Id" required>
                 <input type="password" name="sUser_pass" class="input-field" placeholder="Enter Password" required>
-                <div class="change_password_container" style="margin-top: 10px;">
+                <!-- <div class="change_password_container" style="margin-top: 10px;">
                     <a data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" style="text-decoration: none; color: gray; font-size: small"
                         href="#">Change password</a>
-                </div>
+                </div> -->
                 <div class="button-container">
                     <button type="submit" name="sUser_login" class="btn-btn">LOGIN</button>
                     <button type="reset" class="btn-btn">RESET</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- modals -->
-    <div class="modal fade" id="admin_pass_modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-            <form method="POST" action="php/change_pass.php">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">
-                            Change Password
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
-                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" name="admin_pass_change"
-                            class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="super_user_pass_modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-            <form method="POST" action="php/change_pass.php">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">
-                            Change Password
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password">
-                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" name="super_user_pass_change"
-                            class="btn btn-primary">Save</button>
-                    </div>
                 </div>
             </form>
         </div>
