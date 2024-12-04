@@ -112,8 +112,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <button type="button" data-bs-target="#admin_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Librarian</button>
+                    <div style="width: 400px; text-align: center" class="modal-body">
+                        <button type="button" data-bs-target="#change_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Library</button>
+                        <button type="button" data-bs-target="#admin_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Admin</button>
                         <button type="button" data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Institute Personnel</button>
                     </div>
                     <!-- <div class="modal-footer">
@@ -128,6 +129,36 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
+    <!-- user password change -->
+    <div class="modal fade" id="change_pass_modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form method="POST" action="php/change_pass.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Change Password
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password"
+                            id="new_pass">
+                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password"
+                            id="re_new_pass">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="user_pass_change" id="submit_change_pass"
+                            class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- librarian password change -->
     <div class="modal fade" id="admin_pass_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <form method="POST" action="php/change_pass.php">
@@ -153,7 +184,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
             </form>
         </div>
     </div>
-
+    <!-- institute password change -->
     <div class="modal fade" id="super_user_pass_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <form method="POST" action="php/change_pass.php">

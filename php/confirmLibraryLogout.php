@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pwd = $_POST['pwd-logout'];
     $admin_id = $_SESSION['libadmin_id'];
 
-    $sql = "SELECT pass_hash FROM admin WHERE admin_id = ?";
+    $sql = "SELECT pass_hash FROM user_login WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $admin_id);
     $stmt->execute();

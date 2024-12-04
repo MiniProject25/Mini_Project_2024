@@ -20,7 +20,7 @@ include './php/db_connection.php';
     <div class="hero">
         <div class="logo-container">
             <div class="logo">
-                <img src="res/cec-better.png" alt="cec-logo">
+                <img src="./res/cec-better.png" alt="cec-logo">
             </div>
         </div>
         <div class="form-box">
@@ -43,33 +43,7 @@ include './php/db_connection.php';
         </div>
     </div>
 
-    <!-- <div class="modal fade" id="change_pass_modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-            <form method="POST" action="php/change_pass.php">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">
-                            Change Password
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input name="new_pass" class="form-control mb-3" type="password" placeholder="Enter Password"
-                            id="new_pass">
-                        <input name="re_new_pass" class="form-control" type="password" placeholder="Re-enter Password"
-                            id="re_new_pass">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" name="user_pass_change" id="submit_change_pass"
-                            class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
+    
 
     <!-- PHP Code Here -->
     <?php
@@ -85,13 +59,13 @@ include './php/db_connection.php';
             $password = $_POST['password'];
 
             # fetch admin data
-            $result = $conn->query("SELECT * FROM admin WHERE admin_id = '$admin'");
+            $result = $conn->query("SELECT * FROM user_login WHERE id = '$admin'");
             if ($result->num_rows == 1) {
                 $admin = $result->fetch_assoc();
                 // echo "Correct ID<br>";
                 if (password_verify($password, $admin['pass_hash'])) {
                     $_SESSION['library_logged_in'] = true;
-                    $_SESSION['libadmin_id'] = $admin['admin_id'];
+                    $_SESSION['libadmin_id'] = $admin['id'];
                     header("Location: index.php");
                     exit;
                 } else {
