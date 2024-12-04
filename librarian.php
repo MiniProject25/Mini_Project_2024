@@ -1,4 +1,4 @@
-<a?php
+<?php
 session_start();
 
 if (!isset($_SESSION['admin_logged_in'])) {
@@ -28,7 +28,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
             <span class="navbar-brand mb-0 h1 page-title ms-auto me-auto">
                 LIBRARIAN PAGE
             </span>
-            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#select_role" data-bs-toggle="modal">CHANGE PASSWORD</a>
+            <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#select_role"
+                data-bs-toggle="modal">CHANGE PASSWORD</a>
             <a class="nav-link px-3 active" style="color: white; cursor: pointer" data-bs-target="#adminLogoutModal"
                 data-bs-toggle="modal">LOGOUT</a>
         </div>
@@ -113,9 +114,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div style="width: 400px; text-align: center" class="modal-body">
-                        <button type="button" data-bs-target="#change_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Library</button>
-                        <button type="button" data-bs-target="#admin_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Admin</button>
-                        <button type="button" data-bs-target="#super_user_pass_modal" data-bs-toggle="modal" class="btn btn-primary">Institute Personnel</button>
+                        <button type="button" data-bs-target="#change_pass_modal" data-bs-toggle="modal"
+                            class="btn btn-primary">Library</button>
+                        <button type="button" data-bs-target="#admin_pass_modal" data-bs-toggle="modal"
+                            class="btn btn-primary">Admin</button>
+                        <button type="button" data-bs-target="#super_user_pass_modal" data-bs-toggle="modal"
+                            class="btn btn-primary">Institute Personnel</button>
                     </div>
                     <!-- <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -177,8 +181,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" name="admin_pass_change"
-                            class="btn btn-primary">Save</button>
+                        <button type="submit" name="admin_pass_change" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </form>
@@ -203,8 +206,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" name="super_user_pass_change"
-                            class="btn btn-primary">Save</button>
+                        <button type="submit" name="super_user_pass_change" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </form>
@@ -780,19 +782,75 @@ if (!isset($_SESSION['admin_logged_in'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel">Import Data</h5>
+                    <h5 class="modal-title" id="importModalLabel">Import Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="importFileForm" method="POST" action="php/import.php" enctype="multipart/form-data">
+                    <form id="importFileForm">
+                        <p>Please select an option:</p>
+                        <label>
+                            <input type="radio" name="importchoice" value="importStudent" required> Import
+                            Student
+                        </label><br>
+                        <label>
+                            <input type="radio" name="importchoice" value="importStaff" required> Import Staff
+                        </label><br><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" 
+                        id="importFileBtn" class="btn btn-primary">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Student Modal -->
+    <div class="modal fade" id="importStudentModal" tabindex="-1" aria-labelledby="importStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importStudentModalLabel">Import Student Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="importStudentFileForm" method="POST" action="php/import.php"
+                        enctype="multipart/form-data">
                         <label for="file">Choose a text file:</label>
                         <input type="file" name="file" id="file" class="form-control" accept=".csv,.xlsx" required><br>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" onclick="confirmation(event,'#importFileForm','import file')"
-                        form="importFileForm" class="btn btn-primary">Import</button>
+                    <button type="submit" onclick="confirmation(event,'#importStudentFileForm','import file')"
+                        form="importStudentFileForm" class="btn btn-primary">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Staff Modal -->
+    <div class="modal fade" id="importStaffModal" tabindex="-1" aria-labelledby="importModalStaffLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalStaffLabel">Import Staff Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="importStaffFileForm" method="POST" action="php/import_staff.php"
+                        enctype="multipart/form-data">
+                        <label for="staffFile">Choose a text file:</label>
+                        <input type="file" name="staffFile" id="staffFile" class="form-control" accept=".csv,.xlsx" required><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="confirmation(event,'#importStaffFileForm','import file')"
+                        form="importStaffFileForm" class="btn btn-primary">Import</button>
                 </div>
             </div>
         </div>
@@ -861,7 +919,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         </div>
     </div>
 
-    <!-- Remove a Student Modal -->
+    <!-- Remove Student Modal -->
     <div class="modal fade" id="removeStudentModal" tabindex="-1" aria-labelledby="removeStudentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -1082,6 +1140,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             src="res/import-students-format-ex.png">
                         <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
                             id="importStudentFormat">Download</button>
+                    </div><br>
+                    <div style="margin-left:15px">
+                        <label for="importStaffFormat">Import Staffs Format:</label><br>
+                        <img style="width: 250px; height: auto;margin-left:15px;"
+                            src="res/import-staffs-format-ex.png">
+                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
+                            id="importStaffFormat">Download</button>
                     </div><br>
                     <div style="margin-left:15px">
                         <label for="updateUsnFormat">Update USN Format:</label><br>

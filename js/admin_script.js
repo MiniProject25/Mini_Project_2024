@@ -83,6 +83,16 @@ $(document).ready(function () {
     });
   });
 
+  $("#importFileBtn").on("click",function(){
+    $("#importModal").modal("hide");
+    const opt=$('input[name="importchoice"]:checked').val();
+    if(opt=="importStudent"){
+      $("#importStudentModal").modal("show");
+    } else if (opt=="importStaff"){
+      $("#importStaffModal").modal("show");
+    }
+  });
+
   // editing student details
   $("#continueEditBtn").on("click", function () {
     // handleContinue();
@@ -1119,6 +1129,16 @@ $("#removeStudentModal").on("hidden.bs.modal", function () {
   $("#removeStudentForm")[0].reset();
 });
 
+$("#importStudentModal").on("hidden.bs.modal", function(){
+  $("#importFileForm")[0].reset();
+  $("#importStudentFileForm")[0].reset();
+});
+
+$("#importStaffModal").on("hidden.bs.modal", function(){
+  $("#importFileForm")[0].reset();
+  $("#importStaffFileForm")[0].reset();
+});
+
 $("#editModal").on("hidden.bs.modal", function () {
   // Reset the form
   $("#editStudentForm")[0].reset();
@@ -1201,6 +1221,10 @@ $("#print_stud_stats").on("click", function () {
 
 $("#importStudentFormat").on("click", function () {
   window.location.href = "php/template/import_student_format.php";
+});
+
+$("#importStaffFormat").on("click", function () {
+  window.location.href = "php/template/import_staff_format.php";
 });
 
 $("#updateUSNFormat").on("click", function () {
