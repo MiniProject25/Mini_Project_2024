@@ -105,6 +105,19 @@ $(document).ready(function () {
     }
   });
 
+  $("#changePass").on("click",function(){
+    $("#select_role").modal("hide");
+    const opt= $('input[name="changePassChoice"]:checked').val();
+
+    if(opt=="user"){
+      $("#change_pass_modal").modal("show");
+    } else if(opt=="admin"){
+      $("#admin_pass_modal").modal("show");
+    } else if(opt=="institute"){
+      $("#super_user_pass_modal").modal("show");
+    }
+  });
+
   $("#editOneModal").on("hidden.bs.modal", function () {
     $(".edit_usn").val("");
     $(".edit-one-modal,.edit-one-footer").addClass("d-none");
@@ -1147,6 +1160,11 @@ $("#editModal").on("hidden.bs.modal", function () {
 $("#importModal").on("hidden.bs.modal", function () {
   // Reset the form
   $("#importFileForm")[0].reset();
+});
+
+$("#select_role").on("hidden.bs.modal", function () {
+  // Reset the form
+  $("#changePassForm")[0].reset();
 });
 
 $("#updateModal").on("hidden.bs.modal", function () {
