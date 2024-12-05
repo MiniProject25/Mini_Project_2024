@@ -583,3 +583,49 @@ $('#loginModal,#logoutModal').on('hidden.bs.modal', function () {
     $(".staffEntryExitKey").addClass("d-none");
     $('.facAuth').addClass("d-none");
 });
+
+function autoLogout(){
+    const now = new Date();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+
+    if(hour >= 19){
+        if(minute >= 0){
+            let studentTable = $('#studentTable').DataTable();
+            let staffTable = $('#staffTable').DataTable();
+            $.ajax({
+                url : './php/auto_logout_students.php',
+                method : 'POST',
+                dataType : 'json',
+                success: function(response){
+                    if(response.success){
+                        studentTable.clear().draw();
+                    } else {
+                        console.error(`Error logging out students`);
+                    }
+                },
+                error: function () {
+                    console.error(`Error processing logout for student`);
+                }
+            });
+            
+            $.ajax({
+                url : './php/auto_logout_staffs.php',
+                method : 'POST',
+                dataType : 'json',
+                success: function(response){
+                    if(response.success){
+                        staffTable.clear().draw();
+                    } else {
+                        console.error(`Error logging out staffs`);
+                    }
+                },
+                error: function () {
+                    console.error(`Error processing logout for staff`);
+                }
+            });
+        }
+    }
+}
+
+setInterval(autoLogout,10000);
