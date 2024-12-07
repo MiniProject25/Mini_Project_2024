@@ -590,7 +590,7 @@ function autoLogout(){
     const minute = now.getMinutes();
 
     if(hour >= 19){
-        if(minute >= 0){
+        if(minute >= 0||(hour>19)){
             let studentTable = $('#studentTable').DataTable();
             let staffTable = $('#staffTable').DataTable();
             $.ajax({
