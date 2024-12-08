@@ -57,6 +57,10 @@ include './php/db_connection.php';
                 </div>
             </form>
         </div>
+
+        <div class="auth_footer">
+            <p>Library Visit Monitoring System</p>
+        </div>
     </div>
 
     <?php
