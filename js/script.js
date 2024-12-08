@@ -20,6 +20,22 @@ $(document).ready(function () {
         matcher: matchCustom
     });
 
+    $('#pov').select2({
+        dropdownParent: $('#loginModal'),
+        width: '100%',
+        placeholder: "Select an option",
+        allowClear: true,
+        matcher: matchCustom
+    });
+
+    $('#staffpov').select2({
+        dropdownParent: $('#loginModal'),
+        width: '100%',
+        placeholder: "Select an option",
+        allowClear: true,
+        matcher: matchCustom
+    });
+
     $('.staffName').select2({
         dropdownParent: $('#loginModal'),
         width: '100%',
@@ -58,6 +74,7 @@ $('#acceptLogin').on('click', function () {
 
         $('#EntryExitKey').hide();
         $('#studentListContainer').hide();
+        $(".purposeOfVisitDiv").hide();
 
         // $('#studentName').empty();
     }
@@ -67,6 +84,7 @@ $('#acceptLogin').on('click', function () {
         $('#staffName').val('');
         $('.staffEntryExitKey').addClass('d-none');
         $('.staffListContainer').addClass('d-none');
+        $('#staffPurposeOfVisitDiv').hide();
     }
 });
 
@@ -90,11 +108,13 @@ $('#loginModal').on('keypress', function (e) {
         handleStudentLogin(); // Call the login handling function
         $('#EntryExitKey').hide();
         $('#studentListContainer').hide();
+        $(".purposeOfVisitDiv").hide();
     }
     else if (e.which === 13 && $('#staffLogin-content').is(':visible')) {
         e.preventDefault();
         handleStaffLogin();
         $('.staffEntryExitKey').addClass('d-none');
+        $('#staffPurposeOfVisitDiv').hide();
         $('.staffListContainer').addClass('d-none');
     }
 });
@@ -140,6 +160,17 @@ $('#section, #year, #branch').on('change', function () {
                 $('#studentListContainer').show();
                 $('#studentName').html(response); // Update the dropdown option
                 $('#studentName').val(null).trigger('change');
+                
+                $.ajax({
+                    url: "./php/fetch_pov.php",
+                    method: 'GET',
+                    success: function(response) {
+                        $(".purposeOfVisitDiv").show();
+                        $("#pov").html(response);
+                        $("#pov").val(null).trigger('change');
+                    }
+                });
+
                 $('#EntryExitKey').show();
             },
             error: function (xhr, status, error) {
@@ -150,6 +181,7 @@ $('#section, #year, #branch').on('change', function () {
     } else {
         $('#studentListContainer').hide(); // Hide if any field is empty
         $('#EntryExitKey').hide();
+        $(".purposeOfVisitDiv").hide();
     }
 });
 
@@ -168,6 +200,17 @@ $('#dept').on('change', function () {
                 $('#staffName').val(null).trigger('change');
                 $('.staffListContainer').removeClass('d-none');
                 $('.staffEntryExitKey').removeClass('d-none');
+                $("#staffPurposeOfVisitDiv").show();
+
+                $.ajax({
+                    url: "./php/fetch_pov.php",
+                    method: "GET",
+                    success: function(response) {
+                        $("#staffPurposeOfVisitDiv").show();
+                        $("#staffpov").html(response);
+                        $("#staffpov").val(null).trigger('change');
+                    }
+                });
                 $('.facAuth').removeClass("d-none");
             },
             error: function (xhr, status, error) {
@@ -187,6 +230,7 @@ function handleStudentLogin() {
     let year = $('#year').val();
     let branch = $('#branch').val();
     let section = $('#section').val();
+    let purpose = $('#pov').val();
     let EntryKey = $('#EntryKey').val();
 
     if (name && year && branch && section && EntryKey) {
@@ -199,12 +243,13 @@ function handleStudentLogin() {
                 year: year,
                 branch: branch,
                 section: section,
-                EntryKey: EntryKey
+                EntryKey: EntryKey,
+                purpose: purpose
             },
             success: function (response) {
                 // console.log(response);
                 if (response.success) {
-                    loadActiveStudents();
+                    loadActiveStudents(purpose);
                     $('#studentLoginForm')[0].reset();
                     $('#studentName').val('');
                     // $('#EntryExitKey').hide();
@@ -226,6 +271,7 @@ function handleStudentLogin() {
 function handleStaffLogin() {
     let name = $('#staffName').val();
     let dept = $('#dept').val();
+    let purpose = $("#staffpov").val();
     let entryKey = $('#staffEntryKey').val();
 
     if (name && dept && entryKey) {
@@ -236,12 +282,13 @@ function handleStaffLogin() {
             data: {
                 name: name,
                 dept: dept,
+                purpose: purpose,
                 entryKey: entryKey,
             },
             success: function (response) {
                 // console.log(name);
                 if (response.success) {
-                    loadActiveStaff();
+                    loadActiveStaff(purpose);
                     $('#staffLoginForm')[0].reset();
                     $('#staffName').val('');
                     $('#staffEntryExitKey').addClass("d-none");
@@ -259,7 +306,7 @@ function handleStaffLogin() {
 }
 
 // Load students in the library
-function loadActiveStudents() {
+function loadActiveStudents(purpose) {
     $.ajax({
         url: './php/get_active_students.php', // The PHP file to retrieve data
         method: 'GET',
@@ -276,6 +323,7 @@ function loadActiveStudents() {
                     student.Branch,
                     student.Section,
                     student.Cyear,
+                    purpose,
                     student.TimeIn,
                     student.Date,
                     `<button class="btn btn-danger studentLogoutBtn" data-usn="${student.USN}" data-name="${student.Sname}" data-timein="${student.TimeIn}">Logout</button>`
@@ -304,7 +352,7 @@ function loadActiveStudents() {
     });
 }
 
-function loadActiveStaff() {
+function loadActiveStaff(purpose) {
     $.ajax({
         url: './php/get_active_staffs.php',
         method: 'GET',
@@ -317,6 +365,7 @@ function loadActiveStaff() {
                 staffTable.row.add([
                     faculty.fname,
                     faculty.Dept,
+                    purpose,
                     faculty.TimeIn,
                     faculty.Date,
                     `<button class="btn btn-danger staffLogoutBtn" data-emp_id="${faculty.emp_id}" data-name="${faculty.fname}"
@@ -575,12 +624,15 @@ $('#loginModal,#logoutModal').on('hidden.bs.modal', function () {
     $('#studentName').val('');
     $('#studentListContainer').hide();
     $('#EntryExitKey').hide();
+    $(".purposeOfVisitDiv").hide();
+    $("#pov").val('');
     $('#logoutEntryKey').val('');
 
     $("#pass_to_logout_fac").val('');
     $("#staffLoginForm")[0].reset();
     $(".staffListContainer").addClass("d-none");
     $(".staffEntryExitKey").addClass("d-none");
+    $("#staffPurposeOfVisitDiv").hide();
     $('.facAuth').addClass("d-none");
 });
 

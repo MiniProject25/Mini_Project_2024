@@ -103,9 +103,39 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <a href="#" data-bs-target="#facultyRemovalModal" data-bs-toggle="modal"
                             class="nav-link px-3 active">Remove a Faculty</a>
                         <hr>
+                        <a href="#" data-bs-target="#addPOVmodal" data-bs-toggle="modal"
+                            class="nav-link px-3 active">Add Purpose Of Visit</a>
+                        <hr>
                     </li>
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <!-- Purpose of Visit Modal -->
+    <div class="modal fade" id="addPOVmodal" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="php/add_pov.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Add a Purpose of Visit
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="pov" class="form-control mb-3" type="text"
+                            placeholder="Purpose of Visit" id="pov">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="submit_pov" id="submit_pov"
+                            class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 

@@ -128,12 +128,21 @@ if (!isset($_SESSION['library_logged_in'])) {
                                     <!-- <option selected disabled>Select student</option> -->
                                 </select>
                             </div>
+                            <div class="mb-3 purposeOfVisitDiv" style="display: none;">
+                                <label class="form-label" for="purpose">Enter your Purpose of Visit</label>
+                                <!-- <br> -->
+                                <select name="pov" class="form-select" id="pov" placeholder="Select your Purpose of Visit">
+                                    <option selected disabled>Select your Purpose of Visit</option>
+                                    <!-- Will be fetched from the database -->
+                                </select>
+                            </div>
                             <div class="mb-3" id="EntryExitKey" style="display: none;">
                                 <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label>
                                 <br>
                                 <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
                             </div>
+                            
                         </form>
                     </div>
 
@@ -150,6 +159,14 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 <label for="staffName" class="form-label">Staff Name</label>
                                 <select class="form-select staffName" id="staffName" name="staffName">
                                     <!-- <option selected disabled>Select student</option> -->
+                                </select>
+                            </div>
+                            <div class="mb-3" id="staffPurposeOfVisitDiv" style="display: none;">
+                                <label class="form-label" for="purpose">Enter your Purpose of Visit</label>
+                                <!-- <br> -->
+                                <select name="staffpov" class="form-select" id="staffpov" placeholder="Select your Purpose of Visit">
+                                    <option selected disabled>Select your Purpose of Visit</option>
+                                    <!-- Will be fetched from the database -->
                                 </select>
                             </div>
                             <div class="mb-3 staffEntryExitKey d-none">
@@ -234,6 +251,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                                 <th>Branch</th>
                                 <th>Section</th>
                                 <th>Year</th>
+                                <th>Purpose Of Visit</th>
                                 <th>Time-in</th>
                                 <th>Date</th>
                                 <th>Logout</th>
@@ -250,6 +268,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                             <tr class="text-center">
                                 <th>Name</th>
                                 <th>Department</th>
+                                <th>Purpose Of Visit</th>
                                 <th>Time-in</th>
                                 <th>Date</th>
                                 <th>Logout</th>

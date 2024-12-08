@@ -1,11 +1,12 @@
 <?php
 include 'db_connection.php';
-if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'])) {
+if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $_POST['EntryKey'], $_POST['purpose'])) {
     $name = $_POST['name'];
     $year = (int) $_POST['year'];
     $branch = $_POST['branch'];
     $section = $_POST['section'];
     $EntryKey = $_POST['EntryKey'];
+    $purpose = $_POST['purpose'];
     
     //Fetch student details from 'users' table
     $query = "SELECT * FROM users WHERE Sname = ? AND Branch = ? AND Section = ? AND EntryKey = ? AND Cyear = ?";
@@ -35,9 +36,9 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
                 echo json_encode(['success' => false, 'message' => 'Student is already in the library.']);
             } else {
                 //Valid returning student, log them in again (new session)
-                $insertQuery = "INSERT INTO history (USN, Branch, Cyear, TimeIn, Date) VALUES(?, ?, ?, NOW(), CURDATE())";
+                $insertQuery = "INSERT INTO history (USN, Branch, Cyear, purpose, TimeIn, Date) VALUES(?, ?, ?, ?, NOW(), CURDATE())";
                 $insertStmt = $conn->prepare($insertQuery);
-                $insertStmt->bind_param('ssi', $student['USN'], $student['Branch'], $student['Cyear']);  
+                $insertStmt->bind_param('ssis', $student['USN'], $student['Branch'], $student['Cyear'], $purpose);  
         
                 if ($insertStmt->execute()) {
                     echo json_encode(['success' => true, 'data' => $student]);
@@ -49,9 +50,9 @@ if (isset($_POST['name'], $_POST['year'], $_POST['branch'], $_POST['section'], $
         //Handle first-time login (i.e., no record in the 'history' table)
         else {
             // First-time login, log the student into the 'history' table
-            $insertQuery = "INSERT INTO history (USN, Branch, Cyear, TimeIn, Date) VALUES(?, ?, ?, NOW(), CURDATE())";
+            $insertQuery = "INSERT INTO history (USN, Branch, Cyear, purpose, TimeIn, Date) VALUES(?, ?, ?, ?, NOW(), CURDATE())";
             $insertStmt = $conn->prepare($insertQuery);
-            $insertStmt->bind_param('ssi', $student['USN'],$student['Branch'], $student['Cyear']);
+            $insertStmt->bind_param('ssis', $student['USN'],$student['Branch'], $student['Cyear'], $purpose);
     
             if ($insertStmt->execute()) {
                 echo json_encode(['success' => true, 'data' => $student, 'message' => 'First-time login successful.']);

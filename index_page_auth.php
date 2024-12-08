@@ -20,7 +20,7 @@ include './php/db_connection.php';
     <div class="hero">
         <div class="logo-container">
             <div class="logo">
-                <img src="./res/cec-better.png" alt="cec-logo">
+                <img src="./res/logo.png" alt="cec-logo">
             </div>
         </div>
         <div class="form-box">

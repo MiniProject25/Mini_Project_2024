@@ -2,8 +2,9 @@
 session_start();
 include 'db_connection.php';
 
-if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'])) {
+if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'], $_POST['purpose'])) {
     $dept = $_POST['dept'];
+    $purpose = $_POST['purpose'];
     $name = $_POST['name'];
     $entryKey = $_POST['entryKey'];
 
@@ -29,9 +30,9 @@ if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'])) {
             if (is_null($row['TimeOut'])) {
                 echo json_encode(['success' => false, 'message' => 'Faculty is already in the library.']);
             } else {
-                $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
+                $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept, purpose, TimeIn,Date) VALUES(?,?,?,NOW(),CURDATE())";
                 $insertStmt = $conn->prepare($insertQuery);
-                $insertStmt->bind_param('ss', $empId, $dept);
+                $insertStmt->bind_param('sss', $empId, $dept, $purpose);
 
                 if ($insertStmt->execute()) {
                     echo json_encode(['success' => true, 'data' => $faculty]);
@@ -40,9 +41,9 @@ if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'])) {
                 }
             }
         } else {
-            $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept,TimeIn,Date) VALUES(?,?,NOW(),CURDATE())";
+            $insertQuery = "INSERT INTO faculty_history (EMP_ID, Dept, purpose, TimeIn,Date) VALUES(?,?,?,NOW(),CURDATE())";
             $insertStmt = $conn->prepare($insertQuery);
-            $insertStmt->bind_param('ss', $empId, $dept);
+            $insertStmt->bind_param('sss', $empId, $dept, $purpose);
 
             if ($insertStmt->execute()) {
                 echo json_encode(['success' => true, 'data' => $faculty, 'message' => 'First-time login successful.']);
@@ -53,8 +54,6 @@ if (isset($_POST['dept'], $_POST['name'], $_POST['entryKey'])) {
     } else {
         echo json_encode(['success' => false, 'message' => 'Faculty not found or invalid entry key']);
     }
-
-
 
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid input data']);
