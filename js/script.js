@@ -249,7 +249,7 @@ function handleStudentLogin() {
             success: function (response) {
                 // console.log(response);
                 if (response.success) {
-                    loadActiveStudents(purpose);
+                    loadActiveStudents();
                     $('#studentLoginForm')[0].reset();
                     $('#studentName').val('');
                     // $('#EntryExitKey').hide();
@@ -288,7 +288,7 @@ function handleStaffLogin() {
             success: function (response) {
                 // console.log(name);
                 if (response.success) {
-                    loadActiveStaff(purpose);
+                    loadActiveStaff();
                     $('#staffLoginForm')[0].reset();
                     $('#staffName').val('');
                     $('#staffEntryExitKey').addClass("d-none");
@@ -306,7 +306,7 @@ function handleStaffLogin() {
 }
 
 // Load students in the library
-function loadActiveStudents(purpose) {
+function loadActiveStudents() {
     $.ajax({
         url: './php/get_active_students.php', // The PHP file to retrieve data
         method: 'GET',
@@ -323,7 +323,7 @@ function loadActiveStudents(purpose) {
                     student.Branch,
                     student.Section,
                     student.Cyear,
-                    purpose,
+                    student.purpose,
                     student.TimeIn,
                     student.Date,
                     `<button class="btn btn-danger studentLogoutBtn" data-usn="${student.USN}" data-name="${student.Sname}" data-timein="${student.TimeIn}">Logout</button>`
@@ -352,7 +352,7 @@ function loadActiveStudents(purpose) {
     });
 }
 
-function loadActiveStaff(purpose) {
+function loadActiveStaff() {
     $.ajax({
         url: './php/get_active_staffs.php',
         method: 'GET',
@@ -365,7 +365,7 @@ function loadActiveStaff(purpose) {
                 staffTable.row.add([
                     faculty.fname,
                     faculty.Dept,
-                    purpose,
+                    faculty.purpose,
                     faculty.TimeIn,
                     faculty.Date,
                     `<button class="btn btn-danger staffLogoutBtn" data-emp_id="${faculty.emp_id}" data-name="${faculty.fname}"

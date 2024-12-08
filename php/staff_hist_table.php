@@ -7,9 +7,10 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 $dept = isset($_GET['dept']) ? $_GET['dept'] : '';
 $fromDate = isset($_GET['fromDate']) ? $_GET['fromDate'] : '';
 $toDate = isset($_GET['toDate']) ? $_GET['toDate'] : '';
+$purpose = isset($_GET['purpose']) ? $_GET['purpose'] : '';
 
 // SQL Query
-$sql = "SELECT f.fname, f.emp_id, f.dept, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
+$sql = "SELECT f.fname, f.emp_id, f.dept, h.purpose, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
         FROM faculty f 
         INNER JOIN faculty_history h ON f.emp_id = h.emp_id
         WHERE 1=1";
@@ -42,6 +43,12 @@ if (!empty($fromDate)) {
 if (!empty($toDate)) {
     $sql .= " AND h.Date <= ?";
     $params[] = $toDate;
+    $types .= 's';
+}
+
+if (!empty($purpose)) {
+    $sql .= " AND h.purpose = ?";
+    $params[] = $purpose;
     $types .= 's';
 }
 

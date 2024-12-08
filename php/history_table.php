@@ -9,9 +9,10 @@ $branch = isset($_GET['branch']) ? $_GET['branch'] : '';
 $section = isset($_GET['section']) ? $_GET['section'] : '';
 $fromDate = isset($_GET['fromDate']) ? $_GET['fromDate'] : '';
 $toDate = isset($_GET['toDate']) ? $_GET['toDate'] : '';
+$purpose = isset($_GET['purpose']) ? $_GET['purpose'] : '';
 
 // SQL Query
-$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
+$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.purpose, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
         FROM users u 
         INNER JOIN history h ON u.USN = h.USN 
         WHERE 1=1";
@@ -56,6 +57,12 @@ if (!empty($fromDate)) {
 if (!empty($toDate)) {
     $sql .= " AND h.Date <= ?";
     $params[] = $toDate;
+    $types .= 's';
+}
+
+if (!empty($purpose)) {
+    $sql .= " AND h.purpose = ?";
+    $params[] = $purpose;
     $types .= 's';
 }
 

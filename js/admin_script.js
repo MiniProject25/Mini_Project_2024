@@ -9,6 +9,17 @@ $(document).ready(function () {
     $("#staffDb_searchInput").trigger("input"); // Trigger the input event to reset any filtering
   });
 
+  // fetch purpose of visit for filtering statistics and history tables
+  $.ajax({
+    url: 'php/fetch_pov.php',
+    type: 'GET',
+    success: function(response) {
+      $("#staffHistory_purpose").append(response);
+      $("#history_purpose").append(response);
+      $("#purpose_stat").append(response);
+    }
+  })
+
   $(".studentName").select2({
     width: "100%",
     placeholder: "Select an option",
@@ -502,6 +513,7 @@ $(document).ready(function () {
     let dateTo = $("#to_date").val();
     let branch = $("#branch_stat").val();
     let cyear = $("#Cyear_edit").val();
+    let purpose = $("#purpose_stat").val();
 
     $.ajax({
       url: "php/Stats/libUsagePerHour.php",
@@ -511,6 +523,7 @@ $(document).ready(function () {
         date_to: dateTo,
         branch: branch,
         cyear: cyear,
+        purpose: purpose
       },
       dataType: "json",
       success: function (response) {
@@ -548,6 +561,7 @@ $(document).ready(function () {
     let dateTo = $("#to_date").val();
     let branch = $("#branch_stat").val();
     let cyear = $("#Cyear_edit").val();
+    let purpose = $("#purpose_stat").val();
 
     $.ajax({
       url: "php/Stats/libVisitCount.php",
@@ -557,6 +571,7 @@ $(document).ready(function () {
         date_to: dateTo,
         branch: branch,
         cyear: cyear,
+        purpose: purpose
       },
       dataType: "json",
       success: function (data) {
@@ -593,6 +608,7 @@ $(document).ready(function () {
     let dateTo = $("#to_date").val();
     let branch = $("#branch_stat").val();
     let cyear = $("#Cyear_edit").val();
+    let purpose = $("#purpose_stat").val();
 
     $.ajax({
       url: "php/Stats/avg_visit_duration.php",
@@ -602,6 +618,7 @@ $(document).ready(function () {
         date_to: dateTo,
         branch: branch,
         cyear: cyear,
+        purpose: purpose
       },
       dataType: "json",
       success: function (data) {
@@ -821,12 +838,13 @@ $(document).ready(function () {
     columnDefs: [
       { width: "10%", targets: 0 }, // USN
       { width: "15%", targets: 1 }, // Student Name
-      { width: "30%", targets: 2 }, // Branch
+      { width: "20%", targets: 2 }, // Branch
       { width: "5%", targets: 3 }, // Section
       { width: "10%", targets: 4 }, // Year of Study
-      { width: "7.5%", targets: 5 }, // Time-in
-      { width: "7.5%", targets: 6 }, // Time-out
-      { width: "10%", targets: 7 }, // Date
+      { width: "10%", targets: 5 }, // purpose of visit
+      { width: "7.5%", targets: 6 }, // Time-in
+      { width: "7.5%", targets: 7 }, // Time-out
+      { width: "10%", targets: 8 }, // Date
     ],
   });
 
@@ -835,6 +853,7 @@ $(document).ready(function () {
     let branch = $("#stud_branch").val();
     let section = $("#stud_section").val();
     let sName = $("#studentName").val();
+    let purpose = $("#history_purpose").val();
 
     $.ajax({
       url: "php/stud_hist_table.php",
@@ -845,6 +864,7 @@ $(document).ready(function () {
         branch: branch,
         section: section,
         sname: sName,
+        purpose: purpose
       },
       success: function (data) {
         StudHTable.clear();
@@ -858,6 +878,7 @@ $(document).ready(function () {
                 student.Branch,
                 student.Section,
                 student.Cyear,
+                student.purpose,
                 student.TimeIn,
                 student.TimeOut,
                 student.Date, // Keep only the existing 7 items
@@ -899,12 +920,13 @@ $(document).ready(function () {
     columnDefs: [
       { width: "10%", targets: 0 }, // USN
       { width: "15%", targets: 1 }, // Student Name
-      { width: "30%", targets: 2 }, // Branch
+      { width: "20%", targets: 2 }, // Branch
       { width: "5%", targets: 3 }, // Section
       { width: "10%", targets: 4 }, // Year of Study
-      { width: "7.5%", targets: 5 }, // Time-in
-      { width: "7.5%", targets: 6 }, // Time-out
-      { width: "10%", targets: 7 }, // Date
+      { width: "10%", targets: 5 }, // purpose
+      { width: "7.5%", targets: 6 }, // Time-in
+      { width: "7.5%", targets: 7 }, // Time-out
+      { width: "10%", targets: 8 }, // Date
     ],
   });
 
@@ -948,6 +970,7 @@ $(document).ready(function () {
     const hsection = $("#history_section").val();
     const hfromDate = $("#history_fromDate").val();
     const htoDate = $("#history_toDate").val();
+    const hpurpose = $("#history_purpose").val();
 
     // Call your fetch data function with the current values
     fetchHistoryTable(
@@ -955,6 +978,7 @@ $(document).ready(function () {
       hyear,
       hbranch,
       hsection,
+      hpurpose,
       hfromDate,
       htoDate
     );
@@ -962,7 +986,7 @@ $(document).ready(function () {
 
   $("#history_searchInput").on("input keyup", handlehInputChange);
   $(
-    "#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate"
+    "#history_section, #history_branch, #history_Cyear, #history_fromDate, #history_toDate, #history_purpose"
   ).on("change", handlehInputChange);
 
   fetchHistoryTable();
@@ -972,6 +996,7 @@ $(document).ready(function () {
     hyear = "",
     hbranch = "",
     hsection = "",
+    hpurpose = "",
     hfromDate = "",
     htoDate = ""
   ) {
@@ -983,6 +1008,7 @@ $(document).ready(function () {
         year: hyear,
         branch: hbranch,
         section: hsection,
+        purpose: hpurpose,
         fromDate: hfromDate,
         toDate: htoDate,
       },
@@ -999,6 +1025,7 @@ $(document).ready(function () {
                 student.Branch,
                 student.Section,
                 student.Cyear,
+                student.purpose,
                 student.TimeIn,
                 student.TimeOut,
                 student.Date,
@@ -1029,8 +1056,9 @@ $(document).ready(function () {
     columnDefs: [
       { width: "20%", targets: 0 },
       { width: "20%", targets: 1 },
-      { width: "30%", targets: 2 },
-      { width: "10%", targets: 3 },
+      { width: "20%", targets: 2 }, // department
+      { width: "10%", targets: 3 }, // pov
+      { width: "10%", targets: 4 },
       { width: "10%", targets: 4 },
       { width: "10%", targets: 5 },
     ],
@@ -1041,6 +1069,7 @@ $(document).ready(function () {
   function fetchStaffHistoryTable(
     searchTerm = "",
     dept = "",
+    purpose = "",
     fromDate = "",
     toDate = ""
   ) {
@@ -1050,6 +1079,7 @@ $(document).ready(function () {
       data: {
         search: searchTerm,
         dept: dept,
+        purpose: purpose,
         fromDate: fromDate,
         toDate: toDate,
       },
@@ -1064,6 +1094,7 @@ $(document).ready(function () {
                 faculty.emp_id,
                 faculty.fname,
                 faculty.dept,
+                faculty.purpose,
                 faculty.TimeIn,
                 faculty.TimeOut,
                 faculty.Date,
@@ -1081,7 +1112,7 @@ $(document).ready(function () {
   }
 
   $("#staffHistory_searchInput").on("input keyup", handleStaffInputChange);
-  $("#staffHistory_dept,#staffHistory_fromDate, #staffHistory_toDate").on(
+  $("#staffHistory_dept,#staffHistory_fromDate, #staffHistory_toDate, #staffHistory_purpose").on(
     "change",
     handleStaffInputChange
   );
@@ -1091,8 +1122,9 @@ $(document).ready(function () {
     const dept = $("#staffHistory_dept").val();
     const fromDate = $("#staffHistory_fromDate").val();
     const toDate = $("#staffHistory_toDate").val();
+    const purpose = $("#staffHistory_purpose").val();
 
-    fetchStaffHistoryTable(searchTerm, dept, fromDate, toDate);
+    fetchStaffHistoryTable(searchTerm, dept, purpose, fromDate, toDate);
   }
 
   $("#staffHistory_deletebtn").on("click", function (e) {

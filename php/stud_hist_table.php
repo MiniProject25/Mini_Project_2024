@@ -18,7 +18,7 @@ $stmt->bind_result($usn);
 $stmt->fetch();
 $stmt->close();
 
-$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
+$sql = "SELECT u.USN, u.Sname, u.Branch, u.Section, u.Cyear, h.purpose, h.TimeIn, h.TimeOut, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
         FROM users u 
         INNER JOIN history h ON u.USN = h.USN 
         WHERE h.USN = ?";

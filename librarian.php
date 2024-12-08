@@ -124,15 +124,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input name="pov" class="form-control mb-3" type="text"
-                            placeholder="Purpose of Visit" id="pov">
+                        <input name="pov" class="form-control mb-3" type="text" placeholder="Purpose of Visit" id="pov">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" name="submit_pov" id="submit_pov"
-                            class="btn btn-primary">Save</button>
+                        <button type="submit" name="submit_pov" id="submit_pov" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </form>
@@ -429,6 +427,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             <option value="">All</option>
                                         </select>
                                     </div>
+                                    <div class="purpose-filter">
+                                        <label style="width: 100px;" for="purpose_stat">Purpose:</label>
+                                        <select name="purpose" id="purpose_stat" class="form-control">
+                                            <option value="" selected disabled>Select Purpose Of Visit</option>
+                                            <option value="">All</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <!-- Bar Graphs are displayed here -->
@@ -601,8 +606,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     <div class="studentHistory">
                                         <h2><b>Student History Table</b></h2>
                                         <form id="historyForm" class="historyForm">
-                                            <div
-                                                class="history-filters d-flex align-items-center justify-content-between">
+                                            <!-- buttons -->
+                                            <div class="history-filters d-flex align-items-center justify-content-between">
                                                 <div class="history-fromDate">
                                                     <label for="history_fromDate">From:</label>
                                                     <input type="date" class="form-control" id="history_fromDate"
@@ -672,6 +677,12 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                                         <option value="I">I</option>
                                                     </select>
                                                 </div>
+                                                <div class="history-purpose">
+                                                    <label for="history_purpose">Purpose:</label>
+                                                    <select name="purpose" id="history_purpose" class="form-control">
+                                                        <option value="" selected>All</option>
+                                                    </select>
+                                                </div>
                                                 <div class="history-search">
                                                     <label for="history_searchInput" class="me-2">Search:</label>
                                                     <input type="search" id="history_searchInput" class="form-control"
@@ -689,6 +700,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                                         <th>Branch</th>
                                                         <th>Section</th>
                                                         <th>Year of Study</th>
+                                                        <th>Purpose Of Visit</th>
                                                         <th>Time-in</th>
                                                         <th>Time-out</th>
                                                         <th>Date</th>
@@ -704,27 +716,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <div class="staffHistory d-none">
                                     <h2><b>Staff History Table</b></h2>
                                     <form id="staffHistoryForm" class="staffHistoryForm">
-                                        <div
-                                            class="staffHistory-filters d-flex align-items-center justify-content-between">
-                                            <div class="staffHistory-deletebtn">
-                                                <button type="button" id="staffHistory_deletebtn" class="btn btn-danger"
-                                                    style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old
-                                                    Data</button>
-                                            </div>
-                                            <div class="staffHistory-resetbtn">
-                                                <button type="button" id="staffHistory_resetbtn" class="btn btn-primary"
-                                                    style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
-                                            </div>
-                                            <div class="staffHistory-refreshbtn">
-                                                <button type="button" id="staffHistory_refreshbtn" class="btn btn-info"
-                                                    style="padding: 3px; flex: 1;margin-left: 5px;  width: 100px;">REFRESH</button>
-                                            </div>
-                                            <div>
-                                                <button type="button" id="print_staffHistory" class="btn btn-secondary"
-                                                    style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">PRINT</button>
-                                            </div>
-                                        </div>
-                                        <div class="history-filters d-flex align-items-center justify-content-between">
+                                        <!-- buttons -->
+                                        <div class="staffHistory-filters d-flex align-items-center justify-content-between">
                                             <div class="staffHistory-fromDate">
                                                 <label for="staffHistory_fromDate">From:</label>
                                                 <input type="date" class="form-control" id="staffHistory_fromDate"
@@ -735,9 +728,37 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                                 <input type="date" class="form-control" id="staffHistory_toDate"
                                                     name="toDate">
                                             </div>
+                                            <div class="history-btn">
+                                                <div class="staffHistory-deletebtn">
+                                                    <button type="button" id="staffHistory_deletebtn" class="btn btn-danger"
+                                                        style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old
+                                                        Data</button>
+                                                </div>
+                                                <div class="staffHistory-resetbtn">
+                                                    <button type="button" id="staffHistory_resetbtn" class="btn btn-primary"
+                                                        style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
+                                                </div>
+                                                <div class="staffHistory-refreshbtn">
+                                                    <button type="button" id="staffHistory_refreshbtn" class="btn btn-info"
+                                                        style="padding: 3px; flex: 1;margin-left: 5px;  width: 100px;">REFRESH</button>
+                                                </div>
+                                                <div>
+                                                    <button type="button" id="print_staffHistory" class="btn btn-secondary"
+                                                        style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">PRINT</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="history-filters d-flex align-items-center justify-content-between">
                                             <div class="staffHistory-dept">
                                                 <label for="staffHistory_dept">Department:</label>
                                                 <select name="dept" id="staffHistory_dept" class="form-control">
+                                                    <option value="" selected>All</option>
+                                                </select>
+                                            </div>
+                                            <div class="staffHistory-purpose">
+                                                <label for="staffHistory_purpose">Purpose:</label>
+                                                <select name="pov_filter" id="staffHistory_purpose"
+                                                    class="form-control">
                                                     <option value="" selected>All</option>
                                                 </select>
                                             </div>
@@ -756,6 +777,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                                     <th>Employee Id</th>
                                                     <th>Name</th>
                                                     <th>Department</th>
+                                                    <th>Purpose Of Visit</th>
                                                     <th>Time-in</th>
                                                     <th>Time-out</th>
                                                     <th>Date</th>

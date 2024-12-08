@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php';
 
-$query = "SELECT f.emp_id, f.fname, f.Dept, h.TimeIn, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
+$query = "SELECT f.emp_id, f.fname, f.Dept, h.purpose, h.TimeIn, DATE_FORMAT(h.Date, '%d-%m-%Y') as Date
         FROM faculty f
         INNER JOIN faculty_history h ON f.emp_id = h.emp_id
         WHERE h.TimeOut IS NULL";
