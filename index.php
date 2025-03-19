@@ -224,7 +224,7 @@ if (!isset($_SESSION['library_logged_in'])) {
 
 
     <!-- Datatable -->
-    <div class="mt-3 dataTableContainer">
+    <div class="dataTableContainer">
         <div class="dataTableContainer-content">
             <div class="dataTableContainer-header mb-1" style="border-bottom: 1px solid #d3d3d3;">
                 <ul class="nav nav-tabs card-header-tabs">
