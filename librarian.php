@@ -369,6 +369,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                                     <th>Branch</th>
                                                     <th>Section</th>
                                                     <th>Year of Study</th>
+                                                    <th>Purpose of Visit</th>
                                                     <th>Time-in</th>
                                                     <th>Time-out</th>
                                                     <th>Date</th>

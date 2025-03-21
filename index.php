@@ -212,8 +212,14 @@ if (!isset($_SESSION['library_logged_in'])) {
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Datatable Section -->
     <section class="mt-3 dataTableContainer">
+=======
+
+    <!-- Datatable -->
+    <div class="dataTableContainer">
+>>>>>>> 57a80103de66c8f5dcd7c7a14fb80d2b4a4c0fd3
         <div class="dataTableContainer-content">
             <div class="dataTableContainer-header mb-1" style="border-bottom: 1px solid #d3d3d3;">
                 <ul class="nav nav-tabs card-header-tabs">

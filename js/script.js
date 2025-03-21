@@ -67,24 +67,50 @@ $(document).ready(function () {
 
 // Adding record to the Data Table
 $('#acceptLogin').on('click', function () {
-    if ($('#studentLogin-content').is(':visible')) {
-        handleStudentLogin();
-        $('#studentLoginForm')[0].reset();
-        $('#studentName').val('');
+    const now = new Date();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
 
-        $('#EntryExitKey').hide();
-        $('#studentListContainer').hide();
-        $(".purposeOfVisitDiv").hide();
+    if(hour >= 19){
+        if(minute >= 0||(hour>19)){
+            alert("Sorry, you are not allowed to login after 7:00PM");
 
-        // $('#studentName').empty();
+            if ($('#studentLogin-content').is(':visible')) {
+                $('#studentLoginForm')[0].reset();
+                $('#studentName').val('');
+                $('#EntryExitKey').hide();
+                $('#studentListContainer').hide();
+                $(".purposeOfVisitDiv").hide();
+            }
+            else if ($('#staffLogin-content').is(':visible')) {
+                $('#staffLoginForm')[0].reset();
+                $('#staffName').val('');
+                $('.staffEntryExitKey').addClass('d-none');
+                $('.staffListContainer').addClass('d-none');
+                $('#staffPurposeOfVisitDiv').hide();
+            }
+        }
     }
-    else if ($('#staffLogin-content').is(':visible')) {
-        handleStaffLogin();
-        $('#staffLoginForm')[0].reset();
-        $('#staffName').val('');
-        $('.staffEntryExitKey').addClass('d-none');
-        $('.staffListContainer').addClass('d-none');
-        $('#staffPurposeOfVisitDiv').hide();
+    else{
+        if ($('#studentLogin-content').is(':visible')) {
+            handleStudentLogin();
+            $('#studentLoginForm')[0].reset();
+            $('#studentName').val('');
+
+            $('#EntryExitKey').hide();
+            $('#studentListContainer').hide();
+            $(".purposeOfVisitDiv").hide();
+
+            // $('#studentName').empty();
+        }
+        else if ($('#staffLogin-content').is(':visible')) {
+            handleStaffLogin();
+            $('#staffLoginForm')[0].reset();
+            $('#staffName').val('');
+            $('.staffEntryExitKey').addClass('d-none');
+            $('.staffListContainer').addClass('d-none');
+            $('#staffPurposeOfVisitDiv').hide();
+        }
     }
 });
 
