@@ -607,7 +607,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <h2><b>Student History Table</b></h2>
                                         <form id="historyForm" class="historyForm">
                                             <!-- buttons -->
-                                            <div class="history-filters d-flex align-items-center justify-content-between">
+                                            <div
+                                                class="history-filters d-flex align-items-center justify-content-between">
                                                 <div class="history-fromDate">
                                                     <label for="history_fromDate">From:</label>
                                                     <input type="date" class="form-control" id="history_fromDate"
@@ -717,7 +718,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                     <h2><b>Staff History Table</b></h2>
                                     <form id="staffHistoryForm" class="staffHistoryForm">
                                         <!-- buttons -->
-                                        <div class="staffHistory-filters d-flex align-items-center justify-content-between">
+                                        <div
+                                            class="staffHistory-filters d-flex align-items-center justify-content-between">
                                             <div class="staffHistory-fromDate">
                                                 <label for="staffHistory_fromDate">From:</label>
                                                 <input type="date" class="form-control" id="staffHistory_fromDate"
@@ -730,20 +732,25 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                             </div>
                                             <div class="history-btn">
                                                 <div class="staffHistory-deletebtn">
-                                                    <button type="button" id="staffHistory_deletebtn" class="btn btn-danger"
-                                                        style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year Old
+                                                    <button type="button" id="staffHistory_deletebtn"
+                                                        class="btn btn-danger"
+                                                        style="padding: 3px; flex: 1; margin-right: 8px;">Delete 5+ Year
+                                                        Old
                                                         Data</button>
                                                 </div>
                                                 <div class="staffHistory-resetbtn">
-                                                    <button type="button" id="staffHistory_resetbtn" class="btn btn-primary"
+                                                    <button type="button" id="staffHistory_resetbtn"
+                                                        class="btn btn-primary"
                                                         style="padding: 3px; flex: 1;margin-right: 5px ; width: 100px;">RESET</button>
                                                 </div>
                                                 <div class="staffHistory-refreshbtn">
-                                                    <button type="button" id="staffHistory_refreshbtn" class="btn btn-info"
+                                                    <button type="button" id="staffHistory_refreshbtn"
+                                                        class="btn btn-info"
                                                         style="padding: 3px; flex: 1;margin-left: 5px;  width: 100px;">REFRESH</button>
                                                 </div>
                                                 <div>
-                                                    <button type="button" id="print_staffHistory" class="btn btn-secondary"
+                                                    <button type="button" id="print_staffHistory"
+                                                        class="btn btn-secondary"
                                                         style="padding: 3px; flex: 1; margin-left: 5px; width: 100px;">PRINT</button>
                                                 </div>
                                             </div>
@@ -1207,27 +1214,32 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     <h5 class="modal-title">Download Format</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form>
+                <div>
                     <div style="margin-left:15px">
                         <label for="importStudentFormat">Import Students Format:</label><br>
                         <img style="width: 250px; height: auto;margin-left:15px;"
                             src="res/import-students-format-ex.png">
-                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
-                            id="importStudentFormat">Download</button>
+                        <!-- <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
+                            id="importStudentFormat">Download</button> -->
+                        <a href="res/Student_Details.xlsx" download>
+                            <button>Download</button>
+                        </a>
                     </div><br>
                     <div style="margin-left:15px">
                         <label for="importStaffFormat">Import Staffs Format:</label><br>
                         <img style="width: 250px; height: auto;margin-left:15px;" src="res/import-staffs-format-ex.png">
-                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
-                            id="importStaffFormat">Download</button>
+                        <a href="res/Staff_Details.xlsx" download>
+                            <button>Download</button>
+                        </a>
                     </div><br>
                     <div style="margin-left:15px">
                         <label for="updateUsnFormat">Update USN Format:</label><br>
                         <img style="width: 250px; height: 77px;margin-left:15px" src="res/update-usn-format-ex.png">
-                        <button type="button" style="margin-left:10px;margin-top:30px;" class="btn btn-primary"
-                            id="updateUSNFormat">Download</button>
+                        <a href="res/Updated_USN.xlsx" download>
+                            <button>Download</button>
+                        </a>
                     </div><br>
-                </form>
+                </div>
                 <div class="modal-footer">
                     <button type="button" id="closeFormatBtn" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>

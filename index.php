@@ -51,8 +51,8 @@ if (!isset($_SESSION['library_logged_in'])) {
         </div>
     </div>
 
-    <!-- main page -->
-    <div class="container">
+    <!-- Main Page -->
+    <main class="container">
         <h1 class="title">LIBRARY VISIT MONITORING SYSTEM</h1>
         <div class="row">
             <div class="col">
@@ -60,11 +60,13 @@ if (!isset($_SESSION['library_logged_in'])) {
                     data-bs-target="#loginModal">LOGIN</button>
             </div>
         </div>
-    </div>
+    </main>
+
     <div class="logo-container">
         <img src=".\Res\logo.png" alt="Canara Logo" class="logo">
     </div>
 
+    <!-- Login Modal -->
     <div class="modal" tabindex="-1" id="loginModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -85,7 +87,6 @@ if (!isset($_SESSION['library_logged_in'])) {
                     </ul>
                     <button type="button" data-bs-dismiss="modal" class="btn-close"
                         aria-label="Close"></button>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <!-- Student Modal -->
@@ -125,24 +126,19 @@ if (!isset($_SESSION['library_logged_in'])) {
                             <div class="mb-3" id="studentListContainer" style="display: none;">
                                 <label for="studentName" class="form-label">Student Name</label>
                                 <select class="form-select studentName" id="studentName" name="studentName">
-                                    <!-- <option selected disabled>Select student</option> -->
                                 </select>
                             </div>
                             <div class="mb-3 purposeOfVisitDiv" style="display: none;">
                                 <label class="form-label" for="purpose">Enter your Purpose of Visit</label>
-                                <!-- <br> -->
                                 <select name="pov" class="form-select" id="pov" placeholder="Select your Purpose of Visit">
                                     <option selected disabled>Select your Purpose of Visit</option>
-                                    <!-- Will be fetched from the database -->
                                 </select>
                             </div>
                             <div class="mb-3" id="EntryExitKey" style="display: none;">
                                 <label for="EntryKey">Entry Key (Last 3 Characters of your USN (Eg: 4CB22CSXXX))</label>
-                                <br>
                                 <input name="EntryKey" type="password" id="EntryKey" class="form-control mt-2"
                                     placeholder="Entry Key" aria-label="EntryKey">
                             </div>
-                            
                         </form>
                     </div>
 
@@ -158,22 +154,18 @@ if (!isset($_SESSION['library_logged_in'])) {
                             <div class="mb-3 staffListContainer d-none">
                                 <label for="staffName" class="form-label">Staff Name</label>
                                 <select class="form-select staffName" id="staffName" name="staffName">
-                                    <!-- <option selected disabled>Select student</option> -->
                                 </select>
                             </div>
                             <div class="mb-3" id="staffPurposeOfVisitDiv" style="display: none;">
                                 <label class="form-label" for="purpose">Enter your Purpose of Visit</label>
-                                <!-- <br> -->
                                 <select name="staffpov" class="form-select" id="staffpov" placeholder="Select your Purpose of Visit">
                                     <option selected disabled>Select your Purpose of Visit</option>
-                                    <!-- Will be fetched from the database -->
                                 </select>
                             </div>
                             <div class="mb-3 staffEntryExitKey d-none">
                                 <label for="staffEntryKey">Entry Key (Last 5 Characters of your EMP_ID)</label>
-                                <br>
                                 <input name="staffEntryKey" type="password" id="staffEntryKey" class="form-control mt-2"
-                                    placeholder="Entry Key" aria-label="EntryKey">
+                                    placeholder="Entry Key" aria-label="staffEntryKey">
                             </div>
                         </form>
                     </div>
@@ -187,7 +179,6 @@ if (!isset($_SESSION['library_logged_in'])) {
         </div>
     </div>
 
-    <!-- Logout Modal -->
     <!-- Logout Confirmation Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
         aria-hidden="true">
@@ -197,13 +188,12 @@ if (!isset($_SESSION['library_logged_in'])) {
                     <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
                     <button type="button" data-bs-dismiss="modal" class="btn-close closebtn"
                         aria-label="Close"></button>
-                    </button>
                 </div>
                 <div class="modal-body" id="usnLogout">
                     <form method="POST">
                         <p>Please enter your Entry-Key to confirm logout (Student):</p>
                         <input type="password" class="form-control" id="logoutEntryKey" placeholder="Enter EntryKey">
-                        <input type="hidden" id="logoutUSN"> <!-- Hidden input to store the USN -->
+                        <input type="hidden" id="logoutUSN">
                     </form>
                 </div>
                 <div class="modal-body d-none" id="empLogout">
@@ -211,7 +201,7 @@ if (!isset($_SESSION['library_logged_in'])) {
                         <p>Please enter your Entry-Key to confirm logout (Faculty):</p>
                         <input type="password" class="form-control" id="staffLogoutEntryKey"
                             placeholder="Enter EntryKey">
-                        <input type="hidden" id="logoutEmp"> <!-- Hidden input to store the emp_id -->
+                        <input type="hidden" id="logoutEmp">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -222,9 +212,8 @@ if (!isset($_SESSION['library_logged_in'])) {
         </div>
     </div>
 
-
-    <!-- Datatable -->
-    <div class="mt-3 dataTableContainer">
+    <!-- Datatable Section -->
+    <section class="mt-3 dataTableContainer">
         <div class="dataTableContainer-content">
             <div class="dataTableContainer-header mb-1" style="border-bottom: 1px solid #d3d3d3;">
                 <ul class="nav nav-tabs card-header-tabs">
@@ -258,7 +247,6 @@ if (!isset($_SESSION['library_logged_in'])) {
                             </tr>
                         </thead>
                         <tbody class="text-center">
-
                         </tbody>
                     </table>
                 </div>
@@ -275,15 +263,14 @@ if (!isset($_SESSION['library_logged_in'])) {
                             </tr>
                         </thead>
                         <tbody class="text-center">
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- copyright -->
+    <!-- Footer -->
     <footer class="text-center">
         <p class="mb-0">&copy; 2024 Canara Engineering College | All Rights Reserved | Designed by Dr.Demian Antonty D'mello, H.Sumith Shenoy, Christy Sojan & Harivardhan Mallya</p>
     </footer>
@@ -295,7 +282,6 @@ if (!isset($_SESSION['library_logged_in'])) {
     <script src="js/dataTables.bootstrap5.min.js"></script>
     <script src="js/select2.min.js"></script>
     <script src="js/script.js"></script>
-
 </body>
 
 </html>

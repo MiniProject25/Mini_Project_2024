@@ -3,7 +3,7 @@ session_start();
 include 'db_connection.php';
 
 // Include PhpSpreadsheet library
-require 'C:/wamp64/www/vendor/autoload.php'; 
+require __DIR__ . '\..\vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
